@@ -98,14 +98,25 @@ export default function HeaderComp() {
                         </Button>
                     </>
                 ) : (
-                    <Button
-                        onClick={() => {
-                            router.push("/login")
-                            handleMenuClose()
-                        }}
-                    >
-                        Sign In
-                    </Button>
+                    <>
+                        <Button
+                            onClick={() => {
+                                router.push("/signup")
+                                handleMenuClose()
+                            }}
+                        >
+                            Join Now
+                        </Button>
+
+                        <Button
+                            onClick={() => {
+                                router.push("/login")
+                                handleMenuClose()
+                            }}
+                        >
+                            Sign In
+                        </Button>
+                    </>
                 )}
             </Box>
         </header>

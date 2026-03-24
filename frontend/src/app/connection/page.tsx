@@ -47,6 +47,14 @@ export default function ConnectionList() {
         enqueueSnackbar(uuid, { variant: "info" });
     }
 
+    if (!loading && connections.length === 0) {
+        return (
+            <Box className={styles.container}>
+                <Typography align="center">No users right now</Typography>
+            </Box>
+        );
+    }
+
     return (
         <Box className={styles.container} id="scrollableDiv">
             <InfiniteScroll
