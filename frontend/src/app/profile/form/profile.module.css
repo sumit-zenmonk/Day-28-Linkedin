@@ -1,0 +1,22 @@
+.container {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.card {
+    width: 500px;
+    padding: 20px;
+}
+
+.field {
+    margin-bottom: 16px;
+}
+
+.imagePreview {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}

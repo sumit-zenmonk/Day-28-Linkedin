@@ -1,0 +1,83 @@
+.container {
+    width: 100%;
+    height: 93%;
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+}
+
+.infiniteScrollComp {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding-bottom: 5%;
+}
+
+.card {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+}
+
+.cardContent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4%;
+}
+
+.avatar {
+    width: 12%;
+    height: auto;
+}
+
+.infoBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardContent>div {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4%;
+}
+
+.name {
+    font-size: 120%;
+    font-weight: 600;
+}
+
+.email {
+    font-size: 90%;
+    opacity: 0.7;
+}
+
+.bio {
+    font-size: 85%;
+    opacity: 0.8;
+}
+
+.cardContent button {
+    width: 20%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loader {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3%;
+}
