@@ -19,18 +19,9 @@ export default function proxy(req: NextRequest) {
         return NextResponse.next();
     }
 
-    if (!isAuthenticated) {
+    if (!isAuthenticated && !isPublic) {
         return NextResponse.redirect(new URL("/signup", req.url));
     }
-
-    if (role === 'user' && pathname.startsWith('/lead')) {
-        return NextResponse.redirect(new URL("/", req.url));
-    }
-
-    if (role === 'team_lead' && pathname.startsWith('/user')) {
-        return NextResponse.redirect(new URL("/", req.url));
-    }
-
     return NextResponse.next();
 }
 
