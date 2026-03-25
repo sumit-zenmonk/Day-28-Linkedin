@@ -21,12 +21,15 @@ async function create() {
 
     try {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        for (const _ of Array.from(Array(5).keys())) {
+        const users: UserEntity[] = [];
+        for (const _ of Array.from(Array(15).keys())) {
             const user = await queryRunner.manager.save(UserEntity, {
                 email: faker.internet.email(),
                 password: faker.internet.password(),
                 name: faker.person.fullName(),
             });
+
+            users.push(user);
 
             await queryRunner.manager.save(ProfileEntity, {
                 user: user,
@@ -35,8 +38,29 @@ async function create() {
             });
         }
 
+        for (const user of users) {
+            await queryRunner.manager.save(EducationHistoryEntity, {
+                user: user,
+                school_name: faker.company.name(),
+                school_url: faker.internet.url(),
+                start_date: faker.date.past(),
+                end_date: faker.date.recent(),
+                specialization: faker.person.jobArea(),
+                description: faker.lorem.sentence(),
+            });
+
+            await queryRunner.manager.save(EmploymentHistoryEntity, {
+                user: user,
+                company_name: faker.company.name(),
+                company_url: faker.internet.url(),
+                start_date: faker.date.past(),
+                end_date: faker.date.recent(),
+                description: faker.lorem.sentence(),
+            });
+        }
+
         await queryRunner.commitTransaction();
-        console.info('Users + Profiles seeded successfully');
+        console.info('seeded successfully');
     } catch (error) {
         await queryRunner.rollbackTransaction();
         console.error('Something went wrong:', error);

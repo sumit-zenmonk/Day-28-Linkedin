@@ -1,0 +1,59 @@
+.container {
+  height: 100vh;
+  overflow: auto;
+  padding: 20px;
+  background: #f5f7fb;
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.card {
+  border-radius: 12px !important;
+  transition: 0.3s;
+}
+
+.card:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.cardContent {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.avatar {
+  width: 50px !important;
+  height: 50px !important;
+}
+
+.infoBox {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.email {
+  font-size: 13px;
+  color: gray;
+}
+
+.bio {
+  font-size: 13px;
+  color: #555;
+  margin-top: 4px;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}

@@ -1,13 +1,12 @@
 "use client"
 
 import { usePathname, useRouter } from "next/navigation"
-import { Box, Button } from "@mui/material"
+import { Box, Button, Tabs, Tab } from "@mui/material"
 import { logoutUser } from "@/redux/feature/Auth/authAction"
 import { AppDispatch, RootState } from "@/redux/store"
 import { useDispatch, useSelector } from "react-redux"
 import "./header-comp.css"
-import { useState } from "react"
-import { RoleEnum } from "@/enums/user.role"
+import { useState, useEffect } from "react"
 import { enqueueSnackbar } from "notistack"
 
 export default function HeaderComp() {
@@ -19,8 +18,27 @@ export default function HeaderComp() {
         (state: RootState) => state.authReducer
     )
 
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-    const open = Boolean(anchorEl)
+    const [tabValue, setTabValue] = useState(0);
+    const routes = [
+        "/",
+        "/profile",
+        "/profile/form",
+        "/connection/global",
+        "/connection/request",
+        "/connection/network",
+    ]
+
+    useEffect(() => {
+        const index = routes.indexOf(pathname)
+        if (index !== -1) {
+            setTabValue(index)
+        }
+    }, [pathname])
+
+    const handleChange = (_: React.SyntheticEvent, newValue: number) => {
+        setTabValue(newValue)
+        router.push(routes[newValue])
+    }
 
     const handleLogOut = async () => {
         try {
@@ -28,17 +46,9 @@ export default function HeaderComp() {
             localStorage.clear()
             router.replace("/login")
         } catch (error) {
-            enqueueSnackbar(String(error || "Something wrong"), { variant: "error" });
+            enqueueSnackbar(String(error || "Something wrong"), { variant: "error" })
             console.error(error)
         }
-    }
-
-    const handleMenuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget)
-    }
-
-    const handleMenuClose = () => {
-        setAnchorEl(null)
     }
 
     return (
@@ -48,75 +58,43 @@ export default function HeaderComp() {
             </Box>
 
             <Box className="right-container">
-
                 {user ? (
                     <>
-                        <Button
-                            onClick={() => {
-                                router.push("/")
-                                handleMenuClose()
-                            }}
+                        <Tabs
+                            value={tabValue}
+                            onChange={handleChange}
+                            variant="scrollable"
+                            scrollButtons="auto"
                         >
-                            Home
-                        </Button>
+                            <Tab label="Home" />
+                            <Tab label="Profile" />
+                            <Tab label="Update Profile" />
+                            <Tab label="Global Professionals" />
+                            <Tab label="Request" />
+                            <Tab label="Network" />
+                        </Tabs>
 
                         <Button
-                            onClick={() => {
-                                router.push("/profile")
-                                handleMenuClose()
-                            }}
-                        >
-                            Profile
-                        </Button>
-
-                        <Button
-                            onClick={() => {
-                                router.push("/connection")
-                                handleMenuClose()
-                            }}
-                        >
-                            Global Professionals
-                        </Button>
-
-                        <Button
-                            onClick={() => {
-                                router.push("/profile/form")
-                                handleMenuClose()
-                            }}
-                        >
-                            Update Profile
-                        </Button>
-
-                        <Button
-                            sx={{ color: "red" }}
-                            onClick={async () => {
-                                await handleLogOut()
-                                handleMenuClose()
-                            }}
+                            sx={{ color: "red", ml: 2 }}
+                            onClick={handleLogOut}
                         >
                             Log Out
                         </Button>
                     </>
                 ) : (
-                    <>
-                        <Button
-                            onClick={() => {
-                                router.push("/signup")
-                                handleMenuClose()
-                            }}
-                        >
-                            Join Now
-                        </Button>
-
-                        <Button
-                            onClick={() => {
-                                router.push("/login")
-                                handleMenuClose()
-                            }}
-                        >
-                            Sign In
-                        </Button>
-                    </>
+                    <Tabs
+                        value={tabValue}
+                        onChange={(_, newValue) => {
+                            const publicRoutes = ["/signup", "/login"]
+                            setTabValue(newValue)
+                            router.push(publicRoutes[newValue])
+                        }}
+                        variant="scrollable"
+                        scrollButtons="auto"
+                    >
+                        <Tab label="Join Now" />
+                        <Tab label="Sign In" />
+                    </Tabs>
                 )}
             </Box>
         </header>

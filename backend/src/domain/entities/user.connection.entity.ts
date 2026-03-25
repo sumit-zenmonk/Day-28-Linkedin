@@ -16,7 +16,7 @@ export class ConnectionEntity {
     @Column({
         type: 'enum',
         enum: ConnectionStatusEnum,
-        default: ConnectionStatusEnum.PENDING
+        default: ConnectionStatusEnum.ACTIVE
     })
     status: ConnectionStatusEnum;
 

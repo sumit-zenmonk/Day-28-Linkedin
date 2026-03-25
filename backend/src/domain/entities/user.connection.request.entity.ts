@@ -1,8 +1,8 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { UserEntity } from "./user.entity";
 
-@Entity('connectionsRequest')
-export class ConnectionEntity {
+@Entity('connectionsRequests')
+export class ConnectionRequestEntity {
     @PrimaryGeneratedColumn('uuid')
     uuid: string;
 

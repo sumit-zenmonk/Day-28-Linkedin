@@ -5,7 +5,7 @@ export class ConnectionsMigration1773912000004 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(
-            `CREATE TYPE "public"."connections_status_enum" AS ENUM('pending', 'accepted', 'rejected')`
+            `CREATE TYPE "public"."connections_status_enum" AS ENUM('active', 'blocked')`
         );
 
         await queryRunner.createTable(
@@ -15,7 +15,7 @@ export class ConnectionsMigration1773912000004 implements MigrationInterface {
                     { name: "uuid", type: "uuid", isPrimary: true, isGenerated: false, default: "uuid_generate_v4()" },
                     { name: "user_uuid", type: "uuid", isNullable: false },
                     { name: "connected_user_uuid", type: "uuid", isNullable: false },
-                    { name: "status", type: "connections_status_enum", default: `'pending'`, isNullable: false },
+                    { name: "status", type: "connections_status_enum", default: `'active'`, isNullable: false },
                     { name: "created_at", type: "timestamp", default: "now()" },
                     { name: "updated_at", type: "timestamp", default: "now()" },
                     { name: "deleted_at", type: "timestamp", isNullable: true },

@@ -13,12 +13,19 @@ const nextConfig = {
     ]
   },
   images: {
+    // dangerouslyAllowLocalIP: true,
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'lh3.googleusercontent.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "9000",
+        pathname: "/uploads/**",
       },
     ],
   },
