@@ -1,10 +1,15 @@
-import { Body, Controller, Delete, Get, Patch, Post, Query, Req } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Patch, Post, Query, Req, UseGuards } from "@nestjs/common";
 import { ConnectionService } from "./connection.service";
 import type { Request } from "express";
 import { ConnectionRequestCreateDto } from "./dto/create.connection.request.dto";
 import { ConnectionRequestDeleteDto } from "./dto/delete.connection.request.dto";
 import { ConnectionCreateDto } from "./dto/create.connection.dto";
+import { Roles } from "src/infrastructure/guard/role/role.decorator";
+import { RolesGuard } from "src/infrastructure/guard/role/role.guard";
+import { RoleEnum } from "src/domain/enums/user";
 
+@UseGuards(RolesGuard)
+@Roles(RoleEnum.USER)
 @Controller('/connection')
 export class ConnectionController {
     constructor(private readonly connectionService: ConnectionService) { }

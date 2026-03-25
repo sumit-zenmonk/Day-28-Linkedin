@@ -55,7 +55,22 @@ const connectionSlice = createSlice({
             })
             .addCase(getConnectionRequests.fulfilled, (state, action) => {
                 state.loading = false;
-                state.connectionRequests = action.payload.requests;
+                if (action.meta.arg.page === 1) {
+                    state.connectionRequests = action.payload.requests;
+                } else {
+                    const existingIds = new Set(
+                        state.connectionRequests.map((r) => r.uuid)
+                    );
+
+                    const newData = action.payload.requests.filter(
+                        (item) => !existingIds.has(item.uuid)
+                    );
+
+                    state.connectionRequests = [
+                        ...state.connectionRequests,
+                        ...newData,
+                    ];
+                }
                 state.error = null;
             })
             .addCase(getConnectionRequests.rejected, (state, action) => {

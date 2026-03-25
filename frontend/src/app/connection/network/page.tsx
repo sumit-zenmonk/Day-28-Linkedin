@@ -12,12 +12,12 @@ const LIMIT = 10;
 
 export default function NetworkPage() {
   const dispatch = useAppDispatch();
-  const { network, connections, loading, totalDocuments } = useAppSelector((state: RootState) => state.connectionReducer);
+  const { network, loading, totalDocuments } = useAppSelector((state: RootState) => state.connectionReducer);
   const [page, setPage] = useState(1);
 
   useEffect(() => {
     if (!network.length || network.length < totalDocuments) {
-      dispatch(getNetworkConnections({ limit: LIMIT, page }));
+      dispatch(getNetworkConnections({ limit: LIMIT, page })).unwrap();
     }
   }, [dispatch, page]);
 
@@ -28,8 +28,6 @@ export default function NetworkPage() {
       setPage((prev) => prev + 1);
     }
   };
-
-  const getUserDetails = (uuid: string) => connections.find((user) => user.uuid === uuid);
 
   if (!loading && network.length === 0) {
     return (
@@ -56,18 +54,13 @@ export default function NetworkPage() {
       >
         <Box className={styles.grid}>
           {network.map((conn) => {
-            const user = getUserDetails(
-              conn.connected_user_uuid
-            );
+            const user = conn.connected_user;
 
             return (
               <Card key={conn.uuid} className={styles.card}>
                 <CardContent className={styles.cardContent}>
                   <Avatar
-                    src={
-                      user?.profile?.profile_img
-                        ?.image_url
-                    }
+                    src={user?.profile?.profile_img?.image_url}
                     className={styles.avatar}
                   />
 
@@ -76,16 +69,12 @@ export default function NetworkPage() {
                       {user?.name || "Unknown User"}
                     </Typography>
 
-                    <Typography
-                      className={styles.email}
-                    >
-                      {user?.email ||
-                        conn.connected_user_uuid}
+                    <Typography className={styles.email}>
+                      {user?.email || "No Email"}
                     </Typography>
 
                     <Typography className={styles.bio}>
-                      {user?.profile?.bio ||
-                        "No bio available"}
+                      {user?.profile?.bio || "No bio available"}
                     </Typography>
                   </Box>
                 </CardContent>

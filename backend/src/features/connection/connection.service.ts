@@ -34,6 +34,7 @@ export class ConnectionService {
 
     async createConnectionRequest(user: UserEntity, body: ConnectionRequestCreateDto) {
         const isAlreadyExists = await this.connectionRequestRepo.findConnectionRequest(user.uuid, body.connected_user_uuid);
+        console.log('isAlreadyExists',isAlreadyExists);
         if (isAlreadyExists) {
             throw new BadRequestException("Request Still Active");
         }

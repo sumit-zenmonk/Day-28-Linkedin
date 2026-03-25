@@ -17,7 +17,7 @@ export default function GlobalConnectionPage() {
     const [page, setPage] = useState(1);
 
     const isAlreadyRequested = (uuid: string) => { return connectionRequests.some((req) => req.connected_user_uuid === uuid); };
-    const isAlreadyConnected = (uuid: string) => { return network.some((req) => req.connected_user_uuid === uuid); };
+    const isAlreadyConnected = (uuid: string) => { return network.some((req) => req.connected_user.uuid === uuid); };
 
     useEffect(() => {
         if (!connections.length || connections.length < totalDocuments) {

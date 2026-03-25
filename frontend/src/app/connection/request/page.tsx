@@ -13,7 +13,7 @@ const LIMIT = 10;
 
 export default function RequestPage() {
     const dispatch = useAppDispatch();
-    const { connections, connectionRequests, receivedConnectionRequests, loading, } = useAppSelector((state: RootState) => state.connectionReducer);
+    const { connectionRequests, receivedConnectionRequests, loading, } = useAppSelector((state: RootState) => state.connectionReducer);
     const [receivedPage, setReceivedPage] = useState(1);
     const [sentPage, setSentPage] = useState(1);
     const [hasMoreReceived, setHasMoreReceived] = useState(true);
@@ -23,7 +23,7 @@ export default function RequestPage() {
         dispatch(getReceivedConnectionRequests({ limit: LIMIT, page: receivedPage }))
             .unwrap()
             .then((res: any) => {
-                if (!res?.connectionsRequests || res.connectionsRequests.length < LIMIT) {
+                if (!res?.requests || res.requests.length < LIMIT) {
                     setHasMoreReceived(false);
                 }
             })
@@ -36,7 +36,7 @@ export default function RequestPage() {
         dispatch(getConnectionRequests({ limit: LIMIT, page: sentPage }))
             .unwrap()
             .then((res: any) => {
-                if (!res?.connectionsRequests || res.connectionsRequests.length < LIMIT) {
+                if (!res?.requests || res.requests.length < LIMIT) {
                     setHasMoreSent(false);
                 }
             })
@@ -79,9 +79,6 @@ export default function RequestPage() {
         }
     };
 
-    const getUserDetails = (uuid: string) =>
-        connections.find((user) => user.uuid === uuid);
-
     return (
         <Box className={styles.container}>
             <Typography className={styles.heading}>
@@ -107,7 +104,7 @@ export default function RequestPage() {
                     }
                 >
                     {receivedConnectionRequests.map((req) => {
-                        const user = getUserDetails(req.user_uuid);
+                        const user = req.connected_user;
 
                         return (
                             <Card key={req.uuid} className={styles.card}>
@@ -122,7 +119,7 @@ export default function RequestPage() {
                                                 {user?.name || "Unknown User"}
                                             </Typography>
                                             <Typography className={styles.value}>
-                                                {user?.email || req.user_uuid}
+                                                {user?.email || "No Email"}
                                             </Typography>
                                         </Box>
                                     </Box>
@@ -176,7 +173,7 @@ export default function RequestPage() {
                     }
                 >
                     {connectionRequests.map((req) => {
-                        const user = getUserDetails(req.connected_user_uuid);
+                        const user = req.connected_user;
 
                         return (
                             <Card key={req.uuid} className={styles.card}>

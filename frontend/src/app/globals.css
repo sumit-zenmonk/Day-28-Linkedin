@@ -18,3 +18,7 @@ button:hover,
 img:hover {
   cursor: pointer;
 }
+
+.MuiButtonBase-root {
+  text-transform: none;
+}

@@ -45,16 +45,36 @@ export interface ConnectionRequest {
     uuid: string;
     user_uuid: string;
     connected_user_uuid: string;
-    created_at: string;
-    updated_at: string;
-    deleted_at: string | null;
+    connected_user: {
+        uuid: string;
+        name: string;
+        email: string;
+        profile?: {
+            uuid: string;
+            bio?: string;
+            mobile_number?: string;
+            profile_img?: {
+                uuid: string;
+                image_url: string;
+            };
+        };
+    };
 }
 
 export interface NetworkConnection {
     uuid: string;
-    user_uuid: string;
-    connected_user_uuid: string;
-    status: ConnectionStatusEnum.ACTIVE;
+    status: string;
+    connected_user: {
+        uuid: string;
+        name: string;
+        email: string;
+        profile?: {
+            bio?: string;
+            profile_img?: {
+                image_url: string;
+            };
+        };
+    };
 }
 
 export interface ConnectionState {

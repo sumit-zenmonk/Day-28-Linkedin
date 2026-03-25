@@ -2,7 +2,7 @@
 
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "@/redux/store";
-import { NetworkConnection } from "./connectionType";
+import { ConnectionRequest, NetworkConnection } from "./connectionType";
 
 const API_URL = process.env.NEXT_PUBLIC_BACKEND_API_URL;
 
@@ -69,7 +69,7 @@ export const sendConnectionRequest = createAsyncThunk<
 );
 
 export const getConnectionRequests = createAsyncThunk<
-    { requests: any[]; totalDocuments: number },
+    { requests: ConnectionRequest[]; totalDocuments: number },
     { limit?: number; page?: number },
     { state: RootState }
 >(
@@ -128,7 +128,7 @@ export const deleteConnectionRequest = createAsyncThunk<
 );
 
 export const getReceivedConnectionRequests = createAsyncThunk<
-    { requests: any[]; totalDocuments: number },
+    { requests: ConnectionRequest[]; totalDocuments: number },
     { limit?: number; page?: number },
     { state: RootState }
 >(

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Patch, Post, Req } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Patch, Post, Req, UseGuards } from "@nestjs/common";
 import { ProfileService } from "./profile.service";
 import type { Request } from "express";
 import { CreateProfileDto } from "./dto/create.profile.dto";
@@ -8,7 +8,12 @@ import { CreateEducationDto } from "./dto/create.education.dto";
 import { UpdateEducationDto } from "./dto/update.education.dto";
 import { CreateEmploymentDto } from "./dto/create.employment.dto";
 import { UpdateEmploymentDto } from "src/domain/entities/update.employment.dto";
+import { RolesGuard } from "src/infrastructure/guard/role/role.guard";
+import { RoleEnum } from "src/domain/enums/user";
+import { Roles } from "src/infrastructure/guard/role/role.decorator";
 
+@UseGuards(RolesGuard)
+@Roles(RoleEnum.USER)
 @Controller('/profile')
 export class ProfileController {
     constructor(private readonly profileService: ProfileService) { }

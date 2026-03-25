@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./profile.module.css";
-import { updateProfile, uploadImage, updateProfileImage, createProfile, } from "@/redux/feature/Profile/profileAction";
+import { updateProfile, uploadImage, updateProfileImage, createProfile, getProfile, } from "@/redux/feature/Profile/profileAction";
 import { createEducation, getEducation, } from "@/redux/feature/Education/educationAction";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -30,6 +30,13 @@ export default function ProfileForm() {
     });
 
     useEffect(() => {
+        dispatch(getProfile()).unwrap();
+        if (!profile) {
+            dispatch(createProfile()).unwrap();
+        }
+    }, [])
+
+    useEffect(() => {
         if (profile) {
             reset({
                 bio: profile.bio || "",
@@ -40,10 +47,6 @@ export default function ProfileForm() {
 
     const onSubmit = async (data: ProfileFormValues) => {
         try {
-            if (!profile) {
-                await dispatch(createProfile()).unwrap();
-            }
-
             await dispatch(
                 updateProfile({
                     user_uuid: user?.uid,
