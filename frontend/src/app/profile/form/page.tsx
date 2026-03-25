@@ -27,6 +27,10 @@ export default function ProfileForm() {
         formState: { errors },
     } = useForm<ProfileFormValues>({
         resolver: zodResolver(profileSchema),
+        defaultValues: {
+            bio: profile?.bio,
+            mobile_number: profile?.mobile_number,
+        }
     });
 
     useEffect(() => {
