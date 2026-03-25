@@ -32,7 +32,7 @@ export default function Home() {
       dispatch(getProfile()).unwrap();
       dispatch(getEducation()).unwrap();
       dispatch(getEmployment()).unwrap();
-      dispatch(getConnections({})).unwrap();
+      // dispatch(getConnections({})).unwrap();
       dispatch(getNetworkConnections({}));
       dispatch(getReceivedConnectionRequests({}));
       dispatch(getConnectionRequests({}));
@@ -40,7 +40,7 @@ export default function Home() {
       enqueueSnackbar(String(error || "Something wrong"), { variant: "error" });
       console.error(error)
     }
-  }, [dispatch]);
+  }, []);
 
   if (loading) {
     return <Box className={styles.container}>Loading...</Box>;
