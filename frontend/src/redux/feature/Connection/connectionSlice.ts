@@ -9,7 +9,8 @@ const initialState: ConnectionState = {
     connectionRequests: [],
     receivedConnectionRequests: [],
     network: [],
-    totalDocuments: 0,
+    connectionsTotalDocuments: 0,
+    networkTotalDocuments: 0,
     loading: false,
     error: null,
 };
@@ -38,7 +39,7 @@ const connectionSlice = createSlice({
                     );
                     state.connections = [...state.connections, ...newData];
                 }
-                state.totalDocuments = action.payload.totalDocuments;
+                state.connectionsTotalDocuments = action.payload.totalDocuments;
                 state.error = null;
             })
             .addCase(getConnections.rejected, (state, action) => {
@@ -130,7 +131,7 @@ const connectionSlice = createSlice({
 
                 state.error = null;
                 state.loading = false;
-                state.totalDocuments = action.payload.totalDocuments;
+                state.networkTotalDocuments = action.payload.totalDocuments;
             })
             .addCase(getNetworkConnections.rejected, (state, action) => {
                 state.loading = false;

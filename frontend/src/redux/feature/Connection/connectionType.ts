@@ -82,7 +82,8 @@ export interface ConnectionState {
     connectionRequests: ConnectionRequest[];
     receivedConnectionRequests: ConnectionRequest[];
     network: NetworkConnection[];
-    totalDocuments: number;
+    connectionsTotalDocuments: number;
+    networkTotalDocuments: number;
     loading: boolean;
     error: string | null;
 }

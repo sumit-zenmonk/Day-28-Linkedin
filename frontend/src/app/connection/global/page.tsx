@@ -13,14 +13,14 @@ const LIMIT = 10;
 
 export default function GlobalConnectionPage() {
     const dispatch = useAppDispatch();
-    const { connections, loading, totalDocuments, connectionRequests, network } = useAppSelector((state: RootState) => state.connectionReducer);
+    const { connections, loading, connectionsTotalDocuments, connectionRequests, network } = useAppSelector((state: RootState) => state.connectionReducer);
     const [page, setPage] = useState(1);
 
     const isAlreadyRequested = (uuid: string) => { return connectionRequests.some((req) => req.connected_user_uuid === uuid); };
     const isAlreadyConnected = (uuid: string) => { return network.some((req) => req.connected_user.uuid === uuid); };
 
     useEffect(() => {
-        if (!connections.length || connections.length < totalDocuments) {
+        if (!connections.length || connections.length < connectionsTotalDocuments) {
             try {
                 dispatch(getConnections({ limit: LIMIT, page })).unwrap();
             } catch (error) {
@@ -33,7 +33,7 @@ export default function GlobalConnectionPage() {
     const fetchMoreData = () => {
         if (loading) return;
 
-        if (connections.length < totalDocuments) {
+        if (connections.length < connectionsTotalDocuments) {
             setPage((prev) => prev + 1);
         }
     };
@@ -66,7 +66,7 @@ export default function GlobalConnectionPage() {
             <InfiniteScroll
                 dataLength={connections.length}
                 next={fetchMoreData}
-                hasMore={connections.length < totalDocuments}
+                hasMore={connections.length < connectionsTotalDocuments}
                 loader={
                     <Box className={styles.loader}>
                         <CircularProgress />

@@ -12,11 +12,11 @@ const LIMIT = 10;
 
 export default function NetworkPage() {
   const dispatch = useAppDispatch();
-  const { network, loading, totalDocuments } = useAppSelector((state: RootState) => state.connectionReducer);
+  const { network, loading, networkTotalDocuments } = useAppSelector((state: RootState) => state.connectionReducer);
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    if (!network.length || network.length < totalDocuments) {
+    if (!network.length || network.length < networkTotalDocuments) {
       dispatch(getNetworkConnections({ limit: LIMIT, page })).unwrap();
     }
   }, [dispatch, page]);
@@ -24,7 +24,7 @@ export default function NetworkPage() {
   const fetchMoreData = () => {
     if (loading) return;
 
-    if (network.length < totalDocuments) {
+    if (network.length < networkTotalDocuments) {
       setPage((prev) => prev + 1);
     }
   };
@@ -44,7 +44,7 @@ export default function NetworkPage() {
       <InfiniteScroll
         dataLength={network.length}
         next={fetchMoreData}
-        hasMore={network.length < totalDocuments}
+        hasMore={network.length < networkTotalDocuments}
         loader={
           <Box className={styles.loader}>
             <CircularProgress />
