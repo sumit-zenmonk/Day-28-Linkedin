@@ -35,6 +35,10 @@
     align-items: center;
 }
 
+.category>.categoryBoxes:nth-child(n):hover {
+    color: rgb(0, 0, 0);
+}
+
 .category>.categoryBoxes>.categoryBoxes-Text {
     font-size: .8rem;
 }
