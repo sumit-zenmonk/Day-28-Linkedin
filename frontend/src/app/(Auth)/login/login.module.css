@@ -10,9 +10,9 @@
 .formWrapper {
     display: flex;
     flex-direction: column;
-    width: 40%;
-    padding: 4%;
-    border-radius: 50px;
+    width: 20%;
+    padding: 1%;
+    border-radius: 16px;
 }
 
 .title {
@@ -37,6 +37,7 @@
 .error {
     color: red;
     font-size: 12px;
+    font-weight: 500;
     margin-top: 1%;
 }
 
@@ -44,8 +45,41 @@
     width: 100%;
     margin-top: 3%;
     gap: 10px;
+    border-radius: 100px;
 }
 
 .divider {
     margin: 6% 0;
+    font-weight: 500;
+}
+
+.providerLoginBox {
+    width: 100%;
+    margin-top: 2%;
+    border-radius: 100px;
+    color: black;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5%;
+    padding: 2%;
+    text-transform: none;
+    border-color: rgb(105, 105, 105);
+    border-width: 1px;
+    transition: all ease .5s;
+}
+
+.providerLoginBox:hover {
+    transform: scale(1.05);
+    border-color: gray;
+}
+
+.providerLoginBox:nth-child(1) {
+    width: 20%;
+    height: auto;
+    display: flex;
+    justify-content: flex-start;
+    margin-right: auto;
 }

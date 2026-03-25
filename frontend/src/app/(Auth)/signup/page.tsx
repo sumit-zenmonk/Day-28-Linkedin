@@ -48,7 +48,7 @@ export default function SignupForm() {
         <Box className={styles.container}>
             <Card className={styles.formWrapper} elevation={3}>
                 <Typography variant="h5" className={styles.title}>
-                    Signup
+                    Join Us! It's free
                 </Typography>
 
                 <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>

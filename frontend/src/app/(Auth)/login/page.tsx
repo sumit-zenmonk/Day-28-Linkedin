@@ -19,6 +19,7 @@ import {
     Divider
 } from "@mui/material"
 import { enqueueSnackbar } from "notistack"
+import Image from "next/image"
 
 export default function LoginForm() {
     const dispatch = useDispatch<AppDispatch>()
@@ -46,8 +47,60 @@ export default function LoginForm() {
         <Box className={styles.container}>
             <Card className={styles.formWrapper} elevation={3}>
                 <Typography variant="h5" className={styles.title}>
-                    Login
+                    Sign In
                 </Typography>
+
+                <Button
+                    variant="outlined"
+                    className={styles.providerLoginBox}
+                >
+                    {/* <GoogleIcon /> */}
+                    <Image
+                        src={'/google.png'}
+                        alt="google icon"
+                        width={25}
+                        height={25}
+                    />
+                    <Typography>
+                        Login with Google
+                    </Typography>
+                </Button>
+
+                <Button
+                    variant="outlined"
+                    className={styles.providerLoginBox}
+                >
+                    {/* <MicroSoftIcon /> */}
+                    <Image
+                        src={'/microsoft.png'}
+                        alt="google icon"
+                        width={25}
+                        height={25}
+                    />
+                    <Typography>
+                        Login with microsoft
+                    </Typography>
+                </Button>
+
+                <Button
+                    variant="outlined"
+                    className={styles.providerLoginBox}
+                >
+                    <Box>
+                        {/* <GitHubIcon /> */}
+                        <Image
+                            src={'/github.png'}
+                            alt="google icon"
+                            width={25}
+                            height={25}
+                        />
+                    </Box>
+                    <Typography>
+                        Login with github
+                    </Typography>
+                </Button>
+
+                <Divider className={styles.divider}>OR</Divider>
 
                 <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
                     <Box className={styles.field}>

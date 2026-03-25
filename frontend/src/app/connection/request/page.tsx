@@ -73,7 +73,7 @@ export default function RequestPage() {
             await dispatch(makeConnection({ request_uuid: uuid })).unwrap();
             enqueueSnackbar("Connection Established", { variant: "success" });
         } catch (err) {
-            enqueueSnackbar(String(err || "Delete failed"), {
+            enqueueSnackbar(String(err || "Error"), {
                 variant: "error",
             });
         }
@@ -88,60 +88,68 @@ export default function RequestPage() {
                 Requests Received
             </Typography>
 
-            {receivedConnectionRequests.length === 0 && !loading && (
-                <Typography className={styles.emptyText}>
-                    No requests received
-                </Typography>
-            )}
+            <Box className={styles.scrollBox} id="receivedScroll">
+                {receivedConnectionRequests.length === 0 && !loading && (
+                    <Typography className={styles.emptyText}>
+                        No requests received
+                    </Typography>
+                )}
 
-            <InfiniteScroll
-                dataLength={receivedConnectionRequests.length}
-                next={fetchMoreReceived}
-                hasMore={hasMoreReceived}
-                loader={
-                    <Box className={styles.loader}>
-                        <CircularProgress />
-                    </Box>
-                }
-            >
-                {receivedConnectionRequests.map((req) => {
-                    const user = getUserDetails(req.user_uuid);
+                <InfiniteScroll
+                    dataLength={receivedConnectionRequests.length}
+                    next={fetchMoreReceived}
+                    hasMore={hasMoreReceived}
+                    scrollableTarget="receivedScroll"
+                    loader={
+                        <Box className={styles.loader}>
+                            <CircularProgress />
+                        </Box>
+                    }
+                >
+                    {receivedConnectionRequests.map((req) => {
+                        const user = getUserDetails(req.user_uuid);
 
-                    return (
-                        <Card key={req.uuid} className={styles.card}>
-                            <CardContent className={styles.cardContent}>
-                                <Box className={styles.infoBox}>
-                                    <Avatar
-                                        src={user?.profile?.profile_img?.image_url}
-                                        className={styles.avatar}
-                                    />
-                                    <Box>
-                                        <Typography className={styles.text}>
-                                            {user?.name || "Unknown User"}
-                                        </Typography>
-                                        <Typography className={styles.value}>
-                                            {user?.email || req.user_uuid}
-                                        </Typography>
+                        return (
+                            <Card key={req.uuid} className={styles.card}>
+                                <CardContent className={styles.cardContent}>
+                                    <Box className={styles.infoBox}>
+                                        <Avatar
+                                            src={user?.profile?.profile_img?.image_url}
+                                            className={styles.avatar}
+                                        />
+                                        <Box>
+                                            <Typography className={styles.text}>
+                                                {user?.name || "Unknown User"}
+                                            </Typography>
+                                            <Typography className={styles.value}>
+                                                {user?.email || req.user_uuid}
+                                            </Typography>
+                                        </Box>
                                     </Box>
-                                </Box>
 
-                                <Box className={styles.actionBox}>
-                                    <Button variant="contained" onClick={() => handleApproveConnection(req.uuid)}>
-                                        Accept
-                                    </Button>
-                                    <Button
-                                        color="error"
-                                        variant="outlined"
-                                        onClick={() => handleDelete(req.uuid)}
-                                    >
-                                        Reject
-                                    </Button>
-                                </Box>
-                            </CardContent>
-                        </Card>
-                    );
-                })}
-            </InfiniteScroll>
+                                    <Box className={styles.actionBox}>
+                                        <Button
+                                            variant="contained"
+                                            onClick={() =>
+                                                handleApproveConnection(req.uuid)
+                                            }
+                                        >
+                                            Accept
+                                        </Button>
+                                        <Button
+                                            color="error"
+                                            variant="outlined"
+                                            onClick={() => handleDelete(req.uuid)}
+                                        >
+                                            Reject
+                                        </Button>
+                                    </Box>
+                                </CardContent>
+                            </Card>
+                        );
+                    })}
+                </InfiniteScroll>
+            </Box>
 
             <Divider className={styles.divider} />
 
@@ -149,55 +157,58 @@ export default function RequestPage() {
                 Requests Sent
             </Typography>
 
-            {connectionRequests.length === 0 && !loading && (
-                <Typography className={styles.emptyText}>
-                    No sent requests
-                </Typography>
-            )}
+            <Box className={styles.scrollBox} id="sentScroll">
+                {connectionRequests.length === 0 && !loading && (
+                    <Typography className={styles.emptyText}>
+                        No sent requests
+                    </Typography>
+                )}
 
-            <InfiniteScroll
-                dataLength={connectionRequests.length}
-                next={fetchMoreSent}
-                hasMore={hasMoreSent}
-                loader={
-                    <Box className={styles.loader}>
-                        <CircularProgress />
-                    </Box>
-                }
-            >
-                {connectionRequests.map((req) => {
-                    const user = getUserDetails(req.connected_user_uuid);
+                <InfiniteScroll
+                    dataLength={connectionRequests.length}
+                    next={fetchMoreSent}
+                    hasMore={hasMoreSent}
+                    scrollableTarget="sentScroll"
+                    loader={
+                        <Box className={styles.loader}>
+                            <CircularProgress />
+                        </Box>
+                    }
+                >
+                    {connectionRequests.map((req) => {
+                        const user = getUserDetails(req.connected_user_uuid);
 
-                    return (
-                        <Card key={req.uuid} className={styles.card}>
-                            <CardContent className={styles.cardContent}>
-                                <Box className={styles.infoBox}>
-                                    <Avatar
-                                        src={user?.profile?.profile_img?.image_url}
-                                        className={styles.avatar}
-                                    />
-                                    <Box>
-                                        <Typography className={styles.text}>
-                                            {user?.name || "Unknown User"}
-                                        </Typography>
-                                        <Typography className={styles.value}>
-                                            {user?.email || req.connected_user_uuid}
-                                        </Typography>
+                        return (
+                            <Card key={req.uuid} className={styles.card}>
+                                <CardContent className={styles.cardContent}>
+                                    <Box className={styles.infoBox}>
+                                        <Avatar
+                                            src={user?.profile?.profile_img?.image_url}
+                                            className={styles.avatar}
+                                        />
+                                        <Box>
+                                            <Typography className={styles.text}>
+                                                {user?.name || "Unknown User"}
+                                            </Typography>
+                                            <Typography className={styles.value}>
+                                                {user?.email || req.connected_user_uuid}
+                                            </Typography>
+                                        </Box>
                                     </Box>
-                                </Box>
 
-                                <Button
-                                    color="error"
-                                    variant="outlined"
-                                    onClick={() => handleDelete(req.uuid)}
-                                >
-                                    Cancel
-                                </Button>
-                            </CardContent>
-                        </Card>
-                    );
-                })}
-            </InfiniteScroll>
+                                    <Button
+                                        color="error"
+                                        variant="outlined"
+                                        onClick={() => handleDelete(req.uuid)}
+                                    >
+                                        Cancel
+                                    </Button>
+                                </CardContent>
+                            </Card>
+                        );
+                    })}
+                </InfiniteScroll>
+            </Box>
         </Box>
     );
 }

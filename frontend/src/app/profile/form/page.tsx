@@ -135,10 +135,23 @@ export default function ProfileForm() {
                     />
                 )}
 
-                <input
-                    type="file"
-                    onChange={(e) => setFile(e.target.files?.[0] || null)}
-                />
+                <Button
+                    variant="outlined"
+                    component="label"
+                >
+                    Choose File
+                    <input
+                        type="file"
+                        hidden
+                        onChange={(e) => setFile(e.target.files?.[0] || null)}
+                    />
+                </Button>
+
+                {file && (
+                    <Typography variant="body2" className={styles.field}>
+                        Selected: {file.name}
+                    </Typography>
+                )}
 
                 <Button onClick={handleImageUpload}>Upload Image</Button>
 
