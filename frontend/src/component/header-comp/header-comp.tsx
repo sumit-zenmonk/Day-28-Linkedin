@@ -13,6 +13,8 @@ import RocketLaunchIcon from '@mui/icons-material/RocketLaunch'
 import Diversity3Icon from '@mui/icons-material/Diversity3'
 import SchoolIcon from '@mui/icons-material/School'
 import WorkIcon from '@mui/icons-material/Work'
+import PostAddIcon from "@mui/icons-material/PostAdd"
+import ArticleIcon from "@mui/icons-material/Article"
 import { signOut } from "firebase/auth"
 import { auth } from "@/lib/firebase"
 
@@ -29,9 +31,9 @@ export default function HeaderComp() {
         { label: "Global", icon: <RocketLaunchIcon />, route: "/connection/global" },
         { label: "Request", icon: <Diversity3Icon />, route: "/connection/request" },
         { label: "Network", icon: <Diversity3Icon />, route: "/connection/network" },
-        { label: "Posts", icon: <WorkIcon />, route: "/connection/post" },
-        { label: "My Posts", icon: <WorkIcon />, route: "/post" },
-        { label: "Create", icon: <WorkIcon />, route: "/post/form" },
+        { label: "Connections Posts", icon: <WorkIcon />, route: "/connection/post" },
+        { label: "My Posts", icon: <ArticleIcon />, route: "/post" },
+        { label: "Create Post", icon: <PostAddIcon />, route: "/post/form" },
     ]
     const routes = tabsConfig.map(tab => tab.route)
     const [tabValue, setTabValue] = useState<number | false>(false)
