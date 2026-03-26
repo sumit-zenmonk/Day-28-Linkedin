@@ -1,6 +1,7 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { CompanyEntity } from "./company.entity";
 import { ApplicationEntity } from "./applications.entity";
+import { JobTagEntity } from "./job.tag.entity";
 
 @Entity('job')
 export class JobEntity {
@@ -27,10 +28,13 @@ export class JobEntity {
 
     @ManyToOne(() => CompanyEntity, (company) => company.jobs)
     @JoinColumn({ name: "company_uuid" })
-    company: CompanyEntity[];
+    company: CompanyEntity;
 
     @OneToMany(() => ApplicationEntity, (application) => application.job)
     applications: ApplicationEntity[];
+
+    @OneToMany(() => JobTagEntity, (jobtag) => jobtag.job)
+    tags: JobTagEntity[];
 
     @CreateDateColumn()
     created_at: Date;

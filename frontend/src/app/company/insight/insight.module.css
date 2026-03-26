@@ -26,8 +26,10 @@
 }
 
 .row {
+    width: 100%;
     display: flex;
     justify-content: space-between;
+    line-break: auto;
 }
 
 .analytics {

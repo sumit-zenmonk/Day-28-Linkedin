@@ -56,9 +56,10 @@ export default function InsightDashboard() {
                         <span>{insight.location}</span>
                     </Box>
 
-                    <Typography>
-                        {insight.description}
-                    </Typography>
+                    <Box className={styles.row}>
+                        <span>Description</span>
+                        <span>{insight.description}</span>
+                    </Box>
 
                     <Button
                         variant="outlined"
