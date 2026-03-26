@@ -34,7 +34,7 @@ export default function proxy(req: NextRequest) {
     }
 
     if (role === 'company' && isUserRoute) {
-        return NextResponse.redirect(new URL("/company/represent", req.url));
+        return NextResponse.redirect(new URL("/company/insight", req.url));
     }
 
     return NextResponse.next();
