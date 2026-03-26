@@ -1,16 +1,13 @@
 import { faker } from '@faker-js/faker';
-import { dataSource } from './data-source';
+import { dataSource, options } from './data-source';
 import { UserEntity } from 'src/domain/entities/user.entity';
 import { ProfileEntity } from 'src/domain/entities/user.profile.entity';
 import { EducationHistoryEntity } from 'src/domain/entities/user.education.history.entity';
 import { EmploymentHistoryEntity } from 'src/domain/entities/user.employment.history.entity';
-import { PostEntity } from 'src/domain/entities/posts.entity';
-import { ImageEntity } from 'src/domain/entities/images.entity';
-import { ConnectionEntity } from 'src/domain/entities/user.connection.entity';
 
 async function create() {
     dataSource.setOptions({
-        entities: [UserEntity, ProfileEntity, EducationHistoryEntity, EmploymentHistoryEntity, PostEntity, ImageEntity, ConnectionEntity],
+       ...options,
     });
 
     await dataSource.initialize();

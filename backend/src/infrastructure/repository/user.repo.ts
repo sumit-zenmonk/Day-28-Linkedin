@@ -66,7 +66,8 @@ export class UserRepository extends Repository<UserEntity> {
     async getGlobalConnection(user_uuid: string, offset?: number, limit?: number) {
         const [data, total] = await this.findAndCount({
             where: {
-                uuid: Not(user_uuid)
+                uuid: Not(user_uuid),
+                role: RoleEnum.USER
             },
             select: {
                 uuid: true,

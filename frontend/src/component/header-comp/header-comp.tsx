@@ -18,6 +18,7 @@ import ArticleIcon from "@mui/icons-material/Article"
 import HandshakeIcon from '@mui/icons-material/Handshake';
 import { signOut } from "firebase/auth"
 import { auth } from "@/lib/firebase"
+import { RoleEnum } from "@/enums/user.role"
 
 export default function HeaderComp() {
     const pathname = usePathname()
@@ -30,20 +31,70 @@ export default function HeaderComp() {
         {
             label: "Profile",
             icon: <Avatar sx={{ width: 20, height: 20 }} src={profile?.profile_img?.image_url || ""} />,
-            route: "/profile",
-            isLoginNeeded: true
+            route: "/user/profile",
+            isLoginNeeded: true,
+            roles: [RoleEnum.USER]
         },
-        { label: "Update", icon: <SchoolIcon />, route: "/profile/form", isLoginNeeded: true },
-        { label: "Global", icon: <RocketLaunchIcon />, route: "/connection/global" },
-        { label: "Request", icon: <HandshakeIcon />, route: "/connection/request" },
-        { label: "Network", icon: <Diversity3Icon />, route: "/connection/network" },
-        { label: "Connections Posts", icon: <WorkIcon />, route: "/connection/post" },
-        { label: "My Posts", icon: <ArticleIcon />, route: "/post", isLoginNeeded: true },
-        { label: "Create Post", icon: <PostAddIcon />, route: "/post/form", isLoginNeeded: true },
+        {
+            label: "Update",
+            icon: <SchoolIcon />,
+            route: "/user/profile/form",
+            isLoginNeeded: true,
+            roles: [RoleEnum.USER]
+        },
+        {
+            label: "Globe Professionals",
+            icon: <RocketLaunchIcon />,
+            route: "/user/connection/global",
+            roles: [RoleEnum.USER]
+        },
+        {
+            label: "Request",
+            icon: <HandshakeIcon />,
+            route: "/user/connection/request",
+            roles: [RoleEnum.USER]
+        },
+        {
+            label: "Network",
+            icon: <Diversity3Icon />,
+            route: "/user/connection/network",
+            roles: [RoleEnum.USER]
+        },
+        {
+            label: "Connections Posts",
+            icon: <WorkIcon />,
+            route: "/user/connection/post",
+            roles: [RoleEnum.USER]
+        },
+        {
+            label: "My Posts",
+            icon: <ArticleIcon />,
+            route: "/user/post",
+            isLoginNeeded: true,
+            roles: [RoleEnum.USER]
+        },
+        {
+            label: "Create Post",
+            icon: <PostAddIcon />,
+            route: "/user/post/form",
+            isLoginNeeded: true,
+            roles: [RoleEnum.USER]
+        },
+        {
+            label: "Company",
+            icon: <WorkIcon />,
+            route: "/company/represent",
+            isLoginNeeded: true,
+            roles: [RoleEnum.COMPANY]
+        },
     ];
+
     const visibleTabs = tabsConfig.filter(
-        (tab) => !tab.isLoginNeeded || user
+        (tab) =>
+            (!tab.isLoginNeeded || user) &&
+            (!tab.roles || (user && tab.roles.includes(user.role)))
     )
+
     const routes = visibleTabs.map(tab => tab.route)
     const [tabValue, setTabValue] = useState<number | false>(false)
 
@@ -94,7 +145,7 @@ export default function HeaderComp() {
                         variant="scrollable"
                         scrollButtons="auto"
                     >
-                        {visibleTabs.map((tab, index) => (
+                        {visibleTabs.map((tab) => (
                             <Tab
                                 key={tab.route}
                                 icon={tab.icon}

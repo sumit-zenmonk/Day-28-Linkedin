@@ -74,39 +74,40 @@ export default function GlobalConnectionPage() {
                 }
                 scrollableTarget="scrollableDiv"
             >
-                <Box className={styles.infiniteScrollComp}>{connections
-                    .filter((conn) => !isAlreadyConnected(conn.uuid))
-                    .map((conn) => (
-                        <Card key={conn.uuid} className={styles.card}>
-                            <CardContent className={styles.cardContent}>
-                                <Avatar
-                                    src={conn.profile?.profile_img?.image_url}
-                                    className={styles.avatar}
-                                />
+                <Box className={styles.infiniteScrollComp}>
+                    {connections
+                        .filter((conn) => !isAlreadyConnected(conn.uuid))
+                        .map((conn) => (
+                            <Card key={conn.uuid} className={styles.card}>
+                                <CardContent className={styles.cardContent}>
+                                    <Avatar
+                                        src={conn.profile?.profile_img?.image_url}
+                                        className={styles.avatar}
+                                    />
 
-                                <Box className={styles.infoBox}>
-                                    <Typography className={styles.name}>
-                                        {conn.name}
-                                    </Typography>
+                                    <Box className={styles.infoBox}>
+                                        <Typography className={styles.name}>
+                                            {conn.name}
+                                        </Typography>
 
-                                    <Typography className={styles.email}>
-                                        {conn.email}
-                                    </Typography>
+                                        <Typography className={styles.email}>
+                                            {conn.email}
+                                        </Typography>
 
-                                    <Typography className={styles.bio}>
-                                        {conn.profile?.bio}
-                                    </Typography>
-                                </Box>
+                                        <Typography className={styles.bio}>
+                                            {conn.profile?.bio}
+                                        </Typography>
+                                    </Box>
 
-                                <Button
-                                    disabled={isAlreadyRequested(conn.uuid) || isAlreadyConnected(conn.uuid)}
-                                    onClick={() => handleMakeConnectionRequest(conn.uuid)}
-                                >
-                                    {isAlreadyRequested(conn.uuid) ? "Requested" : "Connect"}
-                                </Button>
-                            </CardContent>
-                        </Card>
-                    ))}
+                                    <Button
+                                        disabled={isAlreadyRequested(conn.uuid) || isAlreadyConnected(conn.uuid)}
+                                        onClick={() => handleMakeConnectionRequest(conn.uuid)}
+                                    >
+                                        {isAlreadyRequested(conn.uuid) ? "Requested" : "Connect"}
+                                    </Button>
+                                </CardContent>
+                            </Card>
+                        ))}
                 </Box>
             </InfiniteScroll>
         </Box>

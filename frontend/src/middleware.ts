@@ -3,6 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 const publicRoutes = ['/public', '/login', '/signup'];
 const authBlockRoutes = ['/login', '/signup'];
 
+const userRoutes = ['/user'];
+const companyRoutes = ['/company'];
+
 export default function proxy(req: NextRequest) {
     const credentials = req.cookies.get("token")?.value;
     const role = req.cookies.get("role")?.value;
@@ -22,6 +25,18 @@ export default function proxy(req: NextRequest) {
     if (!isAuthenticated && !isPublic) {
         return NextResponse.redirect(new URL("/signup", req.url));
     }
+
+    const isUserRoute = userRoutes.some(route => pathname.startsWith(route));
+    const isCompanyRoute = companyRoutes.some(route => pathname.startsWith(route));
+
+    if (role === 'user' && isCompanyRoute) {
+        return NextResponse.redirect(new URL("/user/profile", req.url));
+    }
+
+    if (role === 'company' && isUserRoute) {
+        return NextResponse.redirect(new URL("/company/represent", req.url));
+    }
+
     return NextResponse.next();
 }
 

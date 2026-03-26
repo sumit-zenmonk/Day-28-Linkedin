@@ -30,4 +30,4 @@ const options: DataSourceOptions = {
 
 const dataSource = new DataSource(options);
 
-export { dataSource };
+export { dataSource, options };
