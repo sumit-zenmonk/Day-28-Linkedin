@@ -27,6 +27,27 @@ export default class UploadController {
         };
     }
 
+    //image route handler
+    @Post('images')
+    @UseInterceptors(
+        FilesInterceptor('imageUrl', 5, {
+            fileFilter: (req, file, cb) => {
+                if (!file.mimetype.includes('image')) {
+                    return cb(new BadRequestException('Only images allowed'), false);
+                }
+                cb(null, true);
+            },
+        }),
+    )
+    async uploadImages(@UploadedFiles() files: Express.Multer.File[]) {
+        const storedFiles = this.fileUploadService.handleUpload(files, 'image', 5);
+        const image_urls = storedFiles.files;
+        return {
+            image_urls,
+            message: "File uploaded successfully"
+        };
+    }
+
     //video route hndler
     @Post('video')
     @UseInterceptors(

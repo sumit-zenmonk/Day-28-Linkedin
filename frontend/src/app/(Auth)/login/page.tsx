@@ -6,7 +6,7 @@ import { AppDispatch } from "@/redux/store"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { loginSchema, LoginSchemaType } from "@/schemas/login"
-import { loginUser } from "@/redux/feature/Auth/authAction"
+import { googleLogin, loginUser } from "@/redux/feature/Auth/authAction"
 import { useRouter } from "next/navigation"
 import GoogleIcon from '@mui/icons-material/Google';
 
@@ -43,6 +43,15 @@ export default function LoginForm() {
         }
     }
 
+    const handleGoogleLogin = async () => {
+        try {
+            await dispatch(googleLogin()).unwrap()
+            router.replace("/")
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     return (
         <Box className={styles.container}>
             <Card className={styles.formWrapper} elevation={3}>
@@ -53,6 +62,7 @@ export default function LoginForm() {
                 <Button
                     variant="outlined"
                     className={styles.providerLoginBox}
+                    onClick={handleGoogleLogin}
                 >
                     {/* <GoogleIcon /> */}
                     <Image

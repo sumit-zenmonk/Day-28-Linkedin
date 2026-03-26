@@ -77,11 +77,33 @@ export interface NetworkConnection {
     };
 }
 
+export interface ConnectionPostImage {
+    uuid: string;
+    type: string;
+    image_url: string;
+}
+
+export interface ConnectionPost {
+    uuid: string;
+    user_uuid: string;
+    content: string;
+    images: ConnectionPostImage[];
+    user: {
+        uuid: string;
+        name: string;
+        email: string;
+        profile: Profile | null;
+    };
+    created_at: string;
+}
+
 export interface ConnectionState {
     connections: Connection[];
     connectionRequests: ConnectionRequest[];
     receivedConnectionRequests: ConnectionRequest[];
     network: NetworkConnection[];
+    connectionPosts: ConnectionPost[];
+    postsTotalDocuments: number;
     connectionsTotalDocuments: number;
     networkTotalDocuments: number;
     loading: boolean;

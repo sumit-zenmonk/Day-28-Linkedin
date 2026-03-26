@@ -4,6 +4,8 @@ import { BadRequestException, Injectable } from "@nestjs/common";
 import { AuthHelperService } from "src/infrastructure/services/auth.service";
 import { BcryptService } from "src/infrastructure/services/bcrypt.service";
 import { LoginDto } from "./dto/login.dto";
+import admin from "src/infrastructure/firebase/firebase-admin.config";
+import { RoleEnum } from "src/domain/enums/user";
 
 @Injectable()
 export class AuthService {
@@ -63,6 +65,50 @@ export class AuthService {
                 role: isUserExists[0].role,
                 uid: isUserExists[0].uuid,
             }
+        }
+    }
+
+    async googleAuth(idToken: string) {
+        try {
+            const decodedToken = await admin.auth().verifyIdToken(idToken);
+            const { email, name, uid: googleUid, picture } = decodedToken;
+
+            if (!email) {
+                throw new BadRequestException("Email not found in Google account");
+            }
+
+            let users = await this.userRepo.findByEmail(email);
+            let user;
+
+            if (!users.length) {
+                const randomPassword = "0000";
+                const hashedPassword = await this.bcryptService.hashPassword(randomPassword);
+                const newUser = await this.userRepo.register({
+                    email,
+                    name: name || "Google User",
+                    password: hashedPassword,
+                    role:RoleEnum.USER
+                });
+                user = newUser;
+            } else {
+                user = users[0];
+            }
+
+            const token = await this.authService.generateJwtToken(user);
+            return {
+                message: "Google Auth Success",
+                access_token: token,
+                user: {
+                    name: user.name,
+                    email: user.email,
+                    role: user.role,
+                    uid: user.uuid,
+                }
+            };
+
+        } catch (error) {
+            console.error("Google Auth Error:", error);
+            throw new BadRequestException("Invalid Google token");
         }
     }
 }

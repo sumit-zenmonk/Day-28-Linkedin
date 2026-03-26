@@ -9,7 +9,7 @@ import { RootState } from "@/redux/store";
 import { getConnections, sendConnectionRequest } from "@/redux/feature/Connection/connectionAction";
 import { enqueueSnackbar } from "notistack";
 
-const LIMIT = 10;
+const LIMIT = Number(process.env.NEXT_PUBLIC_PAGINATION_LIMIT) || 10;
 
 export default function GlobalConnectionPage() {
     const dispatch = useAppDispatch();

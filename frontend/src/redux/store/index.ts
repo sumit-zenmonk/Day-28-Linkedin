@@ -8,6 +8,7 @@ import profileReducer from "../feature/Profile/profileSlice";
 import educationReducer from "../feature/Education/educationSlice";
 import employmentReducer from "../feature/Employment/employmentSlice";
 import connectionReducer from "../feature/Connection/connectionSlice";
+import postReducer from "../feature/Post/postSlice";
 
 const persistConfig = {
     key: "root",
@@ -19,7 +20,8 @@ const appReducer = combineReducers({
     profileReducer: profileReducer,
     educationReducer: educationReducer,
     employmentReducer: employmentReducer,
-    connectionReducer: connectionReducer
+    connectionReducer: connectionReducer,
+    postReducer: postReducer
 });
 
 const rootReducer = (state: any, action: any) => {

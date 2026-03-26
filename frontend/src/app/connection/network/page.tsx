@@ -8,7 +8,7 @@ import { RootState } from "@/redux/store";
 import { getNetworkConnections } from "@/redux/feature/Connection/connectionAction";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks.ts";
 
-const LIMIT = 10;
+const LIMIT = Number(process.env.NEXT_PUBLIC_PAGINATION_LIMIT) || 10;
 
 export default function NetworkPage() {
   const dispatch = useAppDispatch();

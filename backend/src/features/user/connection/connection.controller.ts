@@ -48,4 +48,9 @@ export class ConnectionController {
     async getConnections(@Req() req, @Query("page") page?: number, @Query("limit") limit?: number,) {
         return await this.connectionService.getConnections(req.user, Number(page), Number(limit));
     }
+
+    @Get('/post')
+    async getConnectionsPosts(@Req() req, @Query("page") page?: number, @Query("limit") limit?: number,) {
+        return await this.connectionService.getConnectionsPosts(req.user, Number(page), Number(limit));
+    }
 }

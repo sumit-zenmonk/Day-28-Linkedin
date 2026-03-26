@@ -2,7 +2,7 @@
 
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "@/redux/store";
-import { ConnectionRequest, NetworkConnection } from "./connectionType";
+import { ConnectionPost, ConnectionRequest, NetworkConnection } from "./connectionType";
 
 const API_URL = process.env.NEXT_PUBLIC_BACKEND_API_URL;
 
@@ -211,6 +211,36 @@ export const getNetworkConnections = createAsyncThunk<
 
             return {
                 connections: data.connections,
+                totalDocuments: data.totalDocuments,
+            };
+        } catch (err: any) {
+            return rejectWithValue(err.message);
+        }
+    }
+);
+
+export const getConnectionPosts = createAsyncThunk<
+    { posts: ConnectionPost[]; totalDocuments: number },
+    { limit?: number; page?: number },
+    { state: RootState }
+>(
+    "connection/getConnectionPosts",
+    async ({ limit = 10, page = 1 }, { getState, rejectWithValue }) => {
+        try {
+            const token = getState().authReducer.token || "";
+
+            const res = await fetch(
+                `${API_URL}/connection/post?limit=${limit}&page=${page}`,
+                {
+                    headers: { Authorization: token },
+                }
+            );
+
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.message);
+
+            return {
+                posts: data.posts,
                 totalDocuments: data.totalDocuments,
             };
         } catch (err: any) {

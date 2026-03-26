@@ -6,6 +6,7 @@ import { ConnectionRequestRepository } from "src/infrastructure/repository/conne
 import { ConnectionRequestDeleteDto } from "./dto/delete.connection.request.dto";
 import { ConnectionCreateDto } from "./dto/create.connection.dto";
 import { ConnectionRepository } from "src/infrastructure/repository/connection.repo";
+import { PostRepository } from "src/infrastructure/repository/post.repo";
 
 @Injectable()
 export class ConnectionService {
@@ -13,6 +14,7 @@ export class ConnectionService {
         private readonly userRepo: UserRepository,
         private readonly connectionRequestRepo: ConnectionRequestRepository,
         private readonly connectionRepo: ConnectionRepository,
+        private readonly postRepo: PostRepository
     ) { }
 
     async getGlobalConnection(user: UserEntity, page?: number, limit?: number) {
@@ -34,7 +36,7 @@ export class ConnectionService {
 
     async createConnectionRequest(user: UserEntity, body: ConnectionRequestCreateDto) {
         const isAlreadyExists = await this.connectionRequestRepo.findConnectionRequest(user.uuid, body.connected_user_uuid);
-        console.log('isAlreadyExists',isAlreadyExists);
+
         if (isAlreadyExists) {
             throw new BadRequestException("Request Still Active");
         }
@@ -117,6 +119,23 @@ export class ConnectionService {
             offset,
             totalPages: Math.ceil(total / take),
             message: "Connections Fetched Success"
+        };
+    }
+
+    async getConnectionsPosts(user: UserEntity, page?: number, limit?: number) {
+        const currentPage = page || 1;
+        const take = limit || 10;
+        const offset = (currentPage - 1) * take;
+
+        const { data, total } = await this.postRepo.getConnectionsPosts(user.uuid, offset, take);
+
+        return {
+            posts: data,
+            totalDocuments: total,
+            limit: take,
+            offset,
+            totalPages: Math.ceil(total / take),
+            message: "Connections Post Fetched Success"
         };
     }
 }

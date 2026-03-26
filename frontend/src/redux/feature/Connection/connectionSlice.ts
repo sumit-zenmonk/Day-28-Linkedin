@@ -2,13 +2,15 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 import { ConnectionState } from "./connectionType";
-import { getConnections, sendConnectionRequest, getConnectionRequests, deleteConnectionRequest, getReceivedConnectionRequests, makeConnection, getNetworkConnections } from "./connectionAction";
+import { getConnections, sendConnectionRequest, getConnectionRequests, deleteConnectionRequest, getReceivedConnectionRequests, makeConnection, getNetworkConnections, getConnectionPosts } from "./connectionAction";
 
 const initialState: ConnectionState = {
     connections: [],
     connectionRequests: [],
     receivedConnectionRequests: [],
     network: [],
+    connectionPosts: [],
+    postsTotalDocuments: 0,
     connectionsTotalDocuments: 0,
     networkTotalDocuments: 0,
     loading: false,
@@ -136,7 +138,20 @@ const connectionSlice = createSlice({
             .addCase(getNetworkConnections.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
-            });
+            })
+            .addCase(getConnectionPosts.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(getConnectionPosts.fulfilled, (state, action) => {
+                state.loading = false;
+                state.connectionPosts = action.payload.posts;
+                state.postsTotalDocuments = action.payload.totalDocuments;
+                state.error = null;
+            })
+            .addCase(getConnectionPosts.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+            })
     },
 });
 

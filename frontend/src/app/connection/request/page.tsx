@@ -9,7 +9,7 @@ import { getConnectionRequests, getReceivedConnectionRequests, deleteConnectionR
 import { enqueueSnackbar } from "notistack";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks.ts";
 
-const LIMIT = 10;
+const LIMIT = Number(process.env.NEXT_PUBLIC_PAGINATION_LIMIT) || 10;
 
 export default function RequestPage() {
     const dispatch = useAppDispatch();

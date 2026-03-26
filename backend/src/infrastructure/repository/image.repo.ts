@@ -33,4 +33,9 @@ export class ImageRepository extends Repository<ImageEntity> {
 
         return this.save(image);
     }
+
+    async upsertPostImage(data: Partial<ImageEntity>) {
+        const postImage = this.create(data);
+        return await this.save(postImage);
+    }
 }

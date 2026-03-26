@@ -4,11 +4,18 @@ import { ConnectionController } from "./connection.controller";
 import { ConnectionService } from "./connection.service";
 import { ConnectionRequestRepository } from "src/infrastructure/repository/connection.request.repo";
 import { ConnectionRepository } from "src/infrastructure/repository/connection.repo";
+import { PostRepository } from "src/infrastructure/repository/post.repo";
 
 @Module({
     imports: [],
     controllers: [ConnectionController],
-    providers: [UserRepository, ConnectionService, ConnectionRequestRepository, ConnectionRepository],
+    providers: [
+        UserRepository,
+        ConnectionService,
+        ConnectionRequestRepository,
+        ConnectionRepository,
+        PostRepository
+    ],
     exports: [ConnectionModule],
 })
 
