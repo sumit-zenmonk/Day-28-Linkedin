@@ -160,7 +160,7 @@ export default function LoginForm() {
                     Create New Account?
                 </Button>
             </Card>
-            <Image src={"/login-sidePage.png"} alt="login side page missing" width={500} height={500} />
+            <Image src={"/login-logo-page.svg"} alt="login side page missing" width={500} height={500} />
         </Box>
     )
 }
