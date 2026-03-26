@@ -19,6 +19,7 @@ import {
 } from "@mui/material"
 import { RoleEnum } from "@/enums/user.role"
 import { enqueueSnackbar } from "notistack"
+import Image from "next/image"
 
 export default function SignupForm() {
     const dispatch = useDispatch<AppDispatch>()
@@ -133,6 +134,7 @@ export default function SignupForm() {
                     </Button>
                 </form>
             </Card>
+            <Image src={"/login-sidePage.png"} alt="login side page missing" width={500} height={500} />
         </Box >
     )
 }

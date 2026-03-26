@@ -79,6 +79,7 @@ export default function LoginForm() {
                 <Button
                     variant="outlined"
                     className={styles.providerLoginBox}
+                    onClick={handleGoogleLogin}
                 >
                     {/* <MicroSoftIcon /> */}
                     <Image
@@ -95,6 +96,7 @@ export default function LoginForm() {
                 <Button
                     variant="outlined"
                     className={styles.providerLoginBox}
+                    onClick={handleGoogleLogin}
                 >
                     <Box>
                         {/* <GitHubIcon /> */}
@@ -158,6 +160,7 @@ export default function LoginForm() {
                     Create New Account?
                 </Button>
             </Card>
+            <Image src={"/login-sidePage.png"} alt="login side page missing" width={500} height={500} />
         </Box>
     )
 }
