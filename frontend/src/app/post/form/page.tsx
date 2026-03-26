@@ -9,6 +9,8 @@ import { Button, Card, TextField, Typography } from "@mui/material";
 import { enqueueSnackbar } from "notistack";
 import { useAppDispatch } from "@/redux/hooks.ts";
 
+const MAX_FILES = Number(process.env.NEXT_PUBLIC_BACKEND_IMG_LIMIT) || 5;
+
 export default function PostPage() {
     const dispatch = useAppDispatch();
     const [files, setFiles] = useState<File[]>([]);
@@ -25,6 +27,11 @@ export default function PostPage() {
     const onSubmit = async (data: PostFormValues) => {
         try {
             let images: any[] = [];
+
+            if (files.length > MAX_FILES) {
+                enqueueSnackbar(`You can only upload up to ${MAX_FILES} images`, { variant: "warning" });
+                return;
+            }
 
             if (files.length > 0) {
                 const uploaded = await dispatch(uploadPostImages(files)).unwrap();
