@@ -16,6 +16,8 @@ import WorkIcon from '@mui/icons-material/Work'
 import PostAddIcon from "@mui/icons-material/PostAdd"
 import ArticleIcon from "@mui/icons-material/Article"
 import HandshakeIcon from '@mui/icons-material/Handshake';
+import BusinessIcon from '@mui/icons-material/Business';
+import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import { signOut } from "firebase/auth"
 import { auth } from "@/lib/firebase"
 import { RoleEnum } from "@/enums/user.role"
@@ -81,9 +83,16 @@ export default function HeaderComp() {
             roles: [RoleEnum.USER]
         },
         {
-            label: "Company",
-            icon: <WorkIcon />,
-            route: "/company/represent",
+            label: "Company Info",
+            icon: <BusinessIcon />,
+            route: "/company/insight",
+            isLoginNeeded: true,
+            roles: [RoleEnum.COMPANY]
+        },
+        {
+            label: "Company Edit",
+            icon: <AddBusinessIcon />,
+            route: "/company/insight/form",
             isLoginNeeded: true,
             roles: [RoleEnum.COMPANY]
         },

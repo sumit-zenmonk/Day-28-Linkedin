@@ -1,38 +1,42 @@
+"use client";
+
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "@/redux/store";
 
 const API_URL = process.env.NEXT_PUBLIC_BACKEND_API_URL;
 
-export const getEducation = createAsyncThunk<
+export const getInsight = createAsyncThunk<
     any,
     void,
     { state: RootState }
->("education/get", async (_, { getState, rejectWithValue }) => {
+>("insight/get", async (_, { getState, rejectWithValue }) => {
     try {
         const token = getState().authReducer.token || "";
 
-        const res = await fetch(`${API_URL}/profile/education`, {
-            headers: { Authorization: token },
+        const res = await fetch(`${API_URL}/company/insight`, {
+            headers: {
+                Authorization: token,
+            },
         });
 
         const data = await res.json();
         if (!res.ok) throw new Error(data.message);
 
-        return data;
+        return data.company;
     } catch (err: any) {
         return rejectWithValue(err.message);
     }
 });
 
-export const createEducation = createAsyncThunk<
+export const createInsight = createAsyncThunk<
     any,
     any,
     { state: RootState }
->("education/create", async (payload, { getState, rejectWithValue }) => {
+>("insight/create", async (payload, { getState, rejectWithValue }) => {
     try {
         const token = getState().authReducer.token || "";
 
-        const res = await fetch(`${API_URL}/profile/education`, {
+        const res = await fetch(`${API_URL}/company/insight`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -44,21 +48,21 @@ export const createEducation = createAsyncThunk<
         const data = await res.json();
         if (!res.ok) throw new Error(data.message);
 
-        return data;
+        return data.company;
     } catch (err: any) {
         return rejectWithValue(err.message);
     }
 });
 
-export const updateEducation = createAsyncThunk<
+export const updateInsight = createAsyncThunk<
     any,
     any,
     { state: RootState }
->("education/update", async (payload, { getState, rejectWithValue }) => {
+>("insight/update", async (payload, { getState, rejectWithValue }) => {
     try {
         const token = getState().authReducer.token || "";
 
-        const res = await fetch(`${API_URL}/profile/education`, {
+        const res = await fetch(`${API_URL}/company/insight`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -70,30 +74,26 @@ export const updateEducation = createAsyncThunk<
         const data = await res.json();
         if (!res.ok) throw new Error(data.message);
 
-        return data.education;
+        return data.company;
     } catch (err: any) {
         return rejectWithValue(err.message);
     }
 });
 
-export const deleteEducation = createAsyncThunk<
-    string,
-    string,
+export const deleteInsight = createAsyncThunk<
+    void,
+    void,
     { state: RootState }
->("education/delete", async (uuid, { getState, rejectWithValue }) => {
+>("insight/delete", async (_, { getState, rejectWithValue }) => {
     try {
         const token = getState().authReducer.token || "";
 
-        await fetch(`${API_URL}/profile/education`, {
+        await fetch(`${API_URL}/company/insight`, {
             method: "DELETE",
             headers: {
-                "Content-Type": "application/json",
                 Authorization: token,
             },
-            body: JSON.stringify({ uuid }),
         });
-
-        return uuid;
     } catch (err: any) {
         return rejectWithValue(err.message);
     }

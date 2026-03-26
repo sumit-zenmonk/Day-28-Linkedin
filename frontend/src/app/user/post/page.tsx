@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getPosts, deletePost } from "@/redux/feature/Post/postAction";
+import { getPosts, deletePost } from "@/redux/feature/user/Post/postAction";
 import styles from "./post.module.css";
 import { Card, CardContent, Typography, Avatar, IconButton, CircularProgress, Box, } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";

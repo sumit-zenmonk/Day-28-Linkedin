@@ -6,7 +6,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import styles from "./connection.module.css";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks.ts";
 import { RootState } from "@/redux/store";
-import { getConnections, sendConnectionRequest } from "@/redux/feature/Connection/connectionAction";
+import { getConnections, sendConnectionRequest } from "@/redux/feature/user/Connection/connectionAction";
 import { enqueueSnackbar } from "notistack";
 
 const LIMIT = Number(process.env.NEXT_PUBLIC_PAGINATION_LIMIT) || 10;

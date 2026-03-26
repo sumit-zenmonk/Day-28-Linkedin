@@ -5,7 +5,7 @@ import { Box, Card, CardContent, Typography, CircularProgress, Button, Avatar, D
 import InfiniteScroll from "react-infinite-scroll-component";
 import styles from "./request.module.css";
 import { RootState } from "@/redux/store";
-import { getConnectionRequests, getReceivedConnectionRequests, deleteConnectionRequest, makeConnection, } from "@/redux/feature/Connection/connectionAction";
+import { getConnectionRequests, getReceivedConnectionRequests, deleteConnectionRequest, makeConnection, } from "@/redux/feature/user/Connection/connectionAction";
 import { enqueueSnackbar } from "notistack";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks.ts";
 

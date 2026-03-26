@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect } from "react";
-import { getProfile } from "@/redux/feature/Profile/profileAction";
-import { getEducation, deleteEducation, } from "@/redux/feature/Education/educationAction";
+import { getProfile } from "@/redux/feature/user/Profile/profileAction";
+import { getEducation, deleteEducation, } from "@/redux/feature/user/Education/educationAction";
 import styles from "./profile.module.css";
 import { Box, Card, Typography, Button } from "@mui/material";
 import { RootState } from "@/redux/store";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks.ts";
-import { deleteEmployment, getEmployment } from "@/redux/feature/Employment/employmentAction";
+import { deleteEmployment, getEmployment } from "@/redux/feature/user/Employment/employmentAction";
 import { enqueueSnackbar } from "notistack";
 
 export default function ProfileView() {

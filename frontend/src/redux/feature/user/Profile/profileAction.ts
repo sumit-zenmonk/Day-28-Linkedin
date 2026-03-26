@@ -15,7 +15,7 @@ export const getProfile = createAsyncThunk<
         try {
             const token = getState().authReducer.token || "";
 
-            const res = await fetch(`${API_URL}/profile`, {
+            const res = await fetch(`${API_URL}/user/profile`, {
                 headers: {
                     Authorization: token,
                 },
@@ -41,7 +41,7 @@ export const createProfile = createAsyncThunk<
         try {
             const token = getState().authReducer.token || "";
 
-            const res = await fetch(`${API_URL}/profile`, {
+            const res = await fetch(`${API_URL}/user/profile`, {
                 method: "POST",
                 headers: {
                     Authorization: token,
@@ -68,7 +68,7 @@ export const updateProfile = createAsyncThunk<
         try {
             const token = getState().authReducer.token || "";
 
-            const res = await fetch(`${API_URL}/profile`, {
+            const res = await fetch(`${API_URL}/user/profile`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -97,7 +97,7 @@ export const deleteProfile = createAsyncThunk<
         try {
             const token = getState().authReducer.token || "";
 
-            await fetch(`${API_URL}/profile`, {
+            await fetch(`${API_URL}/user/profile`, {
                 method: "DELETE",
                 headers: {
                     Authorization: token,
@@ -152,7 +152,7 @@ export const updateProfileImage = createAsyncThunk<
         try {
             const token = getState().authReducer.token || "";
 
-            const res = await fetch(`${API_URL}/profile/img`, {
+            const res = await fetch(`${API_URL}/user/profile/img`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",

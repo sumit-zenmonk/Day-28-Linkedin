@@ -17,10 +17,10 @@ import { RoleEnum } from "@/enums/user.role";
 import { useEffect } from "react";
 import { useAppDispatch } from "@/redux/hooks.ts";
 import { enqueueSnackbar } from "notistack";
-import { getProfile } from "@/redux/feature/Profile/profileAction";
-import { getEducation } from "@/redux/feature/Education/educationAction";
-import { getEmployment } from "@/redux/feature/Employment/employmentAction";
-import { getConnectionRequests, getConnections, getNetworkConnections, getReceivedConnectionRequests } from "@/redux/feature/Connection/connectionAction";
+import { getProfile } from "@/redux/feature/user/Profile/profileAction";
+import { getEducation } from "@/redux/feature/user/Education/educationAction";
+import { getEmployment } from "@/redux/feature/user/Employment/employmentAction";
+import { getConnectionRequests, getConnections, getNetworkConnections, getReceivedConnectionRequests } from "@/redux/feature/user/Connection/connectionAction";
 
 export default function Home() {
   const { user, loading } = useSelector((state: RootState) => state.authReducer)

@@ -12,7 +12,7 @@ export const getEmployment = createAsyncThunk<
     try {
         const token = getState().authReducer.token || "";
 
-        const res = await fetch(`${API_URL}/profile/employment`, {
+        const res = await fetch(`${API_URL}/user/profile/employment`, {
             headers: { Authorization: token },
         });
 
@@ -34,7 +34,7 @@ export const createEmployment = createAsyncThunk<
     try {
         const token = getState().authReducer.token || "";
 
-        const res = await fetch(`${API_URL}/profile/employment`, {
+        const res = await fetch(`${API_URL}/user/profile/employment`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -61,7 +61,7 @@ export const updateEmployment = createAsyncThunk<
     try {
         const token = getState().authReducer.token || "";
 
-        const res = await fetch(`${API_URL}/profile/employment`, {
+        const res = await fetch(`${API_URL}/user/profile/employment`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -88,7 +88,7 @@ export const deleteEmployment = createAsyncThunk<
     try {
         const token = getState().authReducer.token || "";
 
-        await fetch(`${API_URL}/profile/employment`, {
+        await fetch(`${API_URL}/user/profile/employment`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",

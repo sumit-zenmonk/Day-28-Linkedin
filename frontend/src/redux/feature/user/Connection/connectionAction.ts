@@ -17,7 +17,7 @@ export const getConnections = createAsyncThunk<
             const token = getState().authReducer.token || "";
 
             const res = await fetch(
-                `${API_URL}/connection/global?limit=${limit}&page=${page}`,
+                `${API_URL}/user/connection/global?limit=${limit}&page=${page}`,
                 {
                     headers: {
                         Authorization: token,
@@ -48,7 +48,7 @@ export const sendConnectionRequest = createAsyncThunk<
         try {
             const token = getState().authReducer.token || "";
 
-            const res = await fetch(`${API_URL}/connection/request`, {
+            const res = await fetch(`${API_URL}/user/connection/request`, {
                 method: "POST",
                 headers: {
                     Authorization: token,
@@ -79,7 +79,7 @@ export const getConnectionRequests = createAsyncThunk<
             const token = getState().authReducer.token || "";
 
             const res = await fetch(
-                `${API_URL}/connection/request?limit=${limit}&page=${page}`,
+                `${API_URL}/user/connection/request?limit=${limit}&page=${page}`,
                 {
                     headers: { Authorization: token },
                 }
@@ -108,7 +108,7 @@ export const deleteConnectionRequest = createAsyncThunk<
         try {
             const token = getState().authReducer.token || "";
 
-            const res = await fetch(`${API_URL}/connection/request`, {
+            const res = await fetch(`${API_URL}/user/connection/request`, {
                 method: "DELETE",
                 headers: {
                     Authorization: token,
@@ -138,7 +138,7 @@ export const getReceivedConnectionRequests = createAsyncThunk<
             const token = getState().authReducer.token || "";
 
             const res = await fetch(
-                `${API_URL}/connection/request/invite?limit=${limit}&page=${page}`,
+                `${API_URL}/user/connection/request/invite?limit=${limit}&page=${page}`,
                 {
                     headers: { Authorization: token },
                 }
@@ -167,7 +167,7 @@ export const makeConnection = createAsyncThunk<
         try {
             const token = getState().authReducer.token || "";
 
-            const res = await fetch(`${API_URL}/connection`, {
+            const res = await fetch(`${API_URL}/user/connection`, {
                 method: "POST",
                 headers: {
                     Authorization: token,
@@ -198,7 +198,7 @@ export const getNetworkConnections = createAsyncThunk<
             const token = getState().authReducer.token || "";
 
             const res = await fetch(
-                `${API_URL}/connection?limit=${limit}&page=${page}`,
+                `${API_URL}/user/connection?limit=${limit}&page=${page}`,
                 {
                     headers: {
                         Authorization: token,
@@ -230,7 +230,7 @@ export const getConnectionPosts = createAsyncThunk<
             const token = getState().authReducer.token || "";
 
             const res = await fetch(
-                `${API_URL}/connection/post?limit=${limit}&page=${page}`,
+                `${API_URL}/user/connection/post?limit=${limit}&page=${page}`,
                 {
                     headers: { Authorization: token },
                 }

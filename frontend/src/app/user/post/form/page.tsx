@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { postSchema, PostFormValues } from "@/schemas/post.schema";
-import { createPost, uploadPostImages } from "@/redux/feature/Post/postAction";
+import { createPost, uploadPostImages } from "@/redux/feature/user/Post/postAction";
 import { Button, Card, TextField, Typography } from "@mui/material";
 import { enqueueSnackbar } from "notistack";
 import { useAppDispatch } from "@/redux/hooks.ts";

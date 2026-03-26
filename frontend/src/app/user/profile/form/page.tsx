@@ -1,8 +1,8 @@
 "use client";
 
 import styles from "./profile.module.css";
-import { updateProfile, uploadImage, updateProfileImage, createProfile, getProfile, } from "@/redux/feature/Profile/profileAction";
-import { createEducation, getEducation, } from "@/redux/feature/Education/educationAction";
+import { updateProfile, uploadImage, updateProfileImage, createProfile, getProfile, } from "@/redux/feature/user/Profile/profileAction";
+import { createEducation, getEducation, } from "@/redux/feature/user/Education/educationAction";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, Card, TextField, Typography } from "@mui/material";
@@ -10,7 +10,7 @@ import { RootState } from "@/redux/store";
 import { profileSchema, ProfileFormValues, educationSchema, EducationFormValues, employmentSchema, EmploymentFormValues, } from "@/schemas/profile.schema";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks.ts";
-import { createEmployment, getEmployment } from "@/redux/feature/Employment/employmentAction";
+import { createEmployment, getEmployment } from "@/redux/feature/user/Employment/employmentAction";
 import { enqueueSnackbar } from "notistack";
 
 

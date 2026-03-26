@@ -9,7 +9,7 @@ export class CompanyMigration1773912000008 implements MigrationInterface {
                 name: "company",
                 columns: [
                     { name: "uuid", type: "uuid", isPrimary: true, isGenerated: true, generationStrategy: "uuid", default: "uuid_generate_v4()", },
-                    { name: "user_uuid", type: "uuid", isNullable: false, isUnique: true, },
+                    { name: "user_uuid", type: "uuid", isNullable: false },
                     { name: "name", type: "varchar", isNullable: false, },
                     { name: "email", type: "varchar", isNullable: false, },
                     { name: "mobile_number", type: "varchar", isNullable: false, },

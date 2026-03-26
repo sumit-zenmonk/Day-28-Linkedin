@@ -5,7 +5,7 @@ import { Box, Card, CardContent, Typography, CircularProgress, Avatar, } from "@
 import InfiniteScroll from "react-infinite-scroll-component";
 import styles from "./network.module.css";
 import { RootState } from "@/redux/store";
-import { getNetworkConnections } from "@/redux/feature/Connection/connectionAction";
+import { getNetworkConnections } from "@/redux/feature/user/Connection/connectionAction";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks.ts";
 
 const LIMIT = Number(process.env.NEXT_PUBLIC_PAGINATION_LIMIT) || 10;

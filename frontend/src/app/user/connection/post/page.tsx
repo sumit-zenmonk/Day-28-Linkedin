@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getConnectionPosts } from "@/redux/feature/Connection/connectionAction";
+import { getConnectionPosts } from "@/redux/feature/user/Connection/connectionAction";
 import styles from "./post.module.css";
 import {
     Card,

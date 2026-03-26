@@ -4,11 +4,12 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import authReducer from "../feature/Auth/authSlice";
-import profileReducer from "../feature/Profile/profileSlice";
-import educationReducer from "../feature/Education/educationSlice";
-import employmentReducer from "../feature/Employment/employmentSlice";
-import connectionReducer from "../feature/Connection/connectionSlice";
-import postReducer from "../feature/Post/postSlice";
+import profileReducer from "../feature/user/Profile/profileSlice";
+import educationReducer from "../feature/user/Education/educationSlice";
+import employmentReducer from "../feature/user/Employment/employmentSlice";
+import connectionReducer from "../feature/user/Connection/connectionSlice";
+import postReducer from "../feature/user/Post/postSlice";
+import insightReducer from "../feature/company/insight/insightSlice";
 
 const persistConfig = {
     key: "root",
@@ -21,7 +22,8 @@ const appReducer = combineReducers({
     educationReducer: educationReducer,
     employmentReducer: employmentReducer,
     connectionReducer: connectionReducer,
-    postReducer: postReducer
+    postReducer: postReducer,
+    insightReducer: insightReducer,
 });
 
 const rootReducer = (state: any, action: any) => {

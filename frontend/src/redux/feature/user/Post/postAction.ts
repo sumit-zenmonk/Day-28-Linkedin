@@ -17,7 +17,7 @@ export const getPosts = createAsyncThunk<
             const token = getState().authReducer.token;
 
             const res = await fetch(
-                `${API_URL}/post?page=${page}&limit=${limit}`,
+                `${API_URL}/user/post?page=${page}&limit=${limit}`,
                 {
                     headers: { Authorization: token || "" },
                 }
@@ -42,7 +42,7 @@ export const createPost = createAsyncThunk(
         try {
             const token = (getState() as RootState).authReducer.token;
 
-            const res = await fetch(`${API_URL}/post`, {
+            const res = await fetch(`${API_URL}/user/post`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -67,7 +67,7 @@ export const deletePost = createAsyncThunk(
         try {
             const token = (getState() as RootState).authReducer.token;
 
-            await fetch(`${API_URL}/post/${uuid}`, {
+            await fetch(`${API_URL}/user/post/${uuid}`, {
                 method: "DELETE",
                 headers: { Authorization: token || "" },
             });

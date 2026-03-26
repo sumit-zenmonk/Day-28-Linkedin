@@ -12,6 +12,7 @@ import { AuthModule } from './features/Auth/auth.module';
 import { AuthHelperService } from './infrastructure/services/auth.service';
 import UploadModule from './features/upload/upload.module';
 import { UserModule } from './features/user/user.module';
+import { CompanyModule } from './features/company/company.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { UserModule } from './features/user/user.module';
     AuthModule,
     UploadModule,
     UserModule,
+    CompanyModule
   ],
   controllers: [AppController],
   providers: [AppService, BcryptService, UserRepository, AuthHelperService],
