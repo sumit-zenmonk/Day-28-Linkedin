@@ -15,6 +15,7 @@ import SchoolIcon from '@mui/icons-material/School'
 import WorkIcon from '@mui/icons-material/Work'
 import PostAddIcon from "@mui/icons-material/PostAdd"
 import ArticleIcon from "@mui/icons-material/Article"
+import HandshakeIcon from '@mui/icons-material/Handshake';
 import { signOut } from "firebase/auth"
 import { auth } from "@/lib/firebase"
 
@@ -26,16 +27,24 @@ export default function HeaderComp() {
     const { profile } = useSelector((state: RootState) => state.profileReducer)
 
     const tabsConfig = [
-        { label: "Profile", icon: <Avatar sx={{ width: 20, height: 20 }} src={profile?.profile_img?.image_url || ""} />, route: "/profile" },
-        { label: "Update", icon: <SchoolIcon />, route: "/profile/form" },
+        {
+            label: "Profile",
+            icon: <Avatar sx={{ width: 20, height: 20 }} src={profile?.profile_img?.image_url || ""} />,
+            route: "/profile",
+            isLoginNeeded: true
+        },
+        { label: "Update", icon: <SchoolIcon />, route: "/profile/form", isLoginNeeded: true },
         { label: "Global", icon: <RocketLaunchIcon />, route: "/connection/global" },
-        { label: "Request", icon: <Diversity3Icon />, route: "/connection/request" },
+        { label: "Request", icon: <HandshakeIcon />, route: "/connection/request" },
         { label: "Network", icon: <Diversity3Icon />, route: "/connection/network" },
         { label: "Connections Posts", icon: <WorkIcon />, route: "/connection/post" },
-        { label: "My Posts", icon: <ArticleIcon />, route: "/post" },
-        { label: "Create Post", icon: <PostAddIcon />, route: "/post/form" },
-    ]
-    const routes = tabsConfig.map(tab => tab.route)
+        { label: "My Posts", icon: <ArticleIcon />, route: "/post", isLoginNeeded: true },
+        { label: "Create Post", icon: <PostAddIcon />, route: "/post/form", isLoginNeeded: true },
+    ];
+    const visibleTabs = tabsConfig.filter(
+        (tab) => !tab.isLoginNeeded || user
+    )
+    const routes = visibleTabs.map(tab => tab.route)
     const [tabValue, setTabValue] = useState<number | false>(false)
 
     useEffect(() => {
@@ -85,7 +94,7 @@ export default function HeaderComp() {
                         variant="scrollable"
                         scrollButtons="auto"
                     >
-                        {tabsConfig.map((tab, index) => (
+                        {visibleTabs.map((tab, index) => (
                             <Tab
                                 key={tab.route}
                                 icon={tab.icon}

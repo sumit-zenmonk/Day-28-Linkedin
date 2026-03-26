@@ -30,6 +30,7 @@
     width: 80%;
     display: flex;
     border-right: 1px solid #ddd;
+    justify-content: flex-end;
 }
 
 .categoryBoxes {
