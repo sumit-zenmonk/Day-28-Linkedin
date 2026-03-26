@@ -29,13 +29,15 @@ export default function Home() {
 
   useEffect(() => {
     try {
-      dispatch(getProfile()).unwrap();
-      dispatch(getEducation()).unwrap();
-      dispatch(getEmployment()).unwrap();
-      // dispatch(getConnections({})).unwrap();
-      dispatch(getNetworkConnections({}));
-      dispatch(getReceivedConnectionRequests({}));
-      dispatch(getConnectionRequests({}));
+      if (user?.role == RoleEnum.USER) {
+        dispatch(getProfile()).unwrap();
+        dispatch(getEducation()).unwrap();
+        dispatch(getEmployment()).unwrap();
+        // dispatch(getConnections({})).unwrap();
+        dispatch(getNetworkConnections({}));
+        dispatch(getReceivedConnectionRequests({}));
+        dispatch(getConnectionRequests({}));
+      }
     } catch (error) {
       enqueueSnackbar(String(error || "Something wrong"), { variant: "error" });
       console.error(error)
