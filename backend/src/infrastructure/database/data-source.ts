@@ -11,6 +11,10 @@ import { ImageEntity } from "src/domain/entities/images.entity";
 import { ConnectionEntity } from "src/domain/entities/user.connection.entity";
 import { PostEntity } from "src/domain/entities/posts.entity";
 import { ConnectionRequestEntity } from "src/domain/entities/user.connection.request.entity";
+import { CompanyEntity } from "src/domain/entities/company.entity";
+import { ApplicationEntity } from "src/domain/entities/applications.entity";
+import { EmployeeEntity } from "src/domain/entities/employee.entity";
+import { JobEntity } from "src/domain/entities/job.entity";
 
 const options: DataSourceOptions = {
     type: process.env.DB_POSTGRES_TYPE as any,
@@ -19,7 +23,7 @@ const options: DataSourceOptions = {
     username: process.env.DB_POSTGRES_USERNAME,
     password: process.env.DB_POSTGRES_PASSWORD,
     database: process.env.DB_POSTGRES_DATABASE,
-    entities: [UserEntity, ProfileEntity, EducationHistoryEntity, EmploymentHistoryEntity, PostEntity, ImageEntity, ConnectionEntity, ConnectionRequestEntity],
+    entities: [UserEntity, ProfileEntity, EducationHistoryEntity, EmploymentHistoryEntity, PostEntity, ImageEntity, ConnectionEntity, ConnectionRequestEntity, CompanyEntity, ApplicationEntity, EmployeeEntity, JobEntity],
     synchronize: false,
     migrations: ['dist/infrastructure/database/migrations/*{.ts,.js}'],
 };

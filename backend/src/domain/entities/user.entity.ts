@@ -6,6 +6,7 @@ import { EducationHistoryEntity } from "./user.education.history.entity";
 import { PostEntity } from "./posts.entity";
 import { ImageEntity } from "./images.entity";
 import { ConnectionEntity } from "./user.connection.entity";
+import { CompanyEntity } from "./company.entity";
 
 @Entity('users')
 export class UserEntity {
@@ -45,6 +46,9 @@ export class UserEntity {
 
     @OneToMany(() => ConnectionEntity, conn => conn.connected_user)
     connected_to: ConnectionEntity[];
+
+    @OneToOne(() => CompanyEntity, company => company.user)
+    company: CompanyEntity;
 
     @CreateDateColumn()
     created_at: Date;
