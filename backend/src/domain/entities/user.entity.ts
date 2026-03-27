@@ -7,6 +7,7 @@ import { PostEntity } from "./posts.entity";
 import { ImageEntity } from "./images.entity";
 import { ConnectionEntity } from "./user.connection.entity";
 import { CompanyEntity } from "./company.entity";
+import { PostInteractionEntity } from "./post.interaction.entity";
 
 @Entity('users')
 export class UserEntity {
@@ -49,6 +50,9 @@ export class UserEntity {
 
     @OneToOne(() => CompanyEntity, company => company.user)
     company: CompanyEntity;
+
+    @OneToMany(() => PostInteractionEntity, post => post.user)
+    liked_posts: PostInteractionEntity[]
 
     @CreateDateColumn()
     created_at: Date;

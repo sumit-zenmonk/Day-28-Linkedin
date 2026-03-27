@@ -95,6 +95,7 @@ export interface ConnectionPost {
         profile: Profile | null;
     };
     created_at: string;
+    liked_by: any;
 }
 
 export interface ConnectionState {

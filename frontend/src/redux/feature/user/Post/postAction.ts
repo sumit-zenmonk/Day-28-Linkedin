@@ -107,3 +107,37 @@ export const uploadPostImages = createAsyncThunk(
         }
     }
 );
+
+export const interactWithPost = createAsyncThunk<
+    any,
+    string,
+    { state: RootState }
+>(
+    "post/interact",
+    async (postUuid, { getState, rejectWithValue }) => {
+        try {
+            const token = getState().authReducer.token;
+
+            const res = await fetch(`${API_URL}/user/post/interaction`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: token || "",
+                },
+                body: JSON.stringify({
+                    post_uuid: postUuid,
+                }),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.message || "Failed to interact with post");
+            }
+
+            return data.message;
+        } catch (err: any) {
+            return rejectWithValue(err.message);
+        }
+    }
+);

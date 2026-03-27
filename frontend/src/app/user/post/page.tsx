@@ -1,19 +1,21 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getPosts, deletePost } from "@/redux/feature/user/Post/postAction";
+import { getPosts, deletePost, interactWithPost } from "@/redux/feature/user/Post/postAction";
 import styles from "./post.module.css";
-import { Card, CardContent, Typography, Avatar, IconButton, CircularProgress, Box, } from "@mui/material";
+import { Card, CardContent, Typography, Avatar, IconButton, CircularProgress, Box, Button, } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks.ts";
 import { RootState } from "@/redux/store";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { enqueueSnackbar } from "notistack";
 
 const LIMIT = Number(process.env.NEXT_PUBLIC_PAGINATION_LIMIT) || 10;
 
 export default function PostList() {
     const dispatch = useAppDispatch();
     const { posts, loading, totalDocuments } = useAppSelector((state: RootState) => state.postReducer);
+    const user = useAppSelector((state: RootState) => state.authReducer.user);
     const [page, setPage] = useState(1);
 
     useEffect(() => {
@@ -31,6 +33,18 @@ export default function PostList() {
     if (!loading && posts?.length === 0) {
         return <Box className={styles.loader}>No Post found</Box>;
     }
+
+    const handlePostInteract = async (post_uuid: string) => {
+        try {
+            const result = await dispatch(interactWithPost(post_uuid)).unwrap();
+            await dispatch(getPosts({ page, limit: LIMIT })).unwrap();
+            enqueueSnackbar(result, { variant: "success" })
+        }
+        catch (err) {
+            console.error(err);
+        }
+    }
+    const isAlreadyLiked = (liked_byArray: any) => { return liked_byArray.some((his: any) => his.user_uuid === user?.uid); };
 
     return (
         <Box className={styles.container} id="scrollableDiv">
@@ -95,6 +109,10 @@ export default function PostList() {
                                         ))}
                                     </Box>
                                 )}
+
+                                <Button className={styles.content} onClick={() => handlePostInteract(post.uuid)} sx={{ color: isAlreadyLiked(post.liked_by) ? 'blue' : 'gray' }}>
+                                    {post.liked_by.length} Liked
+                                </Button>
                             </CardContent>
                         </Card>
                     ))}

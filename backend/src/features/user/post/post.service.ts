@@ -4,12 +4,15 @@ import { CreatePostDto } from "./dto/create.post.dto";
 import { UserEntity } from "src/domain/entities/user.entity";
 import { ImageRepository } from "src/infrastructure/repository/image.repo";
 import { ImageTypeEnum } from "src/domain/enums/img.";
+import { ChangePostInteractionDto } from "./dto/change.post.interaction.dto";
+import { PostInteractionRepository } from "src/infrastructure/repository/post.interaction.repo";
 
 @Injectable()
 export class PostService {
     constructor(
         private readonly postRepo: PostRepository,
         private readonly imageRepo: ImageRepository,
+        private readonly postInteractionRepo: PostInteractionRepository,
     ) { }
 
     async CreateUserPost(user: UserEntity, body: CreatePostDto) {
@@ -77,6 +80,19 @@ export class PostService {
             offset,
             totalPages: Math.ceil(total / take),
             message: "Request fetched Success"
+        }
+    }
+
+    async changePostInteraction(user: UserEntity, body: ChangePostInteractionDto) {
+        const isExists = await this.postInteractionRepo.findByUserUuidAndPostUuid(user.uuid, body.post_uuid);
+        if (isExists) {
+            await this.postInteractionRepo.deletePostInteraction(isExists.uuid);
+        } else {
+            await this.postInteractionRepo.createPostInteraction({ user_uuid: user.uuid, post_uuid: body.post_uuid });
+        }
+
+        return {
+            message: `Post ${isExists ? "UnLiked" : "Liked"}`
         }
     }
 }

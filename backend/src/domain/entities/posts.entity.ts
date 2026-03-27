@@ -1,6 +1,7 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { UserEntity } from "./user.entity";
 import { ImageEntity } from "./images.entity";
+import { PostInteractionEntity } from "./post.interaction.entity";
 
 @Entity('posts')
 export class PostEntity {
@@ -19,6 +20,9 @@ export class PostEntity {
     @ManyToOne(() => UserEntity, user => user.posts)
     @JoinColumn({ name: 'user_uuid' })
     user: UserEntity;
+
+    @OneToMany(() => PostInteractionEntity, postInteract => postInteract.post, { eager: true })
+    liked_by: PostInteractionEntity;
 
     @CreateDateColumn()
     created_at: Date;

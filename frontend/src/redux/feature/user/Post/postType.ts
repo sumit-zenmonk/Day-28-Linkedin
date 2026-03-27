@@ -25,6 +25,7 @@ export interface Post {
     content: string;
     images: PostImage[];
     user: PostUser;
+    liked_by: any;
     created_at: string;
 }
 

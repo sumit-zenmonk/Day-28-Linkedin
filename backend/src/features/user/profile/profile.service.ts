@@ -10,7 +10,7 @@ import { EducationRepository } from "src/infrastructure/repository/education.rep
 import { CreateEducationDto } from "./dto/create.education.dto";
 import { UpdateEducationDto } from "./dto/update.education.dto";
 import { CreateEmploymentDto } from "./dto/create.employment.dto";
-import { UpdateEmploymentDto } from "src/domain/entities/update.employment.dto";
+import { UpdateEmploymentDto } from "src/features/user/profile/dto/update.employment.dto";
 import { EmploymentRepository } from "src/infrastructure/repository/employment.repo";
 
 @Injectable()

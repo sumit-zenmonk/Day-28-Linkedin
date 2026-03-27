@@ -7,7 +7,7 @@ import { CreateProfileImageDto } from "./dto/create.profile.image.dto";
 import { CreateEducationDto } from "./dto/create.education.dto";
 import { UpdateEducationDto } from "./dto/update.education.dto";
 import { CreateEmploymentDto } from "./dto/create.employment.dto";
-import { UpdateEmploymentDto } from "src/domain/entities/update.employment.dto";
+import { UpdateEmploymentDto } from "src/features/user/profile/dto/update.employment.dto";
 import { RolesGuard } from "src/infrastructure/guard/role/role.guard";
 import { RoleEnum } from "src/domain/enums/user";
 import { Roles } from "src/infrastructure/guard/role/role.decorator";

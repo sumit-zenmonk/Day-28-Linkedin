@@ -16,6 +16,7 @@ import { ApplicationEntity } from "src/domain/entities/applications.entity";
 import { EmployeeEntity } from "src/domain/entities/employee.entity";
 import { JobEntity } from "src/domain/entities/job.entity";
 import { JobTagEntity } from "src/domain/entities/job.tag.entity";
+import { PostInteractionEntity } from "src/domain/entities/post.interaction.entity";
 
 const options: DataSourceOptions = {
     type: process.env.DB_POSTGRES_TYPE as any,
@@ -24,7 +25,13 @@ const options: DataSourceOptions = {
     username: process.env.DB_POSTGRES_USERNAME,
     password: process.env.DB_POSTGRES_PASSWORD,
     database: process.env.DB_POSTGRES_DATABASE,
-    entities: [UserEntity, ProfileEntity, EducationHistoryEntity, EmploymentHistoryEntity, PostEntity, ImageEntity, ConnectionEntity, ConnectionRequestEntity, CompanyEntity, ApplicationEntity, EmployeeEntity, JobEntity, JobTagEntity],
+    entities: [
+        UserEntity, ProfileEntity, EducationHistoryEntity,
+        EmploymentHistoryEntity, PostEntity, ImageEntity,
+        ConnectionEntity, ConnectionRequestEntity, CompanyEntity,
+        ApplicationEntity, EmployeeEntity, JobEntity,
+        JobTagEntity, PostInteractionEntity
+    ],
     synchronize: false,
     migrations: ['dist/infrastructure/database/migrations/*{.ts,.js}'],
 };
