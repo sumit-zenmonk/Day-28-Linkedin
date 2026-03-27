@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { ImageTypeEnum } from "../enums/img.type";
+import { ImageTypeEnum } from "../enums/img.";
 import { UserEntity } from "./user.entity";
 import { PostEntity } from "./posts.entity";
 import { ProfileEntity } from "./user.profile.entity";

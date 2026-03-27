@@ -1,5 +1,5 @@
 import { IsString, IsEmail, IsNotEmpty, MinLength, IsEnum, IsUUID } from 'class-validator';
-import { ConnectionStatusEnum } from 'src/domain/enums/connection.status';
+import { ConnectionStatusEnum } from 'src/domain/enums/connection';
 
 export class ConnectionCreateDto {
     @IsUUID()

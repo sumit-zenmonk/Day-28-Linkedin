@@ -3,12 +3,14 @@ import { ProfileModule } from "./profile/profile.module";
 import { ConnectionModule } from "./connection/connection.module";
 import { PostModule } from "./post/post.module";
 import { RouterModule } from "@nestjs/core";
+import { JobModule } from "./job/job.module";
 
 @Module({
     imports: [
         ProfileModule,
         ConnectionModule,
         PostModule,
+        JobModule,
         RouterModule.register([
             {
                 path: 'user',
@@ -16,6 +18,7 @@ import { RouterModule } from "@nestjs/core";
                     { path: '/', module: ProfileModule },
                     { path: '/', module: ConnectionModule },
                     { path: '/', module: PostModule },
+                    { path: '/', module: JobModule },
                 ],
             },
         ]),

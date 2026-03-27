@@ -96,6 +96,27 @@ export default function HeaderComp() {
             isLoginNeeded: true,
             roles: [RoleEnum.COMPANY]
         },
+        {
+            label: "job",
+            icon: <WorkIcon />,
+            route: "/company/job/",
+            isLoginNeeded: true,
+            roles: [RoleEnum.COMPANY]
+        },
+        {
+            label: "Find job",
+            icon: <WorkIcon />,
+            route: "/user/job/global",
+            isLoginNeeded: true,
+            roles: [RoleEnum.USER]
+        },
+        {
+            label: "Applied job",
+            icon: <WorkIcon />,
+            route: "/user/job",
+            isLoginNeeded: true,
+            roles: [RoleEnum.USER]
+        },
     ];
 
     const visibleTabs = tabsConfig.filter(

@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { DataSource, Repository } from "typeorm";
-import { ImageTypeEnum } from "src/domain/enums/img.type";
+import { ImageTypeEnum } from "src/domain/enums/img.";
 import { ImageEntity } from "src/domain/entities/images.entity";
 
 @Injectable()

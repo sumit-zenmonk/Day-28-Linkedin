@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { PostEntity } from "src/domain/entities/posts.entity";
 import { ConnectionEntity } from "src/domain/entities/user.connection.entity";
-import { ConnectionStatusEnum } from "src/domain/enums/connection.status";
+import { ConnectionStatusEnum } from "src/domain/enums/connection";
 import { DataSource, In, Repository } from "typeorm";
 
 @Injectable()

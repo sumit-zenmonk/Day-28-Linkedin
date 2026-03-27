@@ -3,7 +3,7 @@ import { PostRepository } from "src/infrastructure/repository/post.repo";
 import { CreatePostDto } from "./dto/create.post.dto";
 import { UserEntity } from "src/domain/entities/user.entity";
 import { ImageRepository } from "src/infrastructure/repository/image.repo";
-import { ImageTypeEnum } from "src/domain/enums/img.type";
+import { ImageTypeEnum } from "src/domain/enums/img.";
 
 @Injectable()
 export class PostService {

@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { ConnectionStatusEnum } from "../enums/connection.status";
+import { ConnectionStatusEnum } from "../enums/connection";
 import { UserEntity } from "./user.entity";
 
 @Entity('connections')
