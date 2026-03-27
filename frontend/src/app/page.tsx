@@ -23,6 +23,7 @@ import { getEmployment } from "@/redux/feature/user/Employment/employmentAction"
 import { getConnectionRequests, getConnections, getNetworkConnections, getReceivedConnectionRequests } from "@/redux/feature/user/Connection/connectionAction";
 import { getInsight } from "@/redux/feature/company/insight/insightAction";
 import { getAppliedJobs } from "@/redux/feature/user/job/jobAction";
+import { getCompanyEmployees } from "@/redux/feature/company/employee/employeeAction";
 
 export default function Home() {
   const { user, loading } = useSelector((state: RootState) => state.authReducer)
@@ -41,6 +42,7 @@ export default function Home() {
         dispatch(getConnectionRequests({}));
       } else if (user?.role == RoleEnum.COMPANY) {
         dispatch(getInsight()).unwrap();
+        dispatch(getCompanyEmployees({}));
       }
     } catch (error) {
       enqueueSnackbar(String(error || "Something wrong"), { variant: "error" });

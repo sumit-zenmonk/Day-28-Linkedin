@@ -14,7 +14,7 @@ const LIMIT = Number(process.env.NEXT_PUBLIC_PAGINATION_LIMIT) || 10;
 
 export default function GlobalJobPage() {
     const dispatch = useAppDispatch();
-    const { jobs, applications, totalDocuments, loading } = useAppSelector((state: RootState) => state.UserJobReducer);
+    const { jobs, applications, totalJobDocuments, loading } = useAppSelector((state: RootState) => state.UserJobReducer);
     const [page, setPage] = useState(1);
 
     const isAlreadyApplied = (job_uuid: string) => {
@@ -22,7 +22,7 @@ export default function GlobalJobPage() {
     };
 
     useEffect(() => {
-        if (!jobs.length || jobs.length < totalDocuments) {
+        if (!jobs.length || jobs.length < totalJobDocuments) {
             dispatch(getJobs({ limit: LIMIT, page }));
         }
     }, [dispatch, page]);
@@ -30,7 +30,7 @@ export default function GlobalJobPage() {
     const fetchMoreData = () => {
         if (loading) return;
 
-        if (jobs.length < totalDocuments) {
+        if (jobs.length < totalJobDocuments) {
             setPage((prev) => prev + 1);
         }
     };
@@ -60,7 +60,7 @@ export default function GlobalJobPage() {
                 <InfiniteScroll
                     dataLength={jobs.length}
                     next={fetchMoreData}
-                    hasMore={jobs.length < totalDocuments}
+                    hasMore={jobs.length < totalJobDocuments}
                     loader={
                         <Box className={styles.loader}>
                             <CircularProgress />

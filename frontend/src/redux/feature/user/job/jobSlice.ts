@@ -10,7 +10,8 @@ import { JobState } from "./jobType";
 const initialState: JobState = {
     jobs: [],
     applications: [],
-    totalDocuments: 0,
+    totalJobDocuments: 0,
+    totalApplicationDocuments: 0,
     loading: false,
     error: null,
 };
@@ -23,14 +24,14 @@ const jobSlice = createSlice({
         builder
             .addCase(getJobs.fulfilled, (state, action) => {
                 state.jobs = action.payload.jobs;
-                state.totalDocuments = action.payload.totalDocuments;
+                state.totalJobDocuments = action.payload.totalDocuments;
             })
             .addCase(applyJob.fulfilled, (state, action) => {
                 state.applications.push(action.payload);
             })
             .addCase(getAppliedJobs.fulfilled, (state, action) => {
                 state.applications = action.payload.jobs;
-                state.totalDocuments = action.payload.totalDocuments;
+                state.totalApplicationDocuments = action.payload.totalDocuments;
             })
             .addCase(deleteApplication.fulfilled, (state, action) => {
                 state.applications = state.applications.filter(

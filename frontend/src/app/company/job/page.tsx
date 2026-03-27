@@ -10,6 +10,7 @@ import { RootState } from "@/redux/store";
 import { jobSchema, JobFormValues, } from "@/schemas/job.schema";
 import { createJob, getJobs, deleteJob, } from "@/redux/feature/company/job/jobAction";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks.ts";
+import { getInsight } from "@/redux/feature/company/insight/insightAction";
 
 export default function JobPage() {
     const dispatch = useAppDispatch();
@@ -40,6 +41,7 @@ export default function JobPage() {
     const onSubmit = async (data: JobFormValues) => {
         try {
             await dispatch(createJob(data)).unwrap();
+            await dispatch(getInsight()).unwrap();
             enqueueSnackbar("Job created", { variant: "success" });
             reset();
         } catch (err) {
@@ -50,6 +52,7 @@ export default function JobPage() {
     const handleDelete = async (uuid: string) => {
         try {
             await dispatch(deleteJob(uuid)).unwrap();
+            await dispatch(getInsight()).unwrap();
             enqueueSnackbar("Job deleted", { variant: "success" });
         } catch (err) {
             enqueueSnackbar(String(err), { variant: "error" });

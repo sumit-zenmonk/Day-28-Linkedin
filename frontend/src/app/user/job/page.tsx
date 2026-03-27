@@ -20,15 +20,15 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks.ts";
 
 export default function JobPage() {
     const dispatch = useAppDispatch();
-    const { applications, totalDocuments, loading } = useAppSelector(
+    const { applications, totalApplicationDocuments, loading } = useAppSelector(
         (state: RootState) => state.UserJobReducer
     );
 
-    useEffect(() => {
-        if (!applications.length || applications.length < totalDocuments) {
+    useEffect(() => { 
+        if (!applications.length || applications.length < totalApplicationDocuments) {
             dispatch(getAppliedJobs());
         }
-    }, [dispatch, applications.length, totalDocuments]);
+    }, [dispatch, applications.length, totalApplicationDocuments]);
 
     const handleDelete = (uuid: string) => {
         dispatch(deleteApplication(uuid));
@@ -115,18 +115,21 @@ export default function JobPage() {
                                         />
                                     </Box>
                                 )}
-                                <Box mt={2}>
-                                    <Button
-                                        variant="outlined"
-                                        color="error"
-                                        size="small"
-                                        onClick={() =>
-                                            handleDelete(app.uuid)
-                                        }
-                                    >
-                                        Remove Application
-                                    </Button>
-                                </Box>
+
+                                {!app?.job?.deleted_at && (
+                                    <Box mt={2}>
+                                        <Button
+                                            variant="outlined"
+                                            color="error"
+                                            size="small"
+                                            onClick={() =>
+                                                handleDelete(app.uuid)
+                                            }
+                                        >
+                                            Remove Application
+                                        </Button>
+                                    </Box>
+                                )}  
                             </CardContent>
                         </Card>
                     ))}

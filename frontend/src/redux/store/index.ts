@@ -15,7 +15,8 @@ import UserJobReducer from "../feature/user/job/jobSlice";
 
 // company Reducers
 import insightReducer from "../feature/company/insight/insightSlice";
-import jobReducer from "../feature/company/job/jobSlice"
+import jobReducer from "../feature/company/job/jobSlice";
+import employeeReducer from "../feature/company/employee/employeeSlice";
 
 const persistConfig = {
     key: "root",
@@ -32,6 +33,7 @@ const appReducer = combineReducers({
     insightReducer: insightReducer,
     jobReducer: jobReducer,
     UserJobReducer: UserJobReducer,
+    employeeReducer: employeeReducer
 });
 
 const rootReducer = (state: any, action: any) => {

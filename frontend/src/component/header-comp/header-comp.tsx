@@ -18,6 +18,8 @@ import ArticleIcon from "@mui/icons-material/Article"
 import HandshakeIcon from '@mui/icons-material/Handshake';
 import BusinessIcon from '@mui/icons-material/Business';
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
+import AppsIcon from '@mui/icons-material/Apps';
+import BadgeIcon from '@mui/icons-material/Badge';
 import { signOut } from "firebase/auth"
 import { auth } from "@/lib/firebase"
 import { RoleEnum } from "@/enums/user.role"
@@ -99,7 +101,21 @@ export default function HeaderComp() {
         {
             label: "job",
             icon: <WorkIcon />,
-            route: "/company/job/",
+            route: "/company/job",
+            isLoginNeeded: true,
+            roles: [RoleEnum.COMPANY]
+        },
+        {
+            label: "Job Applicants",
+            icon: <AppsIcon />,
+            route: "/company/application",
+            isLoginNeeded: true,
+            roles: [RoleEnum.COMPANY]
+        },
+        {
+            label: "Employees",
+            icon: <BadgeIcon />,
+            route: "/company/employee",
             isLoginNeeded: true,
             roles: [RoleEnum.COMPANY]
         },

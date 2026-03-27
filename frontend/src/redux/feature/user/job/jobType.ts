@@ -34,7 +34,8 @@ export interface JobApplication {
 export interface JobState {
     jobs: Job[];
     applications: JobApplication[];
-    totalDocuments: number;
+    totalJobDocuments: number;
+    totalApplicationDocuments: number;
     loading: boolean;
     error: string | null;
 }

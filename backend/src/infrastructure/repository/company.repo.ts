@@ -68,4 +68,73 @@ export class CompanyRepository extends Repository<CompanyEntity> {
     async deleteCompany(user_uuid: string) {
         return await this.softDelete({ user_uuid });
     }
+
+    async getCompanyEmployee(company_uuid: string, offset?: number, limit?: number) {
+        const [data, total] = await this.findAndCount({
+            where: {
+                uuid: company_uuid
+            },
+            relations: {
+                employees: {
+                    user: {
+                        education_histories: true,
+                        employment_histories: true,
+                        profile: {
+                            profile_img: true,
+                        }
+                    }
+                },
+            },
+            select: {
+                uuid: true,
+                name: true,
+                email: true,
+                mobile_number: true,
+                industry: true,
+                description: true,
+                location: true,
+                created_at: true,
+                employees: {
+                    uuid: true,
+                    user_uuid: true,
+                    created_at: true,
+                    user: {
+                        uuid: true,
+                        name: true,
+                        email: true,
+                        role: true,
+                        profile: {
+                            uuid: true,
+                            bio: true,
+                            mobile_number: true,
+
+                            profile_img: {
+                                uuid: true,
+                                image_url: true,
+                            }
+                        },
+                        employment_histories: {
+                            uuid: true,
+                            company_name: true,
+                            start_date: true,
+                            end_date: true,
+                        },
+                        education_histories: {
+                            uuid: true,
+                            school_name: true,
+                            start_date: true,
+                            end_date: true,
+                        }
+                    }
+                }
+            },
+            order: {
+                created_at: "DESC",
+            },
+            skip: offset || Number(process.env.page_offset) || 0,
+            take: limit || Number(process.env.page_limit) || 10,
+        });
+
+        return { data, total };
+    }
 }
