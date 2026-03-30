@@ -9,6 +9,7 @@ import { receiveMessage, clearChat } from "@/redux/feature/user/Chat/chatSlice"
 import { Box, Typography, TextField, Button, Avatar, List, ListItem, ListItemAvatar, ListItemText } from "@mui/material"
 import styles from "./chat.module.css"
 import { connectSocket, disconnectSocket } from "@/service/socket"
+import { useRouter } from "next/navigation"
 
 export default function ChatPage() {
     const dispatch = useDispatch<AppDispatch>()
@@ -18,6 +19,7 @@ export default function ChatPage() {
     const [selectedFriend, setSelectedFriend] = useState<any>(null)
     const [input, setInput] = useState("")
     const messageEndSmoothScrollRef = useRef<HTMLDivElement>(null)
+    const router = useRouter()
 
     useEffect(() => {
         dispatch(getNetworkConnections({ page: 1, limit: 100 }))
@@ -84,7 +86,7 @@ export default function ChatPage() {
             <Box className={styles.chatWindow}>
                 {selectedFriend ? (
                     <>
-                        <Box>
+                        <Box onClick={() => { router.push(`/user/${selectedFriend.connected_user_uuid}`) }}>
                             <Avatar src={selectedFriend.connected_user.profile?.profile_img?.image_url} />
                             <Typography variant="subtitle1" fontWeight={600}>{selectedFriend.connected_user.name}</Typography>
                         </Box>

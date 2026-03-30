@@ -24,6 +24,7 @@ import ChatIcon from '@mui/icons-material/Chat';
 import { signOut } from "firebase/auth"
 import { auth } from "@/lib/firebase"
 import { RoleEnum } from "@/enums/user.role"
+import SearchComp from "../search-comp/search_comp"
 
 export default function HeaderComp() {
     const pathname = usePathname()
@@ -59,7 +60,7 @@ export default function HeaderComp() {
             roles: [RoleEnum.USER]
         },
         {
-            label: "Posts",
+            label: "My Posts",
             icon: <ArticleIcon />,
             route: "/user/post",
             isLoginNeeded: true,
@@ -162,6 +163,7 @@ export default function HeaderComp() {
                     height={100}
                     onClick={() => router.replace('/')}
                 />
+                <SearchComp onSearch={(value) => { enqueueSnackbar(value, { variant: "info" }) }} />
             </Box>
 
             <Box className={styles.rightContainer}>

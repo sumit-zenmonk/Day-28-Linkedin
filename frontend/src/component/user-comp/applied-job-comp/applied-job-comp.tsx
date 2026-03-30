@@ -70,7 +70,7 @@ export default function UserAppliedJobComp() {
                                             💼 {app.job.role}
                                         </Typography>
 
-                                        <Typography variant="body2">
+                                        <Typography variant="body2" className={styles.salary}>
                                             💰 {app.job.min_salary} -{" "}
                                             {app.job.max_salary}
                                         </Typography>

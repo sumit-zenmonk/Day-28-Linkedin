@@ -6,91 +6,125 @@
     padding: 16px;
 }
 
+.postFormWrapper {
+    width: 70%;
+    margin: 0 auto 2% auto;
+}
+
+.scrollContainer {
+    margin: 0 auto;
+    overflow-y: auto;
+    max-width: 90%;
+}
+
 .flexWrap {
     display: flex;
-    flex-direction: column;
-    gap: 16px;
+    flex-wrap: wrap;
+    gap: 2%;
+    justify-content: center;
 }
 
 .card {
-    width: 100%;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
+    flex: 1 1 48%;
+    max-width: 48%;
+    min-width: 30%;
+    margin-bottom: 2%;
+    border-radius: 1.2%;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    padding: 16px;
+    background-color: #fff;
+    box-shadow: 0 0.4% 0.8% rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 0.8% 1.6% rgba(0, 0, 0, 0.15);
 }
 
 .cardContent {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    justify-content: space-between;
+    height: 100%;
+    padding: 1.5% 2%;
 }
 
 .header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 12px;
+    margin-bottom: 1%;
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 1.2%;
 }
 
 .avatar {
-    font-size: 20px;
-    object-fit: cover;
-}
-
-.userInfo>div {
-    display: flex;
-    flex-direction: column;
+    width: 4.5%;
+    height: 4.5%;
+    font-size: 1.3rem;
+    /* background-color: #0a66c2; */
+    color: white;
+    min-width: 45px;
+    min-height: 45px;
 }
 
 .username {
-    font-weight: 600;
+    font-weight: 700;
     font-size: 1rem;
     color: #0a66c2;
-    margin-bottom: 2px;
 }
 
 .date {
     font-size: 0.75rem;
-    color: #666;
+    color: gray;
 }
 
 .content {
-    font-size: 1rem;
-    line-height: 1.4;
+    font-size: 0.95rem;
+    margin: 0.8% 0;
+    color: #333;
+    cursor: pointer;
 }
 
 .imageContainer {
-    display: grid;
-    gap: 8px;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6%;
+    margin: 1.2% 0;
+    justify-content: center;
 }
 
 .image {
-    width: 100%;
+    width: 40%;
     height: auto;
     aspect-ratio: 16 / 9;
     object-fit: contain;
-    border-radius: 6px;
-    box-shadow: 0 0 6px rgb(0 0 0 / 0.1);
+    border-radius: 0.6%;
+    box-shadow: 0 0 0.6% rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
 }
 
 .image:hover {
     transform: scale(1.05);
 }
 
-.imageContainer:has(img:only-child) .image {
-    aspect-ratio: auto;
-    max-height: 300px;
-    border-radius: 8px;
-}
-
 .loader {
     display: flex;
     justify-content: center;
-    padding: 20px;
-    color: #666;
+    padding: 2%;
+    color: #0a66c2;
+}
+
+.topButton {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0.5%;
 }
 
 .boxButtons {

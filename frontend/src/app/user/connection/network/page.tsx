@@ -7,6 +7,7 @@ import styles from "./network.module.css";
 import { RootState } from "@/redux/store";
 import { getNetworkConnections } from "@/redux/feature/user/Connection/connectionAction";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks.ts";
+import { useRouter } from "next/navigation";
 
 const LIMIT = Number(process.env.NEXT_PUBLIC_PAGINATION_LIMIT) || 10;
 
@@ -14,6 +15,7 @@ export default function NetworkPage() {
   const dispatch = useAppDispatch();
   const { network, loading, networkTotalDocuments } = useAppSelector((state: RootState) => state.connectionReducer);
   const [page, setPage] = useState(1);
+  const router = useRouter()
 
   useEffect(() => {
     if (!network.length || network.length < networkTotalDocuments) {
@@ -58,7 +60,7 @@ export default function NetworkPage() {
 
             return (
               <Card key={conn.uuid} className={styles.card}>
-                <CardContent className={styles.cardContent}>
+                <CardContent className={styles.cardContent} onClick={() => { router.push(`/user/${conn.connected_user_uuid}`) }}>
                   <Avatar
                     src={user?.profile?.profile_img?.image_url}
                     className={styles.avatar}

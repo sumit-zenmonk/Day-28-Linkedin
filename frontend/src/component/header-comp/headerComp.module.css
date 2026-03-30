@@ -9,19 +9,20 @@
 }
 
 .leftContainer {
-    width: 50%;
+    width: 30%;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .avatar {
-    width: 15%;
+    width: 20%;
     height: auto;
     cursor: pointer;
 }
 
 .rightContainer {
-    width: 50%;
+    width: 80%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -80,6 +81,6 @@
 }
 
 .logoutButton {
-    color: red ;
+    color: red;
     font-weight: 600;
 }

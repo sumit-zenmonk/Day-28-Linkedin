@@ -1,0 +1,123 @@
+.container {
+    width: 100%;
+    padding: 2% 8%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #f3f2ef;
+}
+
+.headerCard {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+}
+
+.headerContent {
+    display: flex;
+    flex-direction: row;
+    gap: 3%;
+    align-items: center;
+}
+
+.avatar {
+    width: 90px;
+    height: 90px;
+    border: 2px solid white;
+}
+
+.headerInfo {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+}
+
+.name {
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.email {
+    font-size: 0.95rem;
+    color: #666;
+    margin-top: 2px;
+}
+
+.bio {
+    margin-top: 6px;
+    color: #444;
+    font-size: 0.95rem;
+}
+
+.mainSection {
+    display: flex;
+    flex-direction: row;
+    gap: 2%;
+    width: 100%;
+    align-items: flex-start;
+}
+
+.leftSection {
+    width: 68%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.rightSection {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: sticky;
+    top: 80px;
+}
+
+.card {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+}
+
+.sectionTitle {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.itemTitle {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.itemSub {
+    font-size: 0.85rem;
+    color: #777;
+}
+
+.rightSection .card p {
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+}
+
+.loader {
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

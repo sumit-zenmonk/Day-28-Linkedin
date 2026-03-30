@@ -9,6 +9,7 @@ import { RootState } from "@/redux/store";
 import { getConnections, sendConnectionRequest } from "@/redux/feature/user/Connection/connectionAction";
 import { enqueueSnackbar } from "notistack";
 import UserConnectionRequestPage from "@/component/user-comp/request-comp.tsx/request-comp";
+import { useRouter } from "next/navigation";
 
 const LIMIT = Number(process.env.NEXT_PUBLIC_PAGINATION_LIMIT) || 10;
 
@@ -17,6 +18,7 @@ export default function GlobalConnectionPage() {
     const { connections, loading, connectionsTotalDocuments, connectionRequests, network } = useAppSelector((state: RootState) => state.connectionReducer);
     const [page, setPage] = useState(1);
     const [openModal, setOpenModal] = useState<boolean>(false);
+    const router = useRouter();
 
     const isAlreadyRequested = (uuid: string) => { return connectionRequests.some((req) => req.connected_user_uuid === uuid); };
     const isAlreadyConnected = (uuid: string) => { return network.some((req) => req.connected_user_uuid === uuid); };
@@ -69,7 +71,7 @@ export default function GlobalConnectionPage() {
         <Box className={styles.container} id="scrollableDiv">
             <Box className={styles.topButton}>
                 <Button variant="contained" onClick={handleProfileFormModalOpen}>
-                    Sent Requests
+                    Requests
                 </Button>
             </Box>
 
@@ -86,10 +88,10 @@ export default function GlobalConnectionPage() {
             >
                 <Box className={styles.infiniteScrollComp}>
                     {connections
-                        .filter((conn) => !isAlreadyConnected(conn.uuid))
+                        // .filter((conn) => !isAlreadyConnected(conn.uuid))
                         .map((conn) => (
                             <Card key={conn.uuid} className={styles.card}>
-                                <CardContent className={styles.cardContent}>
+                                <CardContent className={styles.cardContent} onClick={() => { router.push(`/user/${conn.uuid}`) }}>
                                     <Avatar
                                         src={conn.profile?.profile_img?.image_url}
                                         className={styles.avatar}
@@ -109,12 +111,12 @@ export default function GlobalConnectionPage() {
                                         </Typography>
                                     </Box>
 
-                                    <Button
+                                    {!isAlreadyConnected(conn.uuid) && < Button
                                         disabled={isAlreadyRequested(conn.uuid) || isAlreadyConnected(conn.uuid)}
                                         onClick={() => handleMakeConnectionRequest(conn.uuid)}
                                     >
                                         {isAlreadyRequested(conn.uuid) ? "Requested" : "Connect"}
-                                    </Button>
+                                    </Button>}
                                 </CardContent>
                             </Card>
                         ))}

@@ -1,7 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Box, Card, CardContent, Typography, Button, CircularProgress, Modal, } from "@mui/material";
+import {
+    Box,
+    Card,
+    CardContent,
+    Typography,
+    Button,
+    CircularProgress,
+    Modal,
+} from "@mui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
 import styles from "./jobs.module.css";
 import { RootState } from "@/redux/store";
@@ -57,12 +65,19 @@ export default function GlobalJobPage() {
 
     return (
         <Box className={styles.container} id="scrollableDiv">
-            <SearchComp onSearch={(value) => {
-                dispatch(getJobs({ tag: value }));
-            }} />
+            <Box className={styles.header}>
+                <SearchComp
+                    onSearch={(value) => {
+                        dispatch(getJobs({ tag: value }));
+                    }}
+                />
 
-            <Button onClick={handleProfileFormModalOpen}>Applied Jobs</Button>
-            {(!loading && jobs.length) ?
+                <Button className={styles.appliedBtn} onClick={handleProfileFormModalOpen}>
+                    Applied Jobs
+                </Button>
+            </Box>
+
+            {!loading && jobs.length ? (
                 <InfiniteScroll
                     dataLength={jobs.length}
                     next={fetchMoreData}
@@ -95,7 +110,11 @@ export default function GlobalJobPage() {
                                             💰 ₹{job.min_salary} - ₹{job.max_salary}
                                         </Typography>
 
-                                        <Box mt={1} display="flex" flexWrap="wrap" gap={1}>
+                                        <Typography className={styles.role}>
+                                            Role : {job.role}
+                                        </Typography>
+
+                                        <Box className={styles.tagsRow}>
                                             {job.tags
                                                 ?.filter((tag) => tag.tag)
                                                 .slice(0, 5)
@@ -105,20 +124,13 @@ export default function GlobalJobPage() {
                                                     </span>
                                                 ))}
                                         </Box>
-                                        <Box
-                                            mt={2}
-                                            display="flex"
-                                            justifyContent="space-between"
-                                            alignItems="center"
-                                        >
-                                            <Typography variant="caption" color="text.secondary">
-                                                {job.role}
-                                            </Typography>
 
+                                        <Box className={styles.actionRow}>
                                             <Button
-                                                variant={isAlreadyApplied(job.uuid) ? "outlined" : "contained"}
-                                                color={isAlreadyApplied(job.uuid) ? "success" : "primary"}
-                                                size="small"
+                                                className={`${styles.applyBtn} ${isAlreadyApplied(job.uuid)
+                                                    ? styles.applyBtnApplied
+                                                    : styles.applyBtnPrimary
+                                                    }`}
                                                 disabled={isAlreadyApplied(job.uuid)}
                                                 onClick={() => handleApply(job.uuid)}
                                             >
@@ -131,16 +143,16 @@ export default function GlobalJobPage() {
                         ))}
                     </Box>
                 </InfiniteScroll>
-                :
-                <Box className={styles.container}>
-                    <Typography align="center">No jobs available</Typography>
+            ) : (
+                <Box className={styles.noData}>
+                    <Typography>No jobs available</Typography>
                 </Box>
-            }
-            <Modal
-                open={openModal}
-                onClose={handleProfileFormModalClose}
-            >
-                <UserAppliedJobComp />
+            )}
+            <Modal open={openModal} onClose={handleProfileFormModalClose}
+                BackdropProps={{ className: styles.modalOverlay }}>
+                <Box className={styles.modalWrapper}>
+                    <UserAppliedJobComp />
+                </Box>
             </Modal>
         </Box>
     );

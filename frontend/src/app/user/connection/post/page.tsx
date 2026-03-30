@@ -19,6 +19,7 @@ import { RootState } from "@/redux/store";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { interactWithPost } from "@/redux/feature/user/Post/postAction";
 import { enqueueSnackbar } from "notistack";
+import { useRouter } from "next/navigation";
 
 const LIMIT = Number(process.env.NEXT_PUBLIC_PAGINATION_LIMIT) || 10;
 
@@ -27,6 +28,7 @@ export default function PostList() {
     const user = useAppSelector((state: RootState) => state.authReducer.user);
     const { connectionPosts, loading, postsTotalDocuments } = useAppSelector((state: RootState) => state.connectionReducer);
     const [page, setPage] = useState(1);
+    const router = useRouter()
 
     useEffect(() => {
         dispatch(getConnectionPosts({ limit: LIMIT, page }));
@@ -74,7 +76,7 @@ export default function PostList() {
                         <Card key={post.uuid} className={styles.card}>
                             <CardContent className={styles.cardContent}>
                                 <Box className={styles.header}>
-                                    <Box className={styles.userInfo}>
+                                    <Box className={styles.userInfo} onClick={() => { router.push(`/user/${post.user_uuid}`) }}>
                                         <Avatar
                                             src={post.user?.profile?.profile_img?.image_url || ""}
                                             className={styles.avatar}

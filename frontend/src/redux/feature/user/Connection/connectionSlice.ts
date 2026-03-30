@@ -144,7 +144,20 @@ const connectionSlice = createSlice({
             })
             .addCase(getConnectionPosts.fulfilled, (state, action) => {
                 state.loading = false;
-                state.connectionPosts = action.payload.posts;
+                if (action.meta.arg.page === 1) {
+                    state.connectionPosts = action.payload.posts;
+                } else {
+                    const existingIds = new Set(
+                        state.connectionPosts.map((p) => p.uuid)
+                    );
+                    const newPosts = action.payload.posts.filter(
+                        (post) => !existingIds.has(post.uuid)
+                    );
+                    state.connectionPosts = [
+                        ...state.connectionPosts,
+                        ...newPosts,
+                    ];
+                }
                 state.postsTotalDocuments = action.payload.totalDocuments;
                 state.error = null;
             })
