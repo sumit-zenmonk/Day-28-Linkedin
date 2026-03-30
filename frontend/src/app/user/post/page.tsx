@@ -77,7 +77,7 @@ export default function PostList() {
                                 <Card key={post.uuid} className={styles.card}>
                                     <CardContent className={styles.cardContent}>
                                         <Box className={styles.header}>
-                                            <Box className={styles.userInfo} onClick={() => { router.push(`/user/${post.user.uuid}`) }}>
+                                            <Box className={styles.userInfo}>
                                                 <Avatar
                                                     src={post.user?.profile?.profile_img?.image_url || ""}
                                                     className={styles.avatar}
