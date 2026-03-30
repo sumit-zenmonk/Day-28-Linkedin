@@ -6,6 +6,7 @@ const initialState: ChatState = {
     messages: [],
     loading: false,
     error: null,
+    current_reciever: ""
 };
 
 const chatSlice = createSlice({
@@ -20,6 +21,9 @@ const chatSlice = createSlice({
         },
         clearChat: (state) => {
             state.messages = [];
+        },
+        setCurrent_reciever: (state, action: PayloadAction<{ current_reciever: any }>) => {
+            state.current_reciever = action.payload.current_reciever;
         }
     },
     extraReducers: (builder) => {
@@ -41,5 +45,5 @@ const chatSlice = createSlice({
     },
 });
 
-export const { receiveMessage, clearChat } = chatSlice.actions;
+export const { receiveMessage, clearChat, setCurrent_reciever } = chatSlice.actions;
 export default chatSlice.reducer;

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "@/redux/store"
 import { getNetworkConnections } from "@/redux/feature/user/Connection/connectionAction"
 import { getChatMessages, sendMessage } from "@/redux/feature/user/Chat/chatAction"
-import { receiveMessage, clearChat } from "@/redux/feature/user/Chat/chatSlice"
+import { receiveMessage, clearChat, setCurrent_reciever } from "@/redux/feature/user/Chat/chatSlice"
 import { Box, Typography, TextField, Button, Avatar, List, ListItem, ListItemAvatar, ListItemText } from "@mui/material"
 import styles from "./chat.module.css"
 import { connectSocket, disconnectSocket } from "@/service/socket"
@@ -14,9 +14,9 @@ import { useRouter } from "next/navigation"
 export default function ChatPage() {
     const dispatch = useDispatch<AppDispatch>()
     const { network } = useSelector((state: RootState) => state.connectionReducer)
-    const { messages } = useSelector((state: RootState) => state.chatReducer)
+    const { messages, current_reciever } = useSelector((state: RootState) => state.chatReducer)
     const { user, token } = useSelector((state: RootState) => state.authReducer)
-    const [selectedFriend, setSelectedFriend] = useState<any>(null)
+    const [selectedFriend, setSelectedFriend] = useState<any>(current_reciever)
     const [input, setInput] = useState("")
     const messageEndSmoothScrollRef = useRef<HTMLDivElement>(null)
     const router = useRouter()
@@ -41,6 +41,7 @@ export default function ChatPage() {
         if (selectedFriend) {
             dispatch(clearChat())
             dispatch(getChatMessages({ friendUuid: selectedFriend.connected_user.uuid }))
+            dispatch(setCurrent_reciever({ current_reciever: selectedFriend }));
         }
     }, [selectedFriend, dispatch])
 

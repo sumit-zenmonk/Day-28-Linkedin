@@ -11,16 +11,13 @@ import Image from "next/image"
 import styles from "./headerComp.module.css"
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch'
 import Diversity3Icon from '@mui/icons-material/Diversity3'
-import SchoolIcon from '@mui/icons-material/School'
 import WorkIcon from '@mui/icons-material/Work'
-import PostAddIcon from "@mui/icons-material/PostAdd"
 import ArticleIcon from "@mui/icons-material/Article"
-import HandshakeIcon from '@mui/icons-material/Handshake';
-import BusinessIcon from '@mui/icons-material/Business';
-import AddBusinessIcon from '@mui/icons-material/AddBusiness';
-import AppsIcon from '@mui/icons-material/Apps';
-import BadgeIcon from '@mui/icons-material/Badge';
-import ChatIcon from '@mui/icons-material/Chat';
+import BusinessIcon from '@mui/icons-material/Business'
+import AddBusinessIcon from '@mui/icons-material/AddBusiness'
+import AppsIcon from '@mui/icons-material/Apps'
+import BadgeIcon from '@mui/icons-material/Badge'
+import ChatIcon from '@mui/icons-material/Chat'
 import { signOut } from "firebase/auth"
 import { auth } from "@/lib/firebase"
 import { RoleEnum } from "@/enums/user.role"
@@ -42,7 +39,7 @@ export default function HeaderComp() {
             roles: [RoleEnum.USER]
         },
         {
-            label: "Globe Professionals",
+            label: "Global Professionals",
             icon: <RocketLaunchIcon />,
             route: "/user/connection/global",
             roles: [RoleEnum.USER]
@@ -54,7 +51,7 @@ export default function HeaderComp() {
             roles: [RoleEnum.USER]
         },
         {
-            label: "Connections Posts",
+            label: "Posts",
             icon: <WorkIcon />,
             route: "/user/connection/post",
             roles: [RoleEnum.USER]
@@ -67,28 +64,28 @@ export default function HeaderComp() {
             roles: [RoleEnum.USER]
         },
         {
-            label: "Company Info",
+            label: "Company",
             icon: <BusinessIcon />,
             route: "/company/insight",
             isLoginNeeded: true,
             roles: [RoleEnum.COMPANY]
         },
         {
-            label: "Company Edit",
+            label: "Edit",
             icon: <AddBusinessIcon />,
             route: "/company/insight/form",
             isLoginNeeded: true,
             roles: [RoleEnum.COMPANY]
         },
         {
-            label: "job",
+            label: "Jobs",
             icon: <WorkIcon />,
             route: "/company/job",
             isLoginNeeded: true,
             roles: [RoleEnum.COMPANY]
         },
         {
-            label: "Job Applicants",
+            label: "Applicants",
             icon: <AppsIcon />,
             route: "/company/application",
             isLoginNeeded: true,
@@ -102,7 +99,7 @@ export default function HeaderComp() {
             roles: [RoleEnum.COMPANY]
         },
         {
-            label: "Job",
+            label: "Jobs",
             icon: <WorkIcon />,
             route: "/user/job",
             isLoginNeeded: true,
@@ -115,7 +112,7 @@ export default function HeaderComp() {
             isLoginNeeded: true,
             roles: [RoleEnum.USER]
         },
-    ];
+    ]
 
     const visibleTabs = tabsConfig.filter(
         (tab) =>
@@ -128,11 +125,7 @@ export default function HeaderComp() {
 
     useEffect(() => {
         const index = routes.indexOf(pathname)
-        if (index !== -1) {
-            setTabValue(index)
-        } else {
-            setTabValue(false)
-        }
+        setTabValue(index !== -1 ? index : false)
     }, [pathname])
 
     const handleChange = (_: React.SyntheticEvent, newValue: number) => {
@@ -156,14 +149,14 @@ export default function HeaderComp() {
         <Box className={styles.header}>
             <Box className={styles.leftContainer}>
                 <Image
-                    src={'/linkedin-logo.png'}
+                    src={'/linkedin.png'}
                     className={styles.avatar}
                     alt="logo"
-                    width={100}
-                    height={100}
+                    width={40}
+                    height={40}
                     onClick={() => router.replace('/')}
                 />
-                <SearchComp onSearch={(value) => { enqueueSnackbar(value, { variant: "info" }) }} />
+                {user && <SearchComp onSearch={(value) => enqueueSnackbar(value, { variant: "info" })} />}
             </Box>
 
             <Box className={styles.rightContainer}>
@@ -178,6 +171,7 @@ export default function HeaderComp() {
                             <Tab
                                 key={tab.route}
                                 icon={tab.icon}
+                                iconPosition="top"
                                 label={
                                     <Typography className={styles.categoryText}>
                                         {tab.label}

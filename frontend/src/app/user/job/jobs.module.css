@@ -6,7 +6,6 @@
     flex-direction: column;
     align-items: center;
     background-color: #f3f2ef;
-    padding: 1% 0;
 }
 
 .list {
@@ -18,16 +17,16 @@
 }
 
 .header {
-    width: 60%;
+    width: 30%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    padding: 8px 16px;
+    padding: 8px;
     background-color: #ffffff;
     border-radius: 16px;
     border: 1px solid #e0e0e0;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    gap: 16px;
+    /* gap: 16px; */
 }
 
 .card {
@@ -132,7 +131,7 @@
 }
 
 .appliedBtn {
-    width: 20%;
+    width: 50%;
     text-transform: none;
     font-weight: 500;
     padding: 8px 16px;

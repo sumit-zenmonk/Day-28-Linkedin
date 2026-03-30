@@ -4,10 +4,14 @@ import { UserEntity } from 'src/domain/entities/user.entity';
 import { ProfileEntity } from 'src/domain/entities/user.profile.entity';
 import { EducationHistoryEntity } from 'src/domain/entities/user.education.history.entity';
 import { EmploymentHistoryEntity } from 'src/domain/entities/user.employment.history.entity';
+import { PostEntity } from 'src/domain/entities/posts.entity';
+import { ImageEntity } from 'src/domain/entities/images.entity';
+import { PostInteractionEntity } from 'src/domain/entities/post.interaction.entity';
+import { ImageTypeEnum } from 'src/domain/enums/img.';
 
 async function create() {
     dataSource.setOptions({
-       ...options,
+        ...options,
     });
 
     await dataSource.initialize();
@@ -19,6 +23,8 @@ async function create() {
     try {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const users: UserEntity[] = [];
+        const posts: PostEntity[] = [];
+
         for (const _ of Array.from(Array(15).keys())) {
             const user = await queryRunner.manager.save(UserEntity, {
                 email: faker.internet.email(),
@@ -28,10 +34,17 @@ async function create() {
 
             users.push(user);
 
-            await queryRunner.manager.save(ProfileEntity, {
+            const profile = await queryRunner.manager.save(ProfileEntity, {
                 user: user,
                 bio: faker.person.bio(),
                 mobile_number: faker.phone.number(),
+            });
+
+            await queryRunner.manager.save(ImageEntity, {
+                profile,
+                user_uuid: user.uuid,
+                type: ImageTypeEnum.PROFILE,
+                image_url: faker.image.urlPicsumPhotos(),
             });
         }
 
@@ -56,11 +69,39 @@ async function create() {
             });
         }
 
+        for (const user of users) {
+            const post = await queryRunner.manager.save(PostEntity, {
+                user: user,
+                content: faker.lorem.paragraph(),
+            });
+
+            posts.push(post);
+
+            await queryRunner.manager.save(ImageEntity, {
+                post: post,
+                image_url: faker.image.urlPicsumPhotos(),
+                user_uuid: user.uuid,
+                type: ImageTypeEnum.POST,
+            });
+        }
+
+        for (const user of users) {
+            for (const post of posts) {
+                if (Math.random() > 0.6) {
+                    await queryRunner.manager.save(PostInteractionEntity, {
+                        user: user,
+                        post: post,
+                        type: 'LIKE',
+                    });
+                }
+            }
+        }
+
         await queryRunner.commitTransaction();
-        console.info('seeded successfully');
+        console.info('✅ Seeded successfully');
     } catch (error) {
         await queryRunner.rollbackTransaction();
-        console.error('Something went wrong:', error);
+        console.error('❌ Something went wrong:', error);
     } finally {
         await queryRunner.release();
     }

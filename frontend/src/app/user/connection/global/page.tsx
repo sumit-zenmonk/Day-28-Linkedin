@@ -11,7 +11,7 @@ import { enqueueSnackbar } from "notistack";
 import UserConnectionRequestPage from "@/component/user-comp/request-comp.tsx/request-comp";
 import { useRouter } from "next/navigation";
 
-const LIMIT = Number(process.env.NEXT_PUBLIC_PAGINATION_LIMIT) || 10;
+const LIMIT = 50;
 
 export default function GlobalConnectionPage() {
     const dispatch = useAppDispatch();
@@ -91,10 +91,11 @@ export default function GlobalConnectionPage() {
                         // .filter((conn) => !isAlreadyConnected(conn.uuid))
                         .map((conn) => (
                             <Card key={conn.uuid} className={styles.card}>
-                                <CardContent className={styles.cardContent} onClick={() => { router.push(`/user/${conn.uuid}`) }}>
+                                <CardContent className={styles.cardContent}>
                                     <Avatar
                                         src={conn.profile?.profile_img?.image_url}
                                         className={styles.avatar}
+                                        onClick={() => { router.push(`/user/${conn.uuid}`) }}
                                     />
 
                                     <Box className={styles.infoBox}>

@@ -9,5 +9,6 @@ export interface Message {
 export interface ChatState {
     messages: Message[];
     loading: boolean;
+    current_reciever: any;
     error: string | null;
 }

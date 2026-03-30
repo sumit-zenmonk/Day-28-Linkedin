@@ -60,10 +60,11 @@ export default function NetworkPage() {
 
             return (
               <Card key={conn.uuid} className={styles.card}>
-                <CardContent className={styles.cardContent} onClick={() => { router.push(`/user/${conn.connected_user_uuid}`) }}>
+                <CardContent className={styles.cardContent}>
                   <Avatar
                     src={user?.profile?.profile_img?.image_url}
                     className={styles.avatar}
+                    onClick={() => { router.push(`/user/${conn.connected_user_uuid}`) }}
                   />
 
                   <Box className={styles.infoBox}>
