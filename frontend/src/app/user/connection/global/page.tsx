@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Box, Card, CardContent, Typography, Avatar, CircularProgress, Button, } from "@mui/material";
+import { Box, Card, CardContent, Typography, Avatar, CircularProgress, Button, Modal, } from "@mui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
 import styles from "./connection.module.css";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks.ts";
 import { RootState } from "@/redux/store";
 import { getConnections, sendConnectionRequest } from "@/redux/feature/user/Connection/connectionAction";
 import { enqueueSnackbar } from "notistack";
+import UserConnectionRequestPage from "@/component/user-comp/request-comp.tsx/request-comp";
 
 const LIMIT = Number(process.env.NEXT_PUBLIC_PAGINATION_LIMIT) || 10;
 
@@ -15,9 +16,12 @@ export default function GlobalConnectionPage() {
     const dispatch = useAppDispatch();
     const { connections, loading, connectionsTotalDocuments, connectionRequests, network } = useAppSelector((state: RootState) => state.connectionReducer);
     const [page, setPage] = useState(1);
+    const [openModal, setOpenModal] = useState<boolean>(false);
 
     const isAlreadyRequested = (uuid: string) => { return connectionRequests.some((req) => req.connected_user_uuid === uuid); };
-    const isAlreadyConnected = (uuid: string) => { return network.some((req) => req.connected_user.uuid === uuid); };
+    const isAlreadyConnected = (uuid: string) => { return network.some((req) => req.connected_user_uuid === uuid); };
+    const handleProfileFormModalOpen = () => setOpenModal(true);
+    const handleProfileFormModalClose = () => setOpenModal(false);
 
     useEffect(() => {
         if (!connections.length || connections.length < connectionsTotalDocuments) {
@@ -63,6 +67,12 @@ export default function GlobalConnectionPage() {
 
     return (
         <Box className={styles.container} id="scrollableDiv">
+            <Box className={styles.topButton}>
+                <Button variant="contained" onClick={handleProfileFormModalOpen}>
+                    Sent Requests
+                </Button>
+            </Box>
+
             <InfiniteScroll
                 dataLength={connections.length}
                 next={fetchMoreData}
@@ -110,6 +120,12 @@ export default function GlobalConnectionPage() {
                         ))}
                 </Box>
             </InfiniteScroll>
+            <Modal
+                open={openModal}
+                onClose={handleProfileFormModalClose}
+            >
+                <UserConnectionRequestPage />
+            </Modal>
         </Box>
     );
 }

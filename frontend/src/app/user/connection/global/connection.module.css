@@ -3,9 +3,9 @@
     height: 91%;
     display: flex;
     flex-direction: column;
-    margin-top: 1%;
+    /* margin-top: 1%; */
     padding: 2%;
-    overflow-y: auto; 
+    overflow-y: auto;
 }
 
 .infiniteScrollComp {
@@ -15,7 +15,7 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
-    padding-bottom: 5%;
+    padding-bottom: 1%;
 }
 
 .card {
@@ -31,6 +31,13 @@
     align-items: center;
     justify-content: space-between;
     gap: 4%;
+}
+
+.topButton {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    /* margin-bottom: 1%; */
 }
 
 .avatar {

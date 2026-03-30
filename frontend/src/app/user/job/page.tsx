@@ -1,144 +1,147 @@
 "use client";
 
-import { useEffect } from "react";
-import {
-    Box,
-    Card,
-    CardContent,
-    Typography,
-    Chip,
-    CircularProgress,
-    Button,
-} from "@mui/material";
-import styles from "./job.module.css";
+import { useEffect, useState } from "react";
+import { Box, Card, CardContent, Typography, Button, CircularProgress, Modal, } from "@mui/material";
+import InfiniteScroll from "react-infinite-scroll-component";
+import styles from "./jobs.module.css";
 import { RootState } from "@/redux/store";
-import {
-    getAppliedJobs,
-    deleteApplication,
-} from "@/redux/feature/user/job/jobAction";
+import { enqueueSnackbar } from "notistack";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks.ts";
+import { applyJob, getAppliedJobs, getJobs } from "@/redux/feature/user/job/jobAction";
+import SearchComp from "@/component/search-comp/search_comp";
+import UserAppliedJobComp from "@/component/user-comp/applied-job-comp/applied-job-comp";
 
-export default function JobPage() {
+const LIMIT = Number(process.env.NEXT_PUBLIC_PAGINATION_LIMIT) || 10;
+
+export default function GlobalJobPage() {
     const dispatch = useAppDispatch();
-    const { applications, totalApplicationDocuments, loading } = useAppSelector(
-        (state: RootState) => state.UserJobReducer
-    );
+    const { jobs, applications, totalJobDocuments, loading } = useAppSelector((state: RootState) => state.UserJobReducer);
+    const [page, setPage] = useState(1);
+    const [openModal, setOpenModal] = useState<boolean>(false);
 
-    useEffect(() => { 
-        if (!applications.length || applications.length < totalApplicationDocuments) {
+    const isAlreadyApplied = (job_uuid: string) => {
+        return applications.some((app) => app.job_uuid === job_uuid);
+    };
+    const handleProfileFormModalOpen = () => setOpenModal(true);
+    const handleProfileFormModalClose = () => setOpenModal(false);
+
+    useEffect(() => {
+        if (!jobs.length || jobs.length < totalJobDocuments) {
             dispatch(getAppliedJobs());
+            dispatch(getJobs({ limit: LIMIT, page }));
         }
-    }, [dispatch, applications.length, totalApplicationDocuments]);
+    }, [dispatch, page]);
 
-    const handleDelete = (uuid: string) => {
-        dispatch(deleteApplication(uuid));
+    const fetchMoreData = () => {
+        if (loading) return;
+
+        if (jobs.length < totalJobDocuments) {
+            setPage((prev) => prev + 1);
+        }
     };
 
-    if (loading) {
-        return (
-            <Box className={styles.container} textAlign="center">
-                <CircularProgress />
-            </Box>
-        );
-    }
+    const handleApply = async (job_uuid: string) => {
+        if (isAlreadyApplied(job_uuid)) {
+            enqueueSnackbar("Already Applied", { variant: "info" });
+            return;
+        }
+
+        try {
+            await dispatch(applyJob({ job_uuid })).unwrap();
+        } catch (err) {
+            enqueueSnackbar(String(err || "Something went wrong"), {
+                variant: "error",
+            });
+        }
+    };
 
     return (
-        <Box className={styles.container}>
-            {applications.length ? (
-                <Box className={styles.list}>
-                    {applications.map((app) => (
-                        <Card key={app.uuid} className={styles.card}>
-                            <CardContent className={styles.cardContent}>
-                                <Box className={styles.info}>
-                                    <Box>
-                                        <Typography variant="h6" fontWeight="bold">
-                                            {app.job.position}
+        <Box className={styles.container} id="scrollableDiv">
+            <SearchComp onSearch={(value) => {
+                dispatch(getJobs({ tag: value }));
+            }} />
+
+            <Button onClick={handleProfileFormModalOpen}>Applied Jobs</Button>
+            {(!loading && jobs.length) ?
+                <InfiniteScroll
+                    dataLength={jobs.length}
+                    next={fetchMoreData}
+                    hasMore={jobs.length < totalJobDocuments}
+                    loader={
+                        <Box className={styles.loader}>
+                            <CircularProgress />
+                        </Box>
+                    }
+                    scrollableTarget="scrollableDiv"
+                >
+                    <Box className={styles.list}>
+                        {jobs.map((job) => (
+                            <Card key={job.uuid} className={styles.card}>
+                                <CardContent className={styles.cardContent}>
+                                    <Box className={styles.info}>
+                                        <Typography className={styles.position}>
+                                            {job.position}
                                         </Typography>
 
-                                        <Typography
-                                            variant="body2"
-                                            color="text.secondary"
-                                        >
-                                            {app.job.company.name}
+                                        <Typography className={styles.company}>
+                                            {job.company?.name}
                                         </Typography>
 
-                                        <Typography variant="body2">
-                                            📍 {app.job.location}
+                                        <Typography className={styles.location}>
+                                            📍 {job.location}
                                         </Typography>
 
-                                        <Typography variant="body2">
-                                            💼 {app.job.role}
+                                        <Typography className={styles.salary}>
+                                            💰 ₹{job.min_salary} - ₹{job.max_salary}
                                         </Typography>
 
-                                        <Typography variant="body2">
-                                            💰 {app.job.min_salary} -{" "}
-                                            {app.job.max_salary}
-                                        </Typography>
-                                    </Box>
-
-                                    {
-                                        app?.job?.tags?.length &&
                                         <Box mt={1} display="flex" flexWrap="wrap" gap={1}>
-                                            {
-                                                app.job.tags
-                                                    .filter((tag) => tag.tag)
-                                                    .map((tag) => (
-                                                        <Chip
-                                                            key={tag.uuid}
-                                                            label={tag.tag}
-                                                            size="small"
-                                                        />
-                                                    ))
-                                            }
+                                            {job.tags
+                                                ?.filter((tag) => tag.tag)
+                                                .slice(0, 5)
+                                                .map((tag) => (
+                                                    <span key={tag.uuid} className={styles.tag}>
+                                                        #{tag.tag}
+                                                    </span>
+                                                ))}
                                         </Box>
-                                    }
-
-                                    <Typography
-                                        variant="caption"
-                                        color="text.secondary"
-                                        display="block"
-                                        mt={1}
-                                    >
-                                        Applied on:{" "}
-                                        {new Date(app.created_at).toLocaleDateString()}
-                                    </Typography>
-
-                                </Box>
-
-                                {app?.job?.deleted_at && (
-                                    <Box>
-                                        <Chip
-                                            label="Job Closed By company"
-                                            color="error"
-                                            size="small"
-                                            variant="outlined"
-                                        />
-                                    </Box>
-                                )}
-
-                                {!app?.job?.deleted_at && (
-                                    <Box mt={2}>
-                                        <Button
-                                            variant="outlined"
-                                            color="error"
-                                            size="small"
-                                            onClick={() =>
-                                                handleDelete(app.uuid)
-                                            }
+                                        <Box
+                                            mt={2}
+                                            display="flex"
+                                            justifyContent="space-between"
+                                            alignItems="center"
                                         >
-                                            Remove Application
-                                        </Button>
+                                            <Typography variant="caption" color="text.secondary">
+                                                {job.role}
+                                            </Typography>
+
+                                            <Button
+                                                variant={isAlreadyApplied(job.uuid) ? "outlined" : "contained"}
+                                                color={isAlreadyApplied(job.uuid) ? "success" : "primary"}
+                                                size="small"
+                                                disabled={isAlreadyApplied(job.uuid)}
+                                                onClick={() => handleApply(job.uuid)}
+                                            >
+                                                {isAlreadyApplied(job.uuid) ? "Applied" : "Apply"}
+                                            </Button>
+                                        </Box>
                                     </Box>
-                                )}  
-                            </CardContent>
-                        </Card>
-                    ))}
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </Box>
+                </InfiniteScroll>
+                :
+                <Box className={styles.container}>
+                    <Typography align="center">No jobs available</Typography>
                 </Box>
-            ) : (
-                <Box textAlign="center">
-                    <Typography>No Applied Jobs Available</Typography>
-                </Box>
-            )}
+            }
+            <Modal
+                open={openModal}
+                onClose={handleProfileFormModalClose}
+            >
+                <UserAppliedJobComp />
+            </Modal>
         </Box>
     );
 }

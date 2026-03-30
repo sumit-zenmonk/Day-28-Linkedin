@@ -41,22 +41,9 @@ export default function HeaderComp() {
             roles: [RoleEnum.USER]
         },
         {
-            label: "Update",
-            icon: <SchoolIcon />,
-            route: "/user/profile/form",
-            isLoginNeeded: true,
-            roles: [RoleEnum.USER]
-        },
-        {
             label: "Globe Professionals",
             icon: <RocketLaunchIcon />,
             route: "/user/connection/global",
-            roles: [RoleEnum.USER]
-        },
-        {
-            label: "Request",
-            icon: <HandshakeIcon />,
-            route: "/user/connection/request",
             roles: [RoleEnum.USER]
         },
         {
@@ -72,16 +59,9 @@ export default function HeaderComp() {
             roles: [RoleEnum.USER]
         },
         {
-            label: "My Posts",
+            label: "Posts",
             icon: <ArticleIcon />,
             route: "/user/post",
-            isLoginNeeded: true,
-            roles: [RoleEnum.USER]
-        },
-        {
-            label: "Create Post",
-            icon: <PostAddIcon />,
-            route: "/user/post/form",
             isLoginNeeded: true,
             roles: [RoleEnum.USER]
         },
@@ -121,14 +101,7 @@ export default function HeaderComp() {
             roles: [RoleEnum.COMPANY]
         },
         {
-            label: "Find job",
-            icon: <WorkIcon />,
-            route: "/user/job/global",
-            isLoginNeeded: true,
-            roles: [RoleEnum.USER]
-        },
-        {
-            label: "Applied job",
+            label: "Job",
             icon: <WorkIcon />,
             route: "/user/job",
             isLoginNeeded: true,

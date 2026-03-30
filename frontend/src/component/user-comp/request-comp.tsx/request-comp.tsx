@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks.ts";
 
 const LIMIT = Number(process.env.NEXT_PUBLIC_PAGINATION_LIMIT) || 10;
 
-export default function RequestPage() {
+export default function UserConnectionRequestPage() {
     const dispatch = useAppDispatch();
     const { connectionRequests, receivedConnectionRequests, loading, } = useAppSelector((state: RootState) => state.connectionReducer);
     const [receivedPage, setReceivedPage] = useState(1);

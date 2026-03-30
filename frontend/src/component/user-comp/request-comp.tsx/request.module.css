@@ -1,0 +1,115 @@
+.container {
+    width: 100%;
+    max-width: 65%;
+    margin: 0 auto;
+    height: 100%;
+    padding: 2%;
+    display: flex;
+    flex-direction: column;
+    gap: 2%;
+    background-color: #f3f2ef;
+}
+
+.heading {
+    font-size: 110%;
+    font-weight: 600;
+    color: #000000;
+}
+
+.scrollBox {
+    width: 100%;
+    height: 45%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5%;
+    padding: 1.5%;
+    background-color: #ffffff;
+    border-radius: 1%;
+    border: 0.05% solid #e0e0e0;
+}
+
+.card {
+    width: 100%;
+    border-radius: 1%;
+    border: 1px solid transparent;
+    box-shadow: none;
+}
+
+.card:hover {
+    border: 1px solid #000000;
+    border-radius: 16px;
+}
+
+.cardContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2%;
+    padding: 2%;
+}
+
+.infoBox {
+    display: flex;
+    align-items: center;
+    gap: 3%;
+    width: 70%;
+}
+
+.avatar {
+    width: 7%;
+    height: 5%;
+    aspect-ratio: 1/1;
+}
+
+.text {
+    font-size: 95%;
+    font-weight: 600;
+    color: #000000;
+}
+
+.value {
+    font-size: 80%;
+    color: #666666;
+    word-break: break-word;
+}
+
+.actionBox {
+    display: flex;
+    gap: 2%;
+}
+
+.cardContent button {
+    text-transform: none;
+    font-size: 80%;
+    padding: 2% 4%;
+    border-radius: 50px;
+}
+
+.cardContent button:first-child {
+    background-color: #0a66c2;
+    color: white;
+}
+
+.cardContent button:last-child {
+    border: 0.08% solid #d0d0d0;
+    color: #444;
+}
+
+.emptyText {
+    text-align: center;
+    color: #777;
+    font-size: 85%;
+    padding: 2%;
+}
+
+.loader {
+    display: flex;
+    justify-content: center;
+    padding: 2%;
+}
+
+.divider {
+    margin: 1% 0;
+    background-color: #e0e0e0;
+}

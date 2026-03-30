@@ -110,9 +110,11 @@ export default function PostList() {
                                 )}
                             </CardContent>
 
-                            <Button className={styles.content} onClick={() => handlePostInteract(post.uuid)} sx={{ color: isAlreadyLiked(post.liked_by) ? 'blue' : 'gray' }}>
-                                {post.liked_by.length} Liked
-                            </Button>
+                            <Box className={styles.boxButtons}>
+                                <Button onClick={() => handlePostInteract(post.uuid)} sx={{ color: isAlreadyLiked(post.liked_by) ? 'rgb(0, 47, 255)' : 'gray' }}>
+                                    {post.liked_by.length} Liked
+                                </Button>
+                            </Box>
                         </Card>
                     ))}
                 </Box>

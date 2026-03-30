@@ -64,6 +64,7 @@ export interface ConnectionRequest {
 export interface NetworkConnection {
     uuid: string;
     status: string;
+    connected_user_uuid: string;
     connected_user: {
         uuid: string;
         name: string;
