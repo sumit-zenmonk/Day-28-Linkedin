@@ -12,6 +12,7 @@ import employmentReducer from "../feature/user/Employment/employmentSlice";
 import connectionReducer from "../feature/user/Connection/connectionSlice";
 import postReducer from "../feature/user/Post/postSlice";
 import UserJobReducer from "../feature/user/job/jobSlice";
+import chatReducer from "../feature/user/Chat/chatSlice";
 
 // company Reducers
 import insightReducer from "../feature/company/insight/insightSlice";
@@ -33,7 +34,8 @@ const appReducer = combineReducers({
     insightReducer: insightReducer,
     jobReducer: jobReducer,
     UserJobReducer: UserJobReducer,
-    employeeReducer: employeeReducer
+    employeeReducer: employeeReducer,
+    chatReducer: chatReducer
 });
 
 const rootReducer = (state: any, action: any) => {

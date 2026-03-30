@@ -17,6 +17,7 @@ import { EmployeeEntity } from "src/domain/entities/employee.entity";
 import { JobEntity } from "src/domain/entities/job.entity";
 import { JobTagEntity } from "src/domain/entities/job.tag.entity";
 import { PostInteractionEntity } from "src/domain/entities/post.interaction.entity";
+import { MessageEntity } from "src/domain/entities/message.entity";
 
 const options: DataSourceOptions = {
     type: process.env.DB_POSTGRES_TYPE as any,
@@ -30,7 +31,7 @@ const options: DataSourceOptions = {
         EmploymentHistoryEntity, PostEntity, ImageEntity,
         ConnectionEntity, ConnectionRequestEntity, CompanyEntity,
         ApplicationEntity, EmployeeEntity, JobEntity,
-        JobTagEntity, PostInteractionEntity
+        JobTagEntity, PostInteractionEntity, MessageEntity
     ],
     synchronize: false,
     migrations: ['dist/infrastructure/database/migrations/*{.ts,.js}'],

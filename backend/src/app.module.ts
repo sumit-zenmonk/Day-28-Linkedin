@@ -13,6 +13,8 @@ import { AuthHelperService } from './infrastructure/services/auth.service';
 import UploadModule from './features/upload/upload.module';
 import { UserModule } from './features/user/user.module';
 import { CompanyModule } from './features/company/company.module';
+import { ChatModule } from './features/chat/chat.module';
+import { SocketModule } from './infrastructure/socket/socket.module';
 
 @Module({
   imports: [
@@ -36,7 +38,9 @@ import { CompanyModule } from './features/company/company.module';
     AuthModule,
     UploadModule,
     UserModule,
-    CompanyModule
+    CompanyModule,
+    ChatModule,
+    SocketModule,
   ],
   controllers: [AppController],
   providers: [AppService, BcryptService, UserRepository, AuthHelperService],

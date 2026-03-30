@@ -20,6 +20,7 @@ import BusinessIcon from '@mui/icons-material/Business';
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import AppsIcon from '@mui/icons-material/Apps';
 import BadgeIcon from '@mui/icons-material/Badge';
+import ChatIcon from '@mui/icons-material/Chat';
 import { signOut } from "firebase/auth"
 import { auth } from "@/lib/firebase"
 import { RoleEnum } from "@/enums/user.role"
@@ -130,6 +131,13 @@ export default function HeaderComp() {
             label: "Applied job",
             icon: <WorkIcon />,
             route: "/user/job",
+            isLoginNeeded: true,
+            roles: [RoleEnum.USER]
+        },
+        {
+            label: "Messaging",
+            icon: <ChatIcon />,
+            route: "/user/chat",
             isLoginNeeded: true,
             roles: [RoleEnum.USER]
         },

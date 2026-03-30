@@ -13,6 +13,15 @@ export class ConnectionRepository extends Repository<ConnectionEntity> {
         return await this.save(connection);
     }
 
+    async findConnection(user_uuid: string, connected_user_uuid: string) {
+        return await this.findOne({
+            where: {
+                user_uuid: user_uuid,
+                connected_user_uuid: connected_user_uuid
+            }
+        });
+    }
+
     async getConnections(user_uuid: string, offset?: number, limit?: number) {
         const [data, total] = await this.findAndCount({
             where: {

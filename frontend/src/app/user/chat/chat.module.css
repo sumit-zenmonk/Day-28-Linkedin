@@ -1,0 +1,70 @@
+.chatContainer {
+    display: flex;
+    height: 90%;
+    background-color: #f3f2ef;
+    padding: .2%;
+    gap: 2%;
+}
+
+.sidebar {
+    width: 25%;
+    background: white;
+    border-radius: 1%;
+    border: 0.1% solid #e0e0e0;
+    overflow-y: auto;
+}
+
+.chatWindow {
+    width: 73%;
+    background: white;
+    border-radius: 1%;
+    border: 0.1% solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+}
+
+.messageList {
+    flex: 1;
+    padding: 2%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1%;
+}
+
+.messageItem {
+    max-width: 70%;
+    padding: 1% 2%;
+    border-radius: 2%;
+    font-size: 0.9rem;
+    word-wrap: break-word;
+}
+
+.myMessage {
+    align-self: flex-end;
+    background-color: #0a66c2;
+    color: white;
+}
+
+.friendMessage {
+    align-self: flex-start;
+    background-color: #f3f2ef;
+    color: rgba(0, 0, 0, 0.9);
+}
+
+.inputArea {
+    padding: 2%;
+    border-top: 0.1% solid #e0e0e0;
+    display: flex;
+    gap: 1%;
+}
+
+.friendItem {
+    padding: 4%;
+    border-bottom: 0.1% solid #f3f2ef;
+    cursor: pointer;
+}
+
+.selectedFriend {
+    background-color: #e8f3ff;
+}
