@@ -7,7 +7,7 @@ import styles from "./job.global.module.css";
 import { RootState } from "@/redux/store";
 import { enqueueSnackbar } from "notistack";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks.ts";
-import { applyJob, getJobs } from "@/redux/feature/user/job/jobAction";
+import { applyJob, getAppliedJobs, getJobs } from "@/redux/feature/user/job/jobAction";
 import SearchComp from "@/component/search-comp/search_comp";
 
 const LIMIT = Number(process.env.NEXT_PUBLIC_PAGINATION_LIMIT) || 10;
@@ -23,6 +23,7 @@ export default function GlobalJobPage() {
 
     useEffect(() => {
         if (!jobs.length || jobs.length < totalJobDocuments) {
+            dispatch(getAppliedJobs());
             dispatch(getJobs({ limit: LIMIT, page }));
         }
     }, [dispatch, page]);
