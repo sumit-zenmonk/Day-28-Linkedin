@@ -88,7 +88,7 @@ export class PostService {
         if (isExists) {
             await this.postInteractionRepo.deletePostInteraction(isExists.uuid);
         } else {
-            await this.postInteractionRepo.createPostInteraction({ user_uuid: user.uuid, post_uuid: body.post_uuid });
+            await this.postInteractionRepo.createPostInteraction({ user_uuid: user.uuid, post_uuid: body.post_uuid, content: body.content });
         }
 
         return {

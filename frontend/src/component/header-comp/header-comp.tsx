@@ -23,6 +23,8 @@ import TextsmsIcon from '@mui/icons-material/Textsms';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import { FaPeopleGroup } from "react-icons/fa6";
 import { RiGlobalFill } from "react-icons/ri";
+import { GoOrganization } from "react-icons/go";
+import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 
 export default function HeaderComp() {
     const pathname = usePathname()
@@ -159,8 +161,11 @@ export default function HeaderComp() {
                     <Tabs
                         value={tabValue}
                         onChange={handleChange}
-                        variant="scrollable"
-                        scrollButtons="auto"
+                        // variant="scrollable"
+                        // scrollButtons="auto"
+                        TabIndicatorProps={{
+                            style: { backgroundColor: "black" }
+                        }}
                     >
                         {visibleTabs.map((tab) => (
                             <Tab
@@ -173,9 +178,47 @@ export default function HeaderComp() {
                                     </Typography>
                                 }
                                 className={styles.categoryBoxes}
+                                sx={{
+                                    "&.Mui-selected": {
+                                        color: "black"
+                                    }
+                                }}
                             />
                         ))}
                     </Tabs>
+                </Box>
+
+                <Box className={styles.sideBox}>
+                    <Tab
+                        icon={<GoOrganization />}
+                        iconPosition="top"
+                        label={
+                            <Typography className={styles.categoryText}>
+                                For Business
+                            </Typography>
+                        }
+                        className={styles.categoryBoxes}
+                        sx={{
+                            "&.Mui-selected": {
+                                color: "black"
+                            }
+                        }}
+                    />
+                    <Tab
+                        icon={<WorkspacePremiumIcon />}
+                        iconPosition="top"
+                        label={
+                            <Typography className={styles.categoryText}>
+                                Try Premium
+                            </Typography>
+                        }
+                        className={styles.categoryBoxes}
+                        sx={{
+                            "&.Mui-selected": {
+                                color: "black"
+                            }
+                        }}
+                    />
                 </Box>
 
                 {user ? (

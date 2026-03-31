@@ -62,7 +62,7 @@ export default function ConnectionPostComp() {
         }
     }
     const isAlreadyLiked = (liked_byArray: any) => { return liked_byArray.some((his: any) => his.user_uuid === user?.uid); };
-
+    console.log(connectionPosts[0].liked_by);
     return (
         <Box className={styles.container} id="scrollableDiv">
             <InfiniteScroll

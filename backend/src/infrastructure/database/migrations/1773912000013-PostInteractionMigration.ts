@@ -11,6 +11,7 @@ export class PostInteractionMigration1773912000013 implements MigrationInterface
                     { name: "uuid", type: "uuid", isPrimary: true, isGenerated: true, generationStrategy: "uuid", default: "uuid_generate_v4()", },
                     { name: "user_uuid", type: "uuid", isNullable: false, },
                     { name: "post_uuid", type: "uuid", isNullable: false, },
+                    { name: "content", type: "varchar", isNullable: false, },
                     { name: "created_at", type: "timestamp", default: "now()", },
                     { name: "updated_at", type: "timestamp", default: "now()", },
                     { name: "deleted_at", type: "timestamp", isNullable: true, },

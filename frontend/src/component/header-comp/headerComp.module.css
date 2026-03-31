@@ -32,18 +32,23 @@
 .rightContainer {
     width: 60%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
-.category {
-    width: 75%;
+.sideBox {
     display: flex;
-    justify-content: flex-end;
+    height: fit-content;
+    border-left: 1px solid rgb(151, 151, 151);
+}
+
+.category {
+    width: 50%;
+    display: flex;
 }
 
 .categoryBoxes {
-    color: gray;
+    color: rgb(94, 94, 94);
     min-width: 70px;
     text-transform: none;
 }

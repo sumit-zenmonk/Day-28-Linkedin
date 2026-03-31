@@ -13,6 +13,9 @@ export class PostInteractionEntity {
     @Column()
     post_uuid: string;
 
+    @Column()
+    content: string;
+
     @ManyToOne(() => UserEntity, (user) => user.liked_posts)
     @JoinColumn({ name: "user_uuid" })
     user: UserEntity;
