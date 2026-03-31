@@ -9,8 +9,10 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks.ts";
 import { RootState } from "@/redux/store";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { enqueueSnackbar } from "notistack";
-import PostFormPage from "@/component/user-comp/post-form-comp/post-form-comp";
 import { useRouter } from "next/navigation";
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import ChatIcon from '@mui/icons-material/Chat';
+import SendIcon from '@mui/icons-material/Send';
 
 const LIMIT = Number(process.env.NEXT_PUBLIC_PAGINATION_LIMIT) || 10;
 
@@ -19,11 +21,7 @@ export default function PostList() {
     const { posts, loading, totalDocuments } = useAppSelector((state: RootState) => state.postReducer);
     const user = useAppSelector((state: RootState) => state.authReducer.user);
     const [page, setPage] = useState(1);
-    const [openModal, setOpenModal] = useState<boolean>(false);
     const router = useRouter()
-
-    const handleProfileFormModalOpen = () => setOpenModal(true);
-    const handleProfileFormModalClose = () => setOpenModal(false);
 
     useEffect(() => {
         dispatch(getPosts({ page, limit: LIMIT }));
@@ -53,12 +51,6 @@ export default function PostList() {
 
     return (
         <Box className={styles.container}>
-            <Box className={styles.topButton}>
-                <Button variant="contained" onClick={handleProfileFormModalOpen}>
-                    Create Post
-                </Button>
-            </Box>
-
             {(posts?.length != 0 &&
                 <Box className={styles.scrollContainer} id="scrollableDiv">
                     <InfiniteScroll
@@ -118,8 +110,15 @@ export default function PostList() {
                                         )}
 
                                         <Box className={styles.boxButtons}>
-                                            <Button onClick={() => handlePostInteract(post.uuid)} sx={{ color: isAlreadyLiked(post.liked_by) ? 'rgb(0, 47, 255)' : 'gray' }}>
-                                                {post.liked_by.length} Liked
+                                            <Button onClick={() => handlePostInteract(post.uuid)} sx={{ color: isAlreadyLiked(post.liked_by) ? '' : 'gray' }}>
+                                                <ThumbUpAltIcon />
+                                                {post.liked_by.length}
+                                            </Button>
+                                            <Button>
+                                                <ChatIcon />
+                                            </Button>
+                                            <Button>
+                                                <SendIcon />
                                             </Button>
                                         </Box>
                                     </CardContent>
@@ -129,9 +128,6 @@ export default function PostList() {
                     </InfiniteScroll>
                 </Box>
             )}
-            <Modal open={openModal} onClose={handleProfileFormModalClose}>
-                <PostFormPage />
-            </Modal>
         </Box>
     );
 }

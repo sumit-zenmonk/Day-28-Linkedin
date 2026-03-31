@@ -1,39 +1,181 @@
 .container {
   width: 100%;
-  height: 100%;
+  height: 93%;
+  background-color: #f3f2ef;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: 24px;
+  overflow: scroll;
 }
 
-.cardWrapper {
-  width: 40%;
+.layout {
+  width: 80%;
+  height: 100%;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.leftSidebar {
+  width: 15%;
+  /* height: 100%; */
   display: flex;
   flex-direction: column;
-  padding: 3%;
+  gap: 16px;
+  position: sticky;
+  top: 10px;
 }
 
-.title {
-  text-align: center;
-  margin-bottom: 5%;
+.middleSidebar {
+  width: 60%;
+  /* height: 100%; */
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1%;
+  gap: 10px;
+  /* overflow: scroll; */
 }
 
-.infoRow {
+.rightSidebar {
+  width: 25%;
+  /* height: 100%; */
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 10px;
+}
+
+.profileBox,
+.careerBox,
+.profileImpressionViewerBox,
+.profileEventBoxes,
+.newsBox {
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
+}
+
+.profileBox {
   width: 100%;
+  height: 100%;
+  text-align: center;
+  padding-bottom: 16px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+}
+
+.banner {
+  width: 100%;
+  height: 30%;
+  background-image: url("https://picsum.photos/200/300?grayscale&blur=2");
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+}
+
+.profileAvatar {
+  width: 72px;
+  height: 72px;
+  border: 3px solid #fff;
+  margin-top: 10%;
+  z-index: 1;
+}
+
+.profilename {
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+
+.profilebio {
+  font-size: 13px;
+  color: #666;
+  margin-top: 4px;
+  padding: 0 12px;
+}
+
+.profilenumber {
+  font-size: 12px;
+  color: #888;
+  margin-top: 2px;
+}
+
+.careerBox {
+  padding: 12px;
+  font-size: 14px;
+}
+
+.careerBox> :first-child {
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.careerBox> :last-child {
+  font-size: 13px;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.profileImpressionViewerBox {
+  display: flex;
+  flex-direction: column;
+}
+
+.profileImpressionViewerBox>div {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 3%;
+  padding: 10px 12px;
+  font-size: 13px;
+  border-top: 1px solid #eee;
 }
 
-.label {
-  font-weight: 600;
+.profileImpressionViewerBox>div:first-child {
+  border-top: none;
 }
 
-.value {
-  color: #555;
+.profileEventBoxes {
+  display: flex;
+  flex-direction: column;
 }
 
-.logoutBtn {
-  margin-top: 5%;
+.profileEventBoxes>div {
+  padding: 10px 12px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.profileEventBoxes>div:hover {
+  background-color: #f3f2ef;
+}
+
+.newsBox {
+  padding: 12px;
+}
+
+.newsTitle {
   width: 100%;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.newsinnerbox>.heading {
+  color: grey;
 }

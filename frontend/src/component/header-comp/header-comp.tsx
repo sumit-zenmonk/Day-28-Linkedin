@@ -51,12 +51,6 @@ export default function HeaderComp() {
             roles: [RoleEnum.USER]
         },
         {
-            label: "Posts",
-            icon: <WorkIcon />,
-            route: "/user/connection/post",
-            roles: [RoleEnum.USER]
-        },
-        {
             label: "My Posts",
             icon: <ArticleIcon />,
             route: "/user/post",

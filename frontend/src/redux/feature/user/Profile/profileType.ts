@@ -9,6 +9,8 @@ export interface Profile {
     bio?: string;
     mobile_number?: string;
     profile_img?: ProfileImage;
+    count: number,
+    impressions: number
 }
 
 export interface ProfileState {

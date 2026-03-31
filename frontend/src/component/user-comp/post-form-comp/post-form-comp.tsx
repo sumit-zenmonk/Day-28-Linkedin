@@ -5,17 +5,24 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { postSchema, PostFormValues } from "@/schemas/post.schema";
 import { createPost, uploadPostImages } from "@/redux/feature/user/Post/postAction";
-import { Button, Card, TextField, Typography, Box, IconButton } from "@mui/material";
+import { Card, TextField, Typography, Box, IconButton, Button, Modal, Avatar } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import ImageIcon from "@mui/icons-material/Image";
+import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
+import ArticleIcon from "@mui/icons-material/Article";
 import { enqueueSnackbar } from "notistack";
-import { useAppDispatch } from "@/redux/hooks.ts";
-import CloseIcon from '@mui/icons-material/Close';
-import "./post.form.css"
+import styles from "./post.form.module.css";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks.ts";
+import { RootState } from "@/redux/store";
 
 const MAX_FILES = Number(process.env.NEXT_PUBLIC_BACKEND_IMG_LIMIT) || 5;
 
 export default function PostFormPage() {
     const dispatch = useAppDispatch();
     const [files, setFiles] = useState<File[]>([]);
+    const [open, setOpen] = useState(false);
+    const { profile, status } = useAppSelector((state: RootState) => state.profileReducer)
+    const { user } = useAppSelector((state: RootState) => state.authReducer)
 
     const {
         register,
@@ -52,6 +59,7 @@ export default function PostFormPage() {
 
             reset();
             setFiles([]);
+            setOpen(false);
         } catch (error) {
             enqueueSnackbar("Error creating post", { variant: "error" });
         }
@@ -62,48 +70,75 @@ export default function PostFormPage() {
     };
 
     return (
-        <Card className="postFormCard">
-            <Typography variant="h5" className="formTitle">Create Post</Typography>
-
-            <form onSubmit={handleSubmit(onSubmit)} className="postForm">
-                <TextField
-                    label="Content"
-                    fullWidth
-                    multiline
-                    minRows={3}
-                    maxRows={6}
-                    {...register("content")}
-                    error={!!errors.content}
-                    helperText={errors.content?.message}
-                    className="textField"
-                />
-
-                <input
-                    type="file"
-                    multiple
-                    accept="image/*"
-                    id="fileInput"
-                    onChange={(e) =>
-                        setFiles(Array.from(e.target.files || []))
-                    }
-                    className="fileInput"
-                />
-
-                <Box className="fileList">
-                    {files.map((file, i) => (
-                        <Box key={i} className="fileItem">
-                            <Typography noWrap className="fileName">{file.name}</Typography>
-                            <IconButton size="small" onClick={() => removeFile(i)} aria-label="Remove file">
-                                <CloseIcon fontSize="small" />
-                            </IconButton>
-                        </Box>
-                    ))}
+        <Box className={styles.container}>
+            <Card className={styles.startCard}>
+                <Box className={styles.startTop}>
+                    <Avatar className={styles.avatar} src={profile?.profile_img?.image_url || ""} />
+                    <Box className={styles.startInput} onClick={() => setOpen(true)}>
+                        Start a post
+                    </Box>
                 </Box>
 
-                <Button type="submit" variant="contained" className="submitButton" fullWidth>
-                    Post
-                </Button>
-            </form>
-        </Card>
+                <Box className={styles.actions}>
+                    <Box className={styles.action} onClick={() => setOpen(true)}><VideoLibraryIcon /> Video</Box>
+                    <Box className={styles.action} onClick={() => setOpen(true)}><ImageIcon /> Photo</Box>
+                    <Box className={styles.action} onClick={() => setOpen(true)}><ArticleIcon /> Write article</Box>
+                </Box>
+            </Card>
+            <Modal open={open} onClose={() => setOpen(false)}>
+                <Box className={styles.modal}>
+                    <Box className={styles.modalHeader}>
+                        <Avatar className={styles.avatar} src={profile?.profile_img?.image_url || ""} />
+                        <Typography>{user?.name}</Typography>
+                    </Box>
+
+                    <Box className={styles.modalHeader}>
+                        <Box></Box>
+                        <IconButton onClick={() => setOpen(false)}>
+                            <CloseIcon />
+                        </IconButton>
+                    </Box>
+
+                    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+                        <TextField
+                            placeholder="What do you want to talk about?"
+                            multiline
+                            minRows={3}
+                            maxRows={6}
+                            fullWidth
+                            {...register("content")}
+                            error={!!errors.content}
+                            helperText={errors.content?.message}
+                        />
+
+                        <input
+                            type="file"
+                            multiple
+                            accept="image/*"
+                            onChange={(e) =>
+                                setFiles(Array.from(e.target.files || []))
+                            }
+                        />
+
+                        <Box className={styles.fileList}>
+                            {files.map((file, i) => (
+                                <Box key={i} className={styles.fileItem}>
+                                    <Typography className={styles.fileName}>
+                                        {file.name}
+                                    </Typography>
+                                    <IconButton size="small" onClick={() => removeFile(i)}>
+                                        <CloseIcon fontSize="small" />
+                                    </IconButton>
+                                </Box>
+                            ))}
+                        </Box>
+
+                        <Button type="submit" variant="contained">
+                            Post
+                        </Button>
+                    </form>
+                </Box>
+            </Modal>
+        </Box>
     );
 }

@@ -133,5 +133,9 @@
     width: 100%;
     font-weight: 700;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+}
+
+.boxButtons>button {
+    padding: 2%;
 }

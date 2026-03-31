@@ -20,10 +20,14 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { interactWithPost } from "@/redux/feature/user/Post/postAction";
 import { enqueueSnackbar } from "notistack";
 import { useRouter } from "next/navigation";
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import ChatIcon from '@mui/icons-material/Chat';
+import SendIcon from '@mui/icons-material/Send';
+import { getLinkedInTime } from "@/util/post.time";
 
 const LIMIT = Number(process.env.NEXT_PUBLIC_PAGINATION_LIMIT) || 10;
 
-export default function PostList() {
+export default function ConnectionPostComp() {
     const dispatch = useAppDispatch();
     const user = useAppSelector((state: RootState) => state.authReducer.user);
     const { connectionPosts, loading, postsTotalDocuments } = useAppSelector((state: RootState) => state.connectionReducer);
@@ -88,8 +92,11 @@ export default function PostList() {
                                             <Typography className={styles.username}>
                                                 {post.user.name}
                                             </Typography>
+                                            <Typography className={styles.bio}>
+                                                {post.user?.profile?.bio}
+                                            </Typography>
                                             <Typography className={styles.date}>
-                                                {new Date(post.created_at).toLocaleString()}
+                                                {getLinkedInTime(post.created_at)}
                                             </Typography>
                                         </Box>
                                     </Box>
@@ -113,8 +120,15 @@ export default function PostList() {
                             </CardContent>
 
                             <Box className={styles.boxButtons}>
-                                <Button onClick={() => handlePostInteract(post.uuid)} sx={{ color: isAlreadyLiked(post.liked_by) ? 'rgb(0, 47, 255)' : 'gray' }}>
-                                    {post.liked_by.length} Liked
+                                <Button onClick={() => handlePostInteract(post.uuid)} sx={{ color: isAlreadyLiked(post.liked_by) ? '' : 'gray' }}>
+                                    <ThumbUpAltIcon />
+                                    {post.liked_by.length}
+                                </Button>
+                                <Button>
+                                    <ChatIcon />
+                                </Button>
+                                <Button>
+                                    <SendIcon />
                                 </Button>
                             </Box>
                         </Card>
