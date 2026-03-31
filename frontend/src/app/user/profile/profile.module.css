@@ -7,6 +7,7 @@
     padding: 20px;
     position: relative;
     overflow: scroll;
+    background-color: #f3f2ef;
 }
 
 .scrollContainer {
@@ -21,34 +22,31 @@
 .topButton {
     display: flex;
     justify-content: flex-end;
-    width: 100%;
-    position: absolute;
-    top: 10;
-    right: 100;
-    z-index: 1;
+    width: 70%;
+    margin-bottom: 10px;
 }
 
 .card {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    padding: 20px;
+    gap: 12px;
+    padding: 18px;
     width: 100%;
     background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
 }
 
 .profileHeader {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 16px;
     width: 100%;
 }
 
 .imagePreview {
-    width: 120px;
-    height: 120px;
+    width: 110px;
+    height: 110px;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -56,75 +54,129 @@
 .profileInfo {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
     width: 80%;
 }
 
 .profileInfo .subText {
-    color: #7a7a7a;
+    color: #666;
     font-size: 0.9rem;
 }
 
-.description {
-    color: #4a4a4a;
-    font-size: 1rem;
-}
-
 .sectionTitle {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 600;
-    color: #333;
+    color: #000;
+    margin-bottom: 5px;
 }
 
 .field {
     display: flex;
     flex-direction: column;
     margin-left: 5%;
-    gap: 10px;
+    gap: 6px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
 }
 
 .title {
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
+    color: #000;
 }
 
 .subText {
     font-size: 0.9rem;
-    color: #7a7a7a;
+    color: #666;
 }
 
 .date {
-    font-size: 0.9rem;
-    color: #4a4a4a;
+    font-size: 0.85rem;
+    color: #777;
 }
 
 .company_url {
-    color: #1a73e8;
+    color: #0a66c2;
     cursor: pointer;
     font-size: 0.9rem;
 }
 
+.company_url:hover {
+    text-decoration: underline;
+}
+
 .description {
     font-size: 0.9rem;
-    color: #4a4a4a;
+    color: #444;
+    line-height: 1.4;
 }
 
 .actionRow {
     display: flex;
     justify-content: flex-start;
     gap: 10px;
+    margin-top: 4px;
 }
 
 .modal {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 0;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .MuiModal-root {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    padding: 1%;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    background: #fff;
+}
+
+.banner {
+    width: 100%;
+    height: 140px;
+    background-image: url("https://picsum.photos/800/200?blur=2");
+    background-size: cover;
+    background-position: center;
+}
+
+.imagePreview {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #fff;
+    margin-top: -55px;
+    margin-left: 20px;
+    background: #fff;
+}
+
+.profileInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px 20px 20px 20px;
+}
+
+.profileInfo h6 {
+    font-weight: 600;
+}
+
+.subText {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.description {
+    font-size: 0.95rem;
+    color: #444;
 }

@@ -58,26 +58,25 @@ export default function ProfileView() {
                 {profile && (
                     <Box>
                         <Card className={styles.card}>
-                            <Box className={styles.profileHeader}>
-                                {profile.profile_img?.image_url && (
-                                    <img
-                                        src={profile.profile_img.image_url}
-                                        className={styles.imagePreview}
-                                    />
-                                )}
+                            <Box className={styles.banner} />
+                            {profile.profile_img?.image_url && (
+                                <img
+                                    src={profile.profile_img.image_url}
+                                    className={styles.imagePreview}
+                                />
+                            )}
 
-                                <Box className={styles.profileInfo}>
-                                    <Typography variant="h6">{user?.name}</Typography>
-                                    <Typography className={styles.subText}>
-                                        {user?.email}
-                                    </Typography>
-                                    <Typography className={styles.description}>
-                                        {profile.bio}
-                                    </Typography>
-                                    <Typography className={styles.subText}>
-                                        {profile.mobile_number}
-                                    </Typography>
-                                </Box>
+                            <Box className={styles.profileInfo}>
+                                <Typography variant="h6">{user?.name}</Typography>
+                                <Typography className={styles.subText}>
+                                    {user?.email}
+                                </Typography>
+                                <Typography className={styles.description}>
+                                    {profile.bio}
+                                </Typography>
+                                <Typography className={styles.subText}>
+                                    {profile.mobile_number}
+                                </Typography>
                             </Box>
                         </Card>
 
