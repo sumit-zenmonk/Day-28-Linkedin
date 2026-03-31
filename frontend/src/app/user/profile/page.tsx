@@ -56,7 +56,7 @@ export default function ProfileView() {
                 </Box>
 
                 {profile && (
-                    <>
+                    <Box>
                         <Card className={styles.card}>
                             <Box className={styles.profileHeader}>
                                 {profile.profile_img?.image_url && (
@@ -183,7 +183,7 @@ export default function ProfileView() {
                                 ))
                             )}
                         </Card>
-                    </>)}
+                    </Box>)}
             </Box>
 
             <Modal open={openModal} onClose={handleProfileFormModalClose}>

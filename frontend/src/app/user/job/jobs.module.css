@@ -15,23 +15,26 @@
     justify-content: space-between;
     gap: 2%;
     padding: 2%;
+    margin-top: 3%;
 }
+
+/* 
+.header {
+    width: 100%;
+} */
 
 .header {
     width: 100%;
     margin: 0 auto;
-}
-
-.header {
-    width: 30%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     padding: 8px;
-    background-color: #ffffff;
+    /* background-color: #ffffff; */
     border-radius: 16px;
-    border: 1px solid #e0e0e0;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    /* border: 1px solid #e0e0e0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); */
+    position: absolute;
     /* gap: 16px; */
 }
 
@@ -138,12 +141,14 @@
 }
 
 .appliedBtn {
-    width: 50%;
+    /* width: 50%; */
     text-transform: none;
     font-weight: 500;
     padding: 8px 16px;
-    border-radius: 20px;
+    border-radius: 10px;
     transition: 0.2s ease;
+    background-color: #0a66c2;
+    color: white;
 }
 
 .loader {

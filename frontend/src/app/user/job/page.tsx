@@ -65,18 +65,18 @@ export default function GlobalJobPage() {
 
     return (
         <Box className={styles.container} id="scrollableDiv">
-            <Box className={styles.headerBox}>
-                <Box className={styles.header}>
-                    <SearchComp
-                        onSearch={(value) => {
-                            dispatch(getJobs({ tag: value }));
-                        }}
-                    />
+            {/* <Box className={styles.headerBox}> */}
+            <Box className={styles.header}>
+                <SearchComp
+                    onSearch={(value) => {
+                        dispatch(getJobs({ tag: value }));
+                    }}
+                />
 
-                    <Button className={styles.appliedBtn} onClick={handleProfileFormModalOpen}>
-                        Applied Jobs
-                    </Button>
-                </Box>
+                <Button className={styles.appliedBtn} onClick={handleProfileFormModalOpen}>
+                    Applied Jobs
+                </Button>
+                {/* </Box> */}
             </Box>
 
             {!loading && jobs.length ? (

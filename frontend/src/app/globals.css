@@ -23,3 +23,9 @@ img:hover {
 .MuiButtonBase-root {
   text-transform: none;
 }
+
+p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+}
