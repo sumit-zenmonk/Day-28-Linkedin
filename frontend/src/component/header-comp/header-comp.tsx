@@ -9,20 +9,20 @@ import { useState, useEffect } from "react"
 import { enqueueSnackbar } from "notistack"
 import Image from "next/image"
 import styles from "./headerComp.module.css"
-import RocketLaunchIcon from '@mui/icons-material/RocketLaunch'
-import Diversity3Icon from '@mui/icons-material/Diversity3'
-import WorkIcon from '@mui/icons-material/Work'
 import ArticleIcon from "@mui/icons-material/Article"
 import BusinessIcon from '@mui/icons-material/Business'
 import AddBusinessIcon from '@mui/icons-material/AddBusiness'
 import AppsIcon from '@mui/icons-material/Apps'
 import BadgeIcon from '@mui/icons-material/Badge'
-import ChatIcon from '@mui/icons-material/Chat'
 import { signOut } from "firebase/auth"
 import { auth } from "@/lib/firebase"
 import { RoleEnum } from "@/enums/user.role"
 import SearchComp from "../search-comp/search_comp"
-import HomeIcon from '@mui/icons-material/Home';
+import { IoHomeSharp } from "react-icons/io5";
+import TextsmsIcon from '@mui/icons-material/Textsms';
+import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
+import { FaPeopleGroup } from "react-icons/fa6";
+import { RiGlobalFill } from "react-icons/ri";
 
 export default function HeaderComp() {
     const pathname = usePathname()
@@ -34,20 +34,20 @@ export default function HeaderComp() {
     const tabsConfig = [
         {
             label: "Home",
-            icon: <HomeIcon />,
+            icon: <IoHomeSharp />,
             route: "/",
             isLoginNeeded: true,
             roles: [RoleEnum.USER]
         },
         {
             label: "Global Professionals",
-            icon: <RocketLaunchIcon />,
+            icon: <RiGlobalFill />,
             route: "/user/connection/global",
             roles: [RoleEnum.USER]
         },
         {
             label: "Network",
-            icon: <Diversity3Icon />,
+            icon: <FaPeopleGroup />,
             route: "/user/connection/network",
             roles: [RoleEnum.USER]
         },
@@ -74,7 +74,7 @@ export default function HeaderComp() {
         },
         {
             label: "Jobs",
-            icon: <WorkIcon />,
+            icon: <BusinessCenterIcon />,
             route: "/company/job",
             isLoginNeeded: true,
             roles: [RoleEnum.COMPANY]
@@ -95,14 +95,14 @@ export default function HeaderComp() {
         },
         {
             label: "Jobs",
-            icon: <WorkIcon />,
+            icon: <BusinessCenterIcon />,
             route: "/user/job",
             isLoginNeeded: true,
             roles: [RoleEnum.USER]
         },
         {
             label: "Messaging",
-            icon: <ChatIcon />,
+            icon: <TextsmsIcon />,
             route: "/user/chat",
             isLoginNeeded: true,
             roles: [RoleEnum.USER]
