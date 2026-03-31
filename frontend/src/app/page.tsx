@@ -9,6 +9,8 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import GroupsIcon from '@mui/icons-material/Groups';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import EventIcon from '@mui/icons-material/Event';
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import {
   Avatar,
@@ -26,11 +28,13 @@ import ConnectionPostComp from "@/component/user-comp/connection-post-comp/conne
 import PostFormPage from "@/component/user-comp/post-form-comp/post-form-comp";
 import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
 import { getLinkedInTime } from "@/util/post.time";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const { user, loading } = useSelector((state: RootState) => state.authReducer)
   const { profile, status } = useSelector((state: RootState) => state.profileReducer)
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   useEffect(() => {
     try {
@@ -54,7 +58,7 @@ export default function Home() {
     <Box className={styles.container}>
       <Box className={styles.layout}>
         <Box className={styles.leftSidebar}>
-          <Box className={styles.profileBox}>
+          <Box className={styles.profileBox} onClick={() => router.push('/user/profile')} >
             <Box className={styles.banner} />
             <Avatar
               src={profile?.profile_img?.image_url || ""}
@@ -120,13 +124,114 @@ export default function Home() {
 
             <Box className={styles.newsinnerbox}>
               <Typography className={styles.heading}>Stories</Typography>
-              <Box>
-                <Typography className={styles.title}>India's HNIs still upbeat on Dubai realty</Typography>
-                <Box>
-                  <Typography>{getLinkedInTime(Date.now() - (60 * 1000))}</Typography>
-                  <Typography>2,343 Reader's</Typography>
+              <Box className={styles.innerboxesBox}>
+                <Box className={styles.outerbox}>
+                  <Typography className={styles.title}>India's HNIs still upbeat on Dubai realty</Typography>
+                  <Box className={styles.innerbox}>
+                    <Typography className={styles.time}>{getLinkedInTime(Date.now() - (60 * 1000))}</Typography>
+                    <Typography className={styles.reader}>2,343 Reader's</Typography>
+                  </Box>
+                </Box>
+                <Box className={styles.outerbox}>
+                  <Typography className={styles.title}>AI investment flows to a select few</Typography>
+                  <Box className={styles.innerbox}>
+                    <Typography className={styles.time}>{getLinkedInTime(Date.now() - (24 * 60 * 1000))}</Typography>
+                    <Typography className={styles.reader}>223 Reader's</Typography>
+                  </Box>
+                </Box>
+                <Box className={styles.outerbox}>
+                  <Typography className={styles.title}>Indian firms go big on small AI models</Typography>
+                  <Box className={styles.innerbox}>
+                    <Typography className={styles.time}>{getLinkedInTime(Date.now() - (24 * 24 * 60 * 1000))}</Typography>
+                    <Typography className={styles.reader}>753 Reader's</Typography>
+                  </Box>
+                </Box>
+                <Box className={styles.outerbox}>
+                  <Typography className={styles.title}>CEO pay growth slows across India Inc</Typography>
+                  <Box className={styles.innerbox}>
+                    <Typography className={styles.time}>{getLinkedInTime(Date.now() - (2 * 24 * 60 * 30 * 60 * 1000))}</Typography>
+                    <Typography className={styles.reader}>753 Reader's</Typography>
+                  </Box>
                 </Box>
               </Box>
+              <Box className={styles.showMore}>
+                <Typography>Show more</Typography>
+                <ExpandMoreIcon />
+              </Box>
+            </Box>
+          </Box>
+
+          <Box className={styles.newsBox}>
+            <Typography className={styles.heading}>
+              Today’s puzzles
+            </Typography>
+
+            <Box>
+              <Box className={styles.item}>
+                <Box className={styles.left}>
+                  <Avatar src={"https://i.pravatar.cc/40?img=1"} className={styles.avatar} />
+                  <Box>
+                    <Typography className={styles.title}>
+                      Patches #14
+                    </Typography>
+                    <Typography className={styles.subtitle}>
+                      39 connections played
+                    </Typography>
+                  </Box>
+                </Box>
+
+                <ChevronRightIcon className={styles.icon} />
+              </Box>
+              <Box className={styles.item}>
+                <Box className={styles.left}>
+                  <Avatar src={"https://i.pravatar.cc/40?img=2"} className={styles.avatar} />
+                  <Box>
+                    <Typography className={styles.title}>
+                      Zip #379
+                    </Typography>
+                    <Typography className={styles.subtitle}>
+                      25 connections played
+                    </Typography>
+                  </Box>
+                </Box>
+
+                <ChevronRightIcon className={styles.icon} />
+              </Box>
+              <Box className={styles.item}>
+                <Box className={styles.left}>
+                  <Avatar src={"https://i.pravatar.cc/40?img=3"} className={styles.avatar} />
+                  <Box>
+                    <Typography className={styles.title}>
+                      Mini Sudoku #323
+                    </Typography>
+                    <Typography className={styles.subtitle}>
+                      The classic game, made mini
+                    </Typography>
+                  </Box>
+                </Box>
+
+                <ChevronRightIcon className={styles.icon} />
+              </Box>
+              <Box className={styles.item}>
+                <Box className={styles.left}>
+                  <Avatar src={"https://i.pravatar.cc/40?img=4"} className={styles.avatar} />
+                  <Box>
+                    <Typography className={styles.title}>
+                      Tango #540
+                    </Typography>
+                    <Typography className={styles.subtitle}>
+                      321 connections played
+                    </Typography>
+                  </Box>
+                </Box>
+
+                <ChevronRightIcon className={styles.icon} />
+              </Box>
+            </Box>
+
+            <Box className={styles.showMore}>
+              <Typography>Show more</Typography>
+              <ExpandMoreIcon />
             </Box>
           </Box>
         </Box>

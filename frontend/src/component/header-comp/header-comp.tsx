@@ -22,6 +22,7 @@ import { signOut } from "firebase/auth"
 import { auth } from "@/lib/firebase"
 import { RoleEnum } from "@/enums/user.role"
 import SearchComp from "../search-comp/search_comp"
+import HomeIcon from '@mui/icons-material/Home';
 
 export default function HeaderComp() {
     const pathname = usePathname()
@@ -32,9 +33,9 @@ export default function HeaderComp() {
 
     const tabsConfig = [
         {
-            label: "Profile",
-            icon: <Avatar sx={{ width: 20, height: 20 }} src={profile?.profile_img?.image_url || ""} />,
-            route: "/user/profile",
+            label: "Home",
+            icon: <HomeIcon />,
+            route: "/",
             isLoginNeeded: true,
             roles: [RoleEnum.USER]
         },

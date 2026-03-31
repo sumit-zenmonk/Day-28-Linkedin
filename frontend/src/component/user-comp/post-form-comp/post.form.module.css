@@ -29,6 +29,7 @@
 .avatar {
     width: 8%;
     height: auto;
+    aspect-ratio: 1/1;
 }
 
 .startInput {
