@@ -13,6 +13,8 @@ import { useRouter } from "next/navigation";
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ChatIcon from '@mui/icons-material/Chat';
 import SendIcon from '@mui/icons-material/Send';
+import { getLinkedInTime } from "@/util/post.time";
+import PublicIcon from '@mui/icons-material/Public';
 
 const LIMIT = Number(process.env.NEXT_PUBLIC_PAGINATION_LIMIT) || 10;
 
@@ -82,7 +84,7 @@ export default function PostList() {
                                                         {post.user.name}
                                                     </Typography>
                                                     <Typography className={styles.date}>
-                                                        {new Date(post.created_at).toLocaleString()}
+                                                        {getLinkedInTime(post.created_at)} &#9679; <PublicIcon />
                                                     </Typography>
                                                 </Box>
                                             </Box>

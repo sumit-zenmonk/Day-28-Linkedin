@@ -24,6 +24,7 @@ import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ChatIcon from '@mui/icons-material/Chat';
 import SendIcon from '@mui/icons-material/Send';
 import { getLinkedInTime } from "@/util/post.time";
+import PublicIcon from '@mui/icons-material/Public';
 
 const LIMIT = Number(process.env.NEXT_PUBLIC_PAGINATION_LIMIT) || 10;
 
@@ -74,6 +75,7 @@ export default function ConnectionPostComp() {
                     </Box>
                 }
                 scrollableTarget="scrollableDiv"
+                className={styles.infiniteScroll}
             >
                 <Box className={styles.flexWrap}>
                     {connectionPosts.map((post) => (
@@ -88,7 +90,7 @@ export default function ConnectionPostComp() {
                                             {post.user.name[0]}
                                         </Avatar>
 
-                                        <Box>
+                                        <Box className={styles.profileinfo}>
                                             <Typography className={styles.username}>
                                                 {post.user.name}
                                             </Typography>
@@ -96,7 +98,7 @@ export default function ConnectionPostComp() {
                                                 {post.user?.profile?.bio}
                                             </Typography>
                                             <Typography className={styles.date}>
-                                                {getLinkedInTime(post.created_at)}
+                                                {getLinkedInTime(post.created_at)} &#9679; <PublicIcon />
                                             </Typography>
                                         </Box>
                                     </Box>

@@ -51,6 +51,9 @@ export class PostRepository extends Repository<PostEntity> {
                 user: {
                     profile: true
                 },
+            },
+            order: {
+                created_at: 'DESC'
             }
         });
     }
@@ -94,6 +97,9 @@ export class PostRepository extends Repository<PostEntity> {
                 user: {
                     profile: true
                 },
+            },
+            order: {
+                created_at: 'DESC'
             },
             skip: offset || Number(process.env.page_offset) || 0,
             take: limit || Number(process.env.page_limit) || 10

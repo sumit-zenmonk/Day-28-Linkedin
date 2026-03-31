@@ -29,6 +29,7 @@ import PostFormPage from "@/component/user-comp/post-form-comp/post-form-comp";
 import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
 import { getLinkedInTime } from "@/util/post.time";
 import { useRouter } from "next/navigation";
+import { getConnectionPosts, getConnections } from "@/redux/feature/user/Connection/connectionAction";
 
 export default function Home() {
   const { user, loading } = useSelector((state: RootState) => state.authReducer)
@@ -40,6 +41,7 @@ export default function Home() {
     try {
       if (user?.role == RoleEnum.USER) {
         dispatch(getProfile()).unwrap();
+        dispatch(getConnections({ limit: 50 })).unwrap();
       } else if (user?.role == RoleEnum.COMPANY) {
         dispatch(getInsight()).unwrap();
         dispatch(getCompanyEmployees({}));

@@ -14,6 +14,7 @@ import { enqueueSnackbar } from "notistack";
 import styles from "./post.form.module.css";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks.ts";
 import { RootState } from "@/redux/store";
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 const MAX_FILES = Number(process.env.NEXT_PUBLIC_BACKEND_IMG_LIMIT) || 5;
 
@@ -87,16 +88,12 @@ export default function PostFormPage() {
             </Card>
             <Modal open={open} onClose={() => setOpen(false)}>
                 <Box className={styles.modal}>
-                    <Box className={styles.modalHeader}>
+                    <Box className={styles.modalProfileHeader}>
                         <Avatar className={styles.avatar} src={profile?.profile_img?.image_url || ""} />
-                        <Typography>{user?.name}</Typography>
-                    </Box>
-
-                    <Box className={styles.modalHeader}>
-                        <Box></Box>
-                        <IconButton onClick={() => setOpen(false)}>
-                            <CloseIcon />
-                        </IconButton>
+                        <Box>
+                            <Typography>{user?.name} <ArrowDropDownIcon /></Typography>
+                            <Typography sx={{ color: "grey" }}>Post to Anyone</Typography>
+                        </Box>
                     </Box>
 
                     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
