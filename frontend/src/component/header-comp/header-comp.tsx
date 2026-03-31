@@ -188,7 +188,7 @@ export default function HeaderComp() {
                         className={styles.logoutButton}
                         onClick={handleLogOut}
                     >
-                        Log Out
+                        Sign Out
                     </Button>
                 ) : (
                     <Box className={styles.authButtons}>
