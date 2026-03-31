@@ -10,6 +10,7 @@ import { getConnections, sendConnectionRequest } from "@/redux/feature/user/Conn
 import { enqueueSnackbar } from "notistack";
 import UserConnectionRequestPage from "@/component/user-comp/request-comp.tsx/request-comp";
 import { useRouter } from "next/navigation";
+import ShareIcon from '@mui/icons-material/Share';
 
 const LIMIT = 50;
 
@@ -88,9 +89,11 @@ export default function GlobalConnectionPage() {
             >
                 <Box className={styles.infiniteScrollComp}>
                     {connections
-                        // .filter((conn) => !isAlreadyConnected(conn.uuid))
+                        .filter((conn) => !isAlreadyConnected(conn.uuid))
                         .map((conn) => (
                             <Card key={conn.uuid} className={styles.card}>
+                                <Box className={styles.banner} />
+
                                 <CardContent className={styles.cardContent}>
                                     <Avatar
                                         src={conn.profile?.profile_img?.image_url}
@@ -112,12 +115,17 @@ export default function GlobalConnectionPage() {
                                         </Typography>
                                     </Box>
 
-                                    {!isAlreadyConnected(conn.uuid) && < Button
-                                        disabled={isAlreadyRequested(conn.uuid) || isAlreadyConnected(conn.uuid)}
-                                        onClick={() => handleMakeConnectionRequest(conn.uuid)}
-                                    >
-                                        {isAlreadyRequested(conn.uuid) ? "Requested" : "Connect"}
-                                    </Button>}
+                                    {
+                                        !isAlreadyConnected(conn.uuid) &&
+                                        < Button
+                                            disabled={isAlreadyRequested(conn.uuid) || isAlreadyConnected(conn.uuid)}
+                                            onClick={() => handleMakeConnectionRequest(conn.uuid)}
+                                            className={styles.connectbtn}
+                                            startIcon={<ShareIcon />}
+                                        >
+                                            {isAlreadyRequested(conn.uuid) ? "Requested" : "Connect"}
+                                        </Button>
+                                    }
                                 </CardContent>
                             </Card>
                         ))}
