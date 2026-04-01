@@ -6,6 +6,8 @@ import { ImageRepository } from "src/infrastructure/repository/image.repo";
 import { ImageTypeEnum } from "src/domain/enums/img.";
 import { ChangePostInteractionDto } from "./dto/change.post.interaction.dto";
 import { PostInteractionRepository } from "src/infrastructure/repository/post.interaction.repo";
+import { CommentCreateDto } from "./dto/comment.create.dto";
+import { CommentRepository } from "src/infrastructure/repository/comment.repo";
 
 @Injectable()
 export class PostService {
@@ -13,6 +15,7 @@ export class PostService {
         private readonly postRepo: PostRepository,
         private readonly imageRepo: ImageRepository,
         private readonly postInteractionRepo: PostInteractionRepository,
+        private readonly commentRepo: CommentRepository,
     ) { }
 
     async CreateUserPost(user: UserEntity, body: CreatePostDto) {
@@ -106,5 +109,13 @@ export class PostService {
         });
 
         return { message: "Reaction added" };
+    }
+
+    async createPostComment(body: CommentCreateDto, user: UserEntity) {
+        return await this.commentRepo.createComment(body, user.uuid);
+    }
+
+    async getPostComments(post_uuid: string) {
+        return await this.commentRepo.getAllComments(post_uuid);
     }
 }

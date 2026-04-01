@@ -2,6 +2,7 @@ import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToO
 import { UserEntity } from "./user.entity";
 import { ImageEntity } from "./images.entity";
 import { PostInteractionEntity } from "./post.interaction.entity";
+import { CommentEntity } from "./comment.entity";
 
 @Entity('posts')
 export class PostEntity {
@@ -22,7 +23,10 @@ export class PostEntity {
     user: UserEntity;
 
     @OneToMany(() => PostInteractionEntity, postInteract => postInteract.post, { eager: true })
-    liked_by: PostInteractionEntity;
+    liked_by: PostInteractionEntity[];
+
+    @OneToMany(() => CommentEntity, (comment) => comment.post, { eager: true })
+    comments: CommentEntity[];
 
     @CreateDateColumn()
     created_at: Date;

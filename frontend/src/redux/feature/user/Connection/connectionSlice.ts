@@ -143,6 +143,7 @@ const connectionSlice = createSlice({
                 state.loading = true;
             })
             .addCase(getConnectionPosts.fulfilled, (state, action) => {
+                console.log(action.payload.posts[0]);
                 state.loading = false;
                 if (action.meta.arg.page === 1) {
                     state.connectionPosts = action.payload.posts;

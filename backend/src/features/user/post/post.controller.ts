@@ -6,6 +6,7 @@ import { RoleEnum } from "src/domain/enums/user";
 import { PostService } from "./post.service";
 import { CreatePostDto } from "./dto/create.post.dto";
 import { ChangePostInteractionDto } from "./dto/change.post.interaction.dto";
+import { CommentCreateDto } from "./dto/comment.create.dto";
 
 @UseGuards(RolesGuard)
 @Roles(RoleEnum.USER)
@@ -38,5 +39,15 @@ export class PostController {
     @Post('/interaction')
     async changePostInteraction(@Req() req: Request, @Body() body: ChangePostInteractionDto) {
         return await this.postService.changePostInteraction(req.user, body);
+    }
+
+    @Post('/comment')
+    async createTaskComment(@Body() body: CommentCreateDto, @Req() req: Request) {
+        return await this.postService.createPostComment(body, req.user);
+    }
+
+    @Get('/comment/:post_uuid')
+    async getTaskComments(@Param('post_uuid') post_uuid: string) {
+        return await this.postService.getPostComments(post_uuid);
     }
 }
