@@ -3,7 +3,7 @@
 import styles from "./home.module.css"
 import { RootState } from "@/redux/store"
 import { useSelector } from "react-redux"
-import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
+import { BsBoxSeamFill } from "react-icons/bs";
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import GroupsIcon from '@mui/icons-material/Groups';
@@ -81,7 +81,7 @@ export default function Home() {
           <Box className={styles.careerBox}>
             <Typography>Achieve your career goals</Typography>
             <Typography>
-              <WorkspacePremiumIcon /> Try Premium for ₹0
+              <BsBoxSeamFill color="rgb(223, 163, 0)" /> Try Premium for ₹0
             </Typography>
           </Box>
 
@@ -99,7 +99,7 @@ export default function Home() {
                 Profile Impressions
               </Typography>
               <Typography sx={{ color: "rgb(0, 121, 219)" }}>
-                {profile?.impressions || 125}
+                {profile?.impressions || 12}
               </Typography>
             </Box>
           </Box>

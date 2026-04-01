@@ -1,6 +1,6 @@
 .header {
     width: 100%;
-    height: 7%;
+    height: 6%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -13,7 +13,7 @@
     width: 40%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     gap: 15px;
 }
 
@@ -24,26 +24,27 @@
 }
 
 .leftContainer :global(input) {
-    border-radius: 4px;
+    /* border-radius: 4px; */
     padding: 8px 12px;
-    width: 250px;
+    /* width: 250px; */
 }
 
 .rightContainer {
     width: 60%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    margin-left: 3%;
 }
 
 .sideBox {
     display: flex;
     height: fit-content;
-    border-left: 1px solid rgb(151, 151, 151);
+    border-left: 1px solid rgb(219, 219, 219);
 }
 
 .category {
-    width: 50%;
+    width: fit-content;
     display: flex;
 }
 
@@ -104,4 +105,13 @@
 .logoutButton {
     color: #d11124;
     font-weight: 600;
+}
+
+/* .category :global(.MuiTabs-root) {
+    height: 100%;
+} */
+
+.category :global(.MuiTab-root) {
+    min-height: 6%;
+    padding: 6px 12px;
 }

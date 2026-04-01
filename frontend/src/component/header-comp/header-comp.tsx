@@ -23,8 +23,9 @@ import TextsmsIcon from '@mui/icons-material/Textsms';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import { FaPeopleGroup } from "react-icons/fa6";
 import { RiGlobalFill } from "react-icons/ri";
-import { GoOrganization } from "react-icons/go";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
+import { BsBoxSeamFill } from "react-icons/bs";
 
 export default function HeaderComp() {
     const pathname = usePathname()
@@ -189,36 +190,46 @@ export default function HeaderComp() {
                 </Box>
 
                 <Box className={styles.sideBox}>
-                    <Tab
-                        icon={<GoOrganization />}
-                        iconPosition="top"
-                        label={
-                            <Typography className={styles.categoryText}>
-                                For Business
-                            </Typography>
-                        }
-                        className={styles.categoryBoxes}
-                        sx={{
-                            "&.Mui-selected": {
-                                color: "black"
-                            }
+                    <Tabs
+                        // value={tabValue}
+                        // onChange={handleChange}
+                        // variant="scrollable"
+                        // scrollButtons="auto"
+                        TabIndicatorProps={{
+                            style: { backgroundColor: "black" }
                         }}
-                    />
-                    <Tab
-                        icon={<WorkspacePremiumIcon />}
-                        iconPosition="top"
-                        label={
-                            <Typography className={styles.categoryText}>
-                                Try Premium
-                            </Typography>
-                        }
-                        className={styles.categoryBoxes}
-                        sx={{
-                            "&.Mui-selected": {
-                                color: "black"
+                    >
+                        <Tab
+                            icon={<AppsIcon />}
+                            iconPosition="top"
+                            label={
+                                <Typography className={styles.categoryText}>
+                                    For Business <KeyboardArrowDownIcon />
+                                </Typography>
                             }
-                        }}
-                    />
+                            className={styles.categoryBoxes}
+                            sx={{
+                                "&.Mui-selected": {
+                                    color: "black"
+                                }
+                            }}
+                        />
+                        <Tab
+                            icon={<BsBoxSeamFill color="rgb(223, 163, 0)" />}
+                            iconPosition="top"
+                            label={
+                                <Typography className={styles.categoryText}>
+                                    Try Premium for $0
+                                </Typography>
+                            }
+                            className={styles.categoryBoxes}
+                            sx={{
+                                "&.Mui-selected": {
+                                    color: "black"
+                                }
+                            }}
+                        />
+                    </Tabs>
                 </Box>
 
                 {user ? (
