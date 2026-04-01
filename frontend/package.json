@@ -23,6 +23,7 @@
     "firebase-admin": "^13.7.0",
     "i": "^0.3.7",
     "js-cookie": "^3.0.5",
+    "mui-file-upload": "^1.0.0-alpha.8",
     "next": "16.1.6",
     "next-auth": "^4.24.13",
     "notistack": "^3.0.2",

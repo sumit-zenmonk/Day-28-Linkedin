@@ -15,6 +15,7 @@ import styles from "./post.form.module.css";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks.ts";
 import { RootState } from "@/redux/store";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { MultiFileUpload } from "mui-file-upload";
 
 const MAX_FILES = Number(process.env.NEXT_PUBLIC_BACKEND_IMG_LIMIT) || 5;
 
@@ -24,6 +25,25 @@ export default function PostFormPage() {
     const [open, setOpen] = useState(false);
     const { profile, status } = useAppSelector((state: RootState) => state.profileReducer)
     const { user } = useAppSelector((state: RootState) => state.authReducer)
+
+    const uploadService = async (
+        file: File,
+        onProgress: (progress: number) => void
+    ): Promise<string> => {
+        return new Promise((resolve) => {
+            let progress = 0;
+
+            const interval = setInterval(() => {
+                progress += 20;
+                onProgress(progress);
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    resolve("ok");
+                }
+            }, 150);
+        });
+    };
 
     const {
         register,
@@ -108,21 +128,33 @@ export default function PostFormPage() {
                             helperText={errors.content?.message}
                         />
 
-                        <input
-                            type="file"
-                            multiple
-                            accept="image/*"
-                            onChange={(e) =>
-                                setFiles(Array.from(e.target.files || []))
-                            }
+                        <MultiFileUpload
+                            uploadService={uploadService}
+                            acceptsOnly="image/*"
+                            onSuccessfulUpload={(fileUpload: any) => {
+                                setFiles((prev) => {
+                                    if (prev.length >= MAX_FILES) {
+                                        enqueueSnackbar(`You can only upload up to ${MAX_FILES} images`, { variant: "warning" });
+                                        return prev;
+                                    }
+                                    const exists = prev.some(f => f.name === fileUpload.file.name);
+
+                                    if (exists) return prev;
+
+                                    return [...prev, fileUpload.file];
+                                });
+                            }}
                         />
 
                         <Box className={styles.fileList}>
                             {files.map((file, i) => (
                                 <Box key={i} className={styles.fileItem}>
-                                    <Typography className={styles.fileName}>
-                                        {file.name}
-                                    </Typography>
+                                    <img
+                                        src={URL.createObjectURL(file)}
+                                        alt={file.name}
+                                        style={{ width: 80, height: 80, objectFit: "cover", borderRadius: 8 }}
+                                        className={styles.fileItem}
+                                    />
                                     <IconButton size="small" onClick={() => removeFile(i)}>
                                         <CloseIcon fontSize="small" />
                                     </IconButton>
