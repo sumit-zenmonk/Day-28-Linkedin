@@ -191,8 +191,8 @@ export default function HeaderComp() {
 
                 <Box className={styles.sideBox}>
                     <Tabs
-                        // value={tabValue}
-                        // onChange={handleChange}
+                        value={false}
+                        onChange={()=>{}}
                         // variant="scrollable"
                         // scrollButtons="auto"
                         TabIndicatorProps={{

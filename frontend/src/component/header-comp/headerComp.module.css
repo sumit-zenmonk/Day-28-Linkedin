@@ -1,12 +1,13 @@
 .header {
     width: 100%;
-    height: 6%;
+    height: 5.5%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     /* padding: 0 3%; */
     background-color: white;
     border-bottom: 1px solid #e0e0e0;
+    overflow: hidden;
 }
 
 .leftContainer {
@@ -25,7 +26,7 @@
 
 .leftContainer :global(input) {
     /* border-radius: 4px; */
-    padding: 8px 12px;
+    padding: 5px 12px;
     /* width: 250px; */
 }
 
@@ -55,7 +56,7 @@
 }
 
 .categoryBoxes svg {
-    font-size: 22px;
+    font-size: 20px;
 }
 
 .Mui-selected {
@@ -107,11 +108,11 @@
     font-weight: 600;
 }
 
-/* .category :global(.MuiTabs-root) {
+.category :global(.MuiTabs-root) {
     height: 100%;
-} */
+}
 
 .category :global(.MuiTab-root) {
-    min-height: 6%;
-    padding: 6px 12px;
+    min-height: 5.5%;
+    padding: 4px 12px;
 }

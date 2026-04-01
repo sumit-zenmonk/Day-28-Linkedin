@@ -4,13 +4,17 @@ import styles from "./home.module.css"
 import { RootState } from "@/redux/store"
 import { useSelector } from "react-redux"
 import { BsBoxSeamFill } from "react-icons/bs";
-import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
+import { MdOutlineVerifiedUser } from "react-icons/md";
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import GroupsIcon from '@mui/icons-material/Groups';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import EventIcon from '@mui/icons-material/Event';
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { BsThreeDots } from "react-icons/bs";
+import { IoCreateOutline } from "react-icons/io5";
+import { IoIosArrowUp } from "react-icons/io";
+import { GoDotFill } from "react-icons/go";
 
 import {
   Avatar,
@@ -68,7 +72,7 @@ export default function Home() {
             />
             <Typography className={styles.profilename}>
               {user?.name}
-              <VerifiedUserIcon />
+              <MdOutlineVerifiedUser />
             </Typography>
             <Typography className={styles.profilebio}>
               {profile?.bio || "No bio"}
@@ -236,6 +240,22 @@ export default function Home() {
               <ExpandMoreIcon />
             </Box>
           </Box>
+        </Box>
+      </Box>
+
+      <Box className={styles.bottomMessaging}>
+        <Box className={styles.bottomMessangingLeft}>
+          <Avatar
+            src={profile?.profile_img?.image_url || ""}
+            className={styles.bottomMessangingAvatar}
+          />
+          <GoDotFill className={styles.bottomGreenDotMessaging} />
+          <Typography>Messanging</Typography>
+        </Box>
+        <Box className={styles.bottomMessangingRight}>
+          <BsThreeDots className={styles.icon} />
+          <IoCreateOutline className={styles.icon} />
+          <IoIosArrowUp className={styles.icon} />
         </Box>
       </Box>
     </Box>

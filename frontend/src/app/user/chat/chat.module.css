@@ -1,7 +1,6 @@
 .chatContainer {
     display: flex;
     height: 93%;
-    background-color: #f3f2ef;
     padding: .2%;
     gap: 2%;
 }

@@ -4,7 +4,6 @@
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    background-color: #f3f2ef;
 }
 
 .list {
