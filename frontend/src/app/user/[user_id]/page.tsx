@@ -6,7 +6,7 @@ import styles from "./user.module.css";
 import { RootState } from "@/redux/store";
 import { getConnections } from "@/redux/feature/user/Connection/connectionAction";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks.ts";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 const LIMIT = Number(process.env.NEXT_PUBLIC_PAGINATION_LIMIT) || 10;
 
@@ -14,6 +14,8 @@ export default function UserProfilePage() {
     const dispatch = useAppDispatch();
     const params = useParams()
     const { connections, loading } = useAppSelector((state: RootState) => state.connectionReducer);
+    const loggedInuser = useAppSelector((state: RootState) => state.authReducer.user);
+    const router = useRouter();
 
     const user = connections.find((u) => u.uuid === params.user_id);
 
@@ -32,6 +34,9 @@ export default function UserProfilePage() {
     }
 
     if (!user) {
+        if (params.user_id == loggedInuser?.uid) {
+            router.replace('/user/profile');
+        }
         return (
             <Box className={styles.container}>
                 <Typography>User not found</Typography>
