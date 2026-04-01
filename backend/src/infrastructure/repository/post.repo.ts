@@ -128,9 +128,11 @@ export class PostRepository extends Repository<PostEntity> {
 
         // get posts of connections not mine
         const [data, total] = await this.findAndCount({
-            where: {
-                user_uuid: In(connectionIds.length ? connectionIds : ['']),
-            },
+            // right anyone's post if uncomment then only connections post
+
+            // where: {
+            //     user_uuid: In(connectionIds.length ? connectionIds : ['']),
+            // },
             select: {
                 uuid: true,
                 content: true,

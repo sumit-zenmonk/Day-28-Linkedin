@@ -99,7 +99,8 @@ export class UserRepository extends Repository<UserEntity> {
                     start_date: true,
                     specialization: true,
                     school_url: true,
-                }
+                },
+                created_at: true,
             },
             relations: {
                 profile: {
@@ -107,6 +108,9 @@ export class UserRepository extends Repository<UserEntity> {
                 },
                 education_histories: true,
                 employment_histories: true,
+            },
+            order: {
+                created_at: "DESC",
             },
             skip: offset || Number(process.env.page_offset) || 0,
             take: limit || Number(process.env.page_limit) || 10
