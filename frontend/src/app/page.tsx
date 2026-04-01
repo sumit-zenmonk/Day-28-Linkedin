@@ -19,10 +19,11 @@ import { GoDotFill } from "react-icons/go";
 import {
   Avatar,
   Box,
+  Modal,
   Typography
 } from "@mui/material"
 import { RoleEnum } from "@/enums/user.role";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch } from "@/redux/hooks.ts";
 import { enqueueSnackbar } from "notistack";
 import { getProfile } from "@/redux/feature/user/Profile/profileAction";
@@ -34,12 +35,14 @@ import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
 import { getLinkedInTime } from "@/util/post.time";
 import { useRouter } from "next/navigation";
 import { getConnectionPosts, getConnections } from "@/redux/feature/user/Connection/connectionAction";
+import ChatPage from "./user/chat/page";
 
 export default function Home() {
   const { user, loading } = useSelector((state: RootState) => state.authReducer)
   const { profile, status } = useSelector((state: RootState) => state.profileReducer)
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const [openMessangingModal, setOpenMessangingModal] = useState<boolean>(false);
 
   useEffect(() => {
     try {
@@ -59,6 +62,9 @@ export default function Home() {
   if (loading) {
     return <Box className={styles.container}>Loading...</Box>;
   }
+
+  const handleMessangingModalOpen = () => setOpenMessangingModal(true);
+  const handleMessangingModalClose = () => setOpenMessangingModal(false);
 
   return (
     <Box className={styles.container}>
@@ -84,9 +90,10 @@ export default function Home() {
 
           <Box className={styles.careerBox}>
             <Typography>Achieve your career goals</Typography>
-            <Typography>
-              <BsBoxSeamFill color="rgb(223, 163, 0)" /> Try Premium for ₹0
-            </Typography>
+            <Box>
+              <BsBoxSeamFill color="rgb(223, 163, 0)" />
+              <Typography  className={styles.careerPremiumText}>Try Premium for ₹0 </Typography>
+            </Box>
           </Box>
 
           <Box className={styles.profileImpressionViewerBox}>
@@ -244,7 +251,7 @@ export default function Home() {
       </Box>
 
       <Box className={styles.bottomMessaging}>
-        <Box className={styles.bottomMessangingLeft}>
+        <Box className={styles.bottomMessangingLeft} onClick={handleMessangingModalOpen}>
           <Avatar
             src={profile?.profile_img?.image_url || ""}
             className={styles.bottomMessangingAvatar}
@@ -258,6 +265,11 @@ export default function Home() {
           <IoIosArrowUp className={styles.icon} />
         </Box>
       </Box>
+      <Modal open={openMessangingModal} onClose={handleMessangingModalClose} className={styles.modal} >
+        <Box className={styles.modalWrapper}>
+          <ChatPage />
+        </Box>
+      </Modal>
     </Box>
   )
 }

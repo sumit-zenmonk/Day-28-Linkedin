@@ -100,11 +100,6 @@ export default function ProfileView() {
                                             </Typography>
                                         )}
 
-                                        <Typography className={styles.date}>
-                                            {formatDate(edu.start_date)} -{" "}
-                                            {formatDate(edu.end_date)}
-                                        </Typography>
-
                                         {edu.description && (
                                             <Typography
                                                 className={styles.description}
@@ -112,6 +107,19 @@ export default function ProfileView() {
                                                 {edu.description}
                                             </Typography>
                                         )}
+
+                                        {edu.school_url && (
+                                            <Typography
+                                                onClick={() => handleRedirect(edu.company_url)}
+                                                className={styles.company_url}>
+                                                {edu.school_url}
+                                            </Typography>
+                                        )}
+
+                                        <Typography className={styles.date}>
+                                            {formatDate(edu.start_date)} -{" "}
+                                            {formatDate(edu.end_date)}
+                                        </Typography>
 
                                         <Box className={styles.actionRow}>
                                             <Button

@@ -10,6 +10,8 @@ import { Box, Typography, TextField, Button, Avatar, List, ListItem, ListItemAva
 import styles from "./chat.module.css"
 import { connectSocket, disconnectSocket } from "@/service/socket"
 import { useRouter } from "next/navigation"
+import { BsThreeDots } from "react-icons/bs";
+import { getLinkedInTime } from "@/util/post.time"
 
 export default function ChatPage() {
     const dispatch = useDispatch<AppDispatch>()
@@ -87,9 +89,12 @@ export default function ChatPage() {
             <Box className={styles.chatWindow}>
                 {selectedFriend ? (
                     <>
-                        <Box onClick={() => { router.push(`/user/${selectedFriend.connected_user_uuid}`) }}>
-                            <Avatar src={selectedFriend.connected_user.profile?.profile_img?.image_url} />
-                            <Typography variant="subtitle1" fontWeight={600}>{selectedFriend.connected_user.name}</Typography>
+                        <Box className={styles.FirendInfoBox}>
+                            <Box className={styles.FirendInfo} onClick={() => { router.push(`/user/${selectedFriend.connected_user_uuid}`) }} >
+                                <Avatar src={selectedFriend.connected_user.profile?.profile_img?.image_url} />
+                                <Typography variant="subtitle1" fontWeight={600}>{selectedFriend.connected_user.name}</Typography>
+                            </Box>
+                            <BsThreeDots />
                         </Box>
 
                         <Box className={styles.messageList}>
@@ -98,7 +103,8 @@ export default function ChatPage() {
                                     key={msg.uuid}
                                     className={`${styles.messageItem} ${msg.sender_uuid === user?.uid ? styles.myMessage : styles.friendMessage}`}
                                 >
-                                    {msg.content}
+                                    <Typography>{msg.content}</Typography>
+                                    <Typography className={styles.msgTime}>{getLinkedInTime(msg.created_at)}</Typography>
                                 </Box>
                             ))}
                             <div ref={messageEndSmoothScrollRef} />

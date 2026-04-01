@@ -57,7 +57,7 @@ export default function ConnectionPostComp() {
     const handlePostInteract = async (post_uuid: string, content?: string) => {
         try {
             const currentInteraction = connectionPosts.find(p => p.uuid === post_uuid)?.liked_by.find((his: any) => his.user_uuid === user?.uid);
-            
+
             // If clicking the same emoji, remove it
             const finalContent = currentInteraction?.content === content ? undefined : content;
 
@@ -71,8 +71,8 @@ export default function ConnectionPostComp() {
         }
     }
 
-    const isAlreadyLiked = (liked_byArray: any) => { 
-        return liked_byArray.find((his: any) => his.user_uuid === user?.uid); 
+    const isAlreadyLiked = (liked_byArray: any) => {
+        return liked_byArray.find((his: any) => his.user_uuid === user?.uid);
     };
 
     const getReactionCounts = (liked_byArray: any) => {
@@ -119,7 +119,7 @@ export default function ConnectionPostComp() {
                                                     {post.user?.profile?.bio}
                                                 </Typography>
                                                 <Typography className={styles.date}>
-                                                    {getLinkedInTime(post.created_at)} &#9679; <PublicIcon />
+                                                    {getLinkedInTime(post.created_at)} &#9679; <PublicIcon fontSize="inherit" />
                                                 </Typography>
                                             </Box>
                                         </Box>
@@ -144,33 +144,33 @@ export default function ConnectionPostComp() {
 
                                 <Box className={styles.boxButtons} style={{ position: 'relative' }}>
                                     {hoveredPost === post.uuid && (
-                                        <Box 
+                                        <Box
                                             onMouseLeave={() => setHoveredPost(null)}
-                                            style={{ 
-                                                position: 'absolute', 
-                                                bottom: '100%', 
-                                                left: 0, 
+                                            style={{
+                                                position: 'absolute',
+                                                bottom: '100%',
+                                                left: 0,
                                                 zIndex: 10,
                                                 marginBottom: '8px'
                                             }}
                                         >
-                                            <MoodEmojiReactionPanel 
+                                            <MoodEmojiReactionPanel
                                                 onReaction={(emoji) => handlePostInteract(post.uuid, emoji)}
                                                 initialReactions={getReactionCounts(post.liked_by)}
                                             />
                                         </Box>
                                     )}
-                                    <Button 
+                                    <Button
                                         onMouseEnter={() => setHoveredPost(post.uuid)}
-                                        onClick={() => handlePostInteract(post.uuid, userInteraction ? undefined : '👍')} 
+                                        onClick={() => handlePostInteract(post.uuid, userInteraction ? undefined : '👍')}
                                         sx={{ color: userInteraction ? '#0a66c2' : 'gray', textTransform: 'none' }}
                                     >
                                         {userInteraction ? (
-                                            <span style={{ marginRight: '4px' }}>{userInteraction.content}</span>
+                                            <Box style={{ marginRight: '4px' }} >{userInteraction.content}</Box>
                                         ) : (
                                             <ThumbUpAltIcon sx={{ marginRight: '4px' }} />
                                         )}
-                                        {post.liked_by.length > 0 && post.liked_by.length} Like
+                                        {/* {post.liked_by.length > 0 && post.liked_by.length} Like */}
                                     </Button>
                                     <Button sx={{ color: 'gray', textTransform: 'none' }}>
                                         <ChatIcon sx={{ marginRight: '4px' }} />

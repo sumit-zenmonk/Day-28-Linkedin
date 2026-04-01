@@ -34,7 +34,7 @@ export default function PostFormPage() {
             let progress = 0;
 
             const interval = setInterval(() => {
-                progress += 20;
+                progress += 10;
                 onProgress(progress);
 
                 if (progress >= 100) {

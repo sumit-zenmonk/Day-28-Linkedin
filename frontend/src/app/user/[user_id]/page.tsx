@@ -98,11 +98,11 @@ export default function UserProfilePage() {
                                         <Typography className={styles.itemTitle}>
                                             {edu.school_name}
                                         </Typography>
+                                        <Typography>{edu.specialization}</Typography>
+                                        <Typography>{edu.description}</Typography>
                                         <Typography className={styles.itemSub}>
                                             {edu.start_date} - {edu.end_date}
                                         </Typography>
-                                        <Typography>{edu.specialization}</Typography>
-                                        <Typography>{edu.description}</Typography>
                                     </Box>
                                 ))
                             )}

@@ -11,7 +11,7 @@
 }
 
 .scrollContainer {
-    width: 70%;
+    width: 40%;
     height: fit-content;
     overflow-y: auto;
     display: flex;
@@ -22,8 +22,9 @@
 .topButton {
     display: flex;
     justify-content: flex-end;
-    width: 70%;
+    width: 50%;
     margin-bottom: 10px;
+    position: absolute;
 }
 
 .card {

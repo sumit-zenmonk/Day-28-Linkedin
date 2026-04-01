@@ -8,6 +8,7 @@ import { PostEntity } from 'src/domain/entities/posts.entity';
 import { ImageEntity } from 'src/domain/entities/images.entity';
 import { PostInteractionEntity } from 'src/domain/entities/post.interaction.entity';
 import { ImageTypeEnum } from 'src/domain/enums/img.';
+import { BcryptService } from '../services/bcrypt.service';
 
 async function create() {
     dataSource.setOptions({
@@ -15,6 +16,9 @@ async function create() {
     });
 
     await dataSource.initialize();
+
+    const bcryptService = new BcryptService();
+    const hashedPassword = await bcryptService.hashPassword("123");
 
     const queryRunner = dataSource.createQueryRunner();
     await queryRunner.connect();
@@ -28,7 +32,7 @@ async function create() {
         for (const _ of Array.from(Array(15).keys())) {
             const user = await queryRunner.manager.save(UserEntity, {
                 email: faker.internet.email(),
-                password: faker.internet.password(),
+                password: hashedPassword,
                 name: faker.person.fullName(),
             });
 
@@ -44,7 +48,7 @@ async function create() {
                 profile,
                 user_uuid: user.uuid,
                 type: ImageTypeEnum.PROFILE,
-                image_url: faker.image.urlPicsumPhotos(),
+                image_url: faker.image.personPortrait() || "https://i.pravatar.cc/300",
             });
         }
 

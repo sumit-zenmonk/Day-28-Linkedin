@@ -212,6 +212,14 @@ export default function UserProfileFormComp() {
                     className={styles.form}
                 >
                     <TextField label="School Name" fullWidth {...eduRegister("school_name")} />
+                    <TextField label="Specialization" fullWidth {...eduRegister("specialization")} />
+                    <TextField
+                        label="Description"
+                        fullWidth
+                        multiline
+                        rows={3}
+                        {...empRegister("description")}
+                    />
                     <TextField label="School URL" fullWidth {...eduRegister("school_url")} />
 
                     <Box className={styles.row}>
