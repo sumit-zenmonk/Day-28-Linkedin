@@ -85,14 +85,26 @@ export class PostService {
 
     async changePostInteraction(user: UserEntity, body: ChangePostInteractionDto) {
         const isExists = await this.postInteractionRepo.findByUserUuidAndPostUuid(user.uuid, body.post_uuid);
-        if (isExists) {
-            await this.postInteractionRepo.deletePostInteraction(isExists.uuid);
-        } else {
-            await this.postInteractionRepo.createPostInteraction({ user_uuid: user.uuid, post_uuid: body.post_uuid, content: body.content });
+
+        if (!body.content || body.content.trim() === '') {
+            if (isExists) {
+                await this.postInteractionRepo.deletePostInteraction(isExists.uuid);
+            }
+            return { message: "Reaction removed" };
         }
 
-        return {
-            message: `Post ${isExists ? "UnLiked" : "Liked"}`
+        if (isExists) {
+            isExists.content = body.content;
+            await this.postInteractionRepo.save(isExists);
+            return { message: "Reaction updated" };
         }
+
+        await this.postInteractionRepo.createPostInteraction({
+            user_uuid: user.uuid,
+            post_uuid: body.post_uuid,
+            content: body.content
+        });
+
+        return { message: "Reaction added" };
     }
 }

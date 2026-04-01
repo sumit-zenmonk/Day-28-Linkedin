@@ -110,11 +110,11 @@ export const uploadPostImages = createAsyncThunk(
 
 export const interactWithPost = createAsyncThunk<
     any,
-    string,
+    { postUuid: string; content?: string },
     { state: RootState }
 >(
     "post/interact",
-    async (postUuid, { getState, rejectWithValue }) => {
+    async ({ postUuid, content }, { getState, rejectWithValue }) => {
         try {
             const token = getState().authReducer.token;
 
@@ -126,6 +126,7 @@ export const interactWithPost = createAsyncThunk<
                 },
                 body: JSON.stringify({
                     post_uuid: postUuid,
+                    content: content
                 }),
             });
 

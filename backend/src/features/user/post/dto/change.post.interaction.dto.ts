@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
 
 export class ChangePostInteractionDto {
     @IsUUID()
@@ -6,6 +6,6 @@ export class ChangePostInteractionDto {
     post_uuid: string;
 
     @IsString()
-    @IsNotEmpty()
-    content: string;
+    @IsOptional()
+    content?: string;
 }

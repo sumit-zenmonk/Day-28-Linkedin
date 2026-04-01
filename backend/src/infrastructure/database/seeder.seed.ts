@@ -92,6 +92,7 @@ async function create() {
                         user: user,
                         post: post,
                         type: 'LIKE',
+                        content: '😁',
                     });
                 }
             }
