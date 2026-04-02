@@ -50,4 +50,14 @@ export class PostController {
     async getTaskComments(@Param('post_uuid') post_uuid: string) {
         return await this.postService.getPostComments(post_uuid);
     }
+
+    @Delete('/comment/:uuid')
+    async deleteComment(@Param('uuid') uuid: string) {
+        return await this.postService.deletePostComment(uuid);
+    }
+
+    @Patch('/comment/:uuid')
+    async updateComment(@Param('uuid') uuid: string, @Body('comment') comment: string) {
+        return await this.postService.updatePostComment(uuid, comment);
+    }
 }

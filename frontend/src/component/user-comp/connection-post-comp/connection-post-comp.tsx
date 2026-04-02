@@ -13,12 +13,14 @@ import {
     Box,
     Button,
     Tooltip,
+    Divider,
+    Collapse,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks.ts";
 import { RootState } from "@/redux/store";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { interactWithPost } from "@/redux/feature/user/Post/postAction";
+import { interactWithPost, getPostComments, createPostComment, deletePostComment, updatePostComment } from "@/redux/feature/user/Post/postAction";
 import { enqueueSnackbar } from "notistack";
 import { useRouter } from "next/navigation";
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
@@ -27,16 +29,20 @@ import SendIcon from '@mui/icons-material/Send';
 import { getLinkedInTime } from "@/util/post.time";
 import PublicIcon from '@mui/icons-material/Public';
 import MoodEmojiReactionPanel from "../MoodEmojiReactionPanel";
+import NestedComments from "../nested-comments/NestedComments";
 
 const LIMIT = Number(process.env.NEXT_PUBLIC_PAGINATION_LIMIT) || 10;
 
 export default function ConnectionPostComp() {
     const dispatch = useAppDispatch();
     const user = useAppSelector((state: RootState) => state.authReducer.user);
+    const { profile } = useAppSelector((state: RootState) => state.profileReducer);
     const { connectionPosts, loading, postsTotalDocuments } = useAppSelector((state: RootState) => state.connectionReducer);
     const [page, setPage] = useState(1);
     const router = useRouter()
     const [hoveredPost, setHoveredPost] = useState<string | null>(null);
+    const [expandedComments, setExpandedComments] = useState<string | null>(null);
+    const [postComments, setPostComments] = useState<{ [key: string]: any[] }>({});
 
     useEffect(() => {
         dispatch(getConnectionPosts({ limit: LIMIT, page }));
@@ -47,6 +53,54 @@ export default function ConnectionPostComp() {
 
         if (connectionPosts.length < postsTotalDocuments) {
             setPage((prev) => prev + 1);
+        }
+    };
+
+    const handleCommentClick = async (post_uuid: string) => {
+        if (expandedComments === post_uuid) {
+            setExpandedComments(null);
+            return;
+        }
+
+        setExpandedComments(post_uuid);
+        try {
+            const comments = await dispatch(getPostComments(post_uuid)).unwrap();
+            setPostComments((prev) => ({ ...prev, [post_uuid]: comments }));
+        } catch (err) {
+            enqueueSnackbar("Failed to fetch comments", { variant: "error" });
+        }
+    };
+
+    const handleAddComment = async (post_uuid: string, text: string, parentUuid?: string) => {
+        try {
+            await dispatch(createPostComment({ postUuid: post_uuid, comment: text, parentUuid })).unwrap();
+            const comments = await dispatch(getPostComments(post_uuid)).unwrap();
+            setPostComments((prev) => ({ ...prev, [post_uuid]: comments }));
+            enqueueSnackbar("Comment added", { variant: "success" });
+        } catch (err) {
+            enqueueSnackbar("Failed to add comment", { variant: "error" });
+        }
+    };
+
+    const handleDeleteComment = async (post_uuid: string, comment_uuid: string) => {
+        try {
+            await dispatch(deletePostComment(comment_uuid)).unwrap();
+            const comments = await dispatch(getPostComments(post_uuid)).unwrap();
+            setPostComments((prev) => ({ ...prev, [post_uuid]: comments }));
+            enqueueSnackbar("Comment deleted", { variant: "success" });
+        } catch (err) {
+            enqueueSnackbar("Failed to delete comment", { variant: "error" });
+        }
+    };
+
+    const handleEditComment = async (post_uuid: string, comment_uuid: string, text: string) => {
+        try {
+            await dispatch(updatePostComment({ uuid: comment_uuid, comment: text })).unwrap();
+            const comments = await dispatch(getPostComments(post_uuid)).unwrap();
+            setPostComments((prev) => ({ ...prev, [post_uuid]: comments }));
+            enqueueSnackbar("Comment updated", { variant: "success" });
+        } catch (err) {
+            enqueueSnackbar("Failed to update comment", { variant: "error" });
         }
     };
 
@@ -172,7 +226,10 @@ export default function ConnectionPostComp() {
                                         )}
                                         {/* {post.liked_by.length > 0 && post.liked_by.length} Like */}
                                     </Button>
-                                    <Button sx={{ color: 'gray', textTransform: 'none' }}>
+                                    <Button
+                                        sx={{ color: expandedComments === post.uuid ? '#0a66c2' : 'gray', textTransform: 'none' }}
+                                        onClick={() => handleCommentClick(post.uuid)}
+                                    >
                                         <ChatIcon sx={{ marginRight: '4px' }} />
                                         Comment
                                     </Button>
@@ -181,6 +238,25 @@ export default function ConnectionPostComp() {
                                         Send
                                     </Button>
                                 </Box>
+
+                                <Collapse in={expandedComments === post.uuid}>
+                                    <Divider />
+                                    <Box sx={{ p: 2 }}>
+                                        {user && (
+                                            <NestedComments
+                                                comments={postComments[post.uuid] || []}
+                                                currentUser={{
+                                                    uuid: user.uid,
+                                                    name: user.name || "User",
+                                                    profile_img: profile?.profile_img?.image_url || undefined
+                                                }}
+                                                onAdd={(text, parentUuid) => handleAddComment(post.uuid, text, parentUuid)}
+                                                onDelete={(uuid) => handleDeleteComment(post.uuid, uuid)}
+                                                onEdit={(uuid, text) => handleEditComment(post.uuid, uuid, text)}
+                                            />
+                                        )}
+                                    </Box>
+                                </Collapse>
                             </Card>
                         );
                     })}

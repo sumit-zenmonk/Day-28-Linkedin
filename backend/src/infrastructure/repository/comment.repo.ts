@@ -71,4 +71,13 @@ export class CommentRepository extends Repository<CommentEntity> {
             }
         })
     }
+
+    async deleteComment(uuid: string) {
+        return await this.softDelete(uuid);
+    }
+
+    async updateComment(uuid: string, comment: string) {
+        await this.update(uuid, { comment });
+        return await this.getcomment(uuid);
+    }
 }

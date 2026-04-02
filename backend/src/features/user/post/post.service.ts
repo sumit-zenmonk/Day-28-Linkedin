@@ -118,4 +118,12 @@ export class PostService {
     async getPostComments(post_uuid: string) {
         return await this.commentRepo.getAllComments(post_uuid);
     }
+
+    async deletePostComment(uuid: string) {
+        return await this.commentRepo.deleteComment(uuid);
+    }
+
+    async updatePostComment(uuid: string, comment: string) {
+        return await this.commentRepo.updateComment(uuid, comment);
+    }
 }

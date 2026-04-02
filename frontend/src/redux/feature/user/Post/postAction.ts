@@ -142,3 +142,104 @@ export const interactWithPost = createAsyncThunk<
         }
     }
 );
+
+export const getPostComments = createAsyncThunk<
+    any[],
+    string,
+    { state: RootState }
+>(
+    "post/getComments",
+    async (postUuid, { getState, rejectWithValue }) => {
+        try {
+            const token = getState().authReducer.token;
+            const res = await fetch(`${API_URL}/user/post/comment/${postUuid}`, {
+                headers: { Authorization: token || "" },
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.message);
+            return data;
+        } catch (err: any) {
+            return rejectWithValue(err.message);
+        }
+    }
+);
+
+export const createPostComment = createAsyncThunk<
+    any,
+    { postUuid: string; comment: string; parentUuid?: string },
+    { state: RootState }
+>(
+    "post/createComment",
+    async ({ postUuid, comment, parentUuid }, { getState, rejectWithValue }) => {
+        try {
+            const token = getState().authReducer.token;
+            const res = await fetch(`${API_URL}/user/post/comment`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: token || "",
+                },
+                body: JSON.stringify({
+                    post_uuid: postUuid,
+                    comment,
+                    parent_uuid: parentUuid,
+                }),
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.message);
+            return data;
+        } catch (err: any) {
+            return rejectWithValue(err.message);
+        }
+    }
+);
+
+export const deletePostComment = createAsyncThunk<
+    string,
+    string,
+    { state: RootState }
+>(
+    "post/deleteComment",
+    async (uuid, { getState, rejectWithValue }) => {
+        try {
+            const token = getState().authReducer.token;
+            const res = await fetch(`${API_URL}/user/post/comment/${uuid}`, {
+                method: "DELETE",
+                headers: { Authorization: token || "" },
+            });
+            if (!res.ok) {
+                const data = await res.json();
+                throw new Error(data.message);
+            }
+            return uuid;
+        } catch (err: any) {
+            return rejectWithValue(err.message);
+        }
+    }
+);
+
+export const updatePostComment = createAsyncThunk<
+    any,
+    { uuid: string; comment: string },
+    { state: RootState }
+>(
+    "post/updateComment",
+    async ({ uuid, comment }, { getState, rejectWithValue }) => {
+        try {
+            const token = getState().authReducer.token;
+            const res = await fetch(`${API_URL}/user/post/comment/${uuid}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: token || "",
+                },
+                body: JSON.stringify({ comment }),
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.message);
+            return data;
+        } catch (err: any) {
+            return rejectWithValue(err.message);
+        }
+    }
+);
