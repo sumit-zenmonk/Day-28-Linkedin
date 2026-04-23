@@ -37,6 +37,10 @@ const options: DataSourceOptions = {
     ],
     synchronize: false,
     migrations: ['dist/infrastructure/database/migrations/*{.ts,.js}'],
+    ssl: {
+        rejectUnauthorized: true,
+        ca: process.env.DB_CA_CERT,
+    },
 };
 
 const dataSource = new DataSource(options);

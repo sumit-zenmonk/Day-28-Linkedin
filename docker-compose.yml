@@ -9,7 +9,7 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - postgres_data:/data
+      - postgres_data:/var/lib/postgresql/data
 
   backend:
     build:
@@ -19,8 +19,11 @@ services:
       - "9000:9000"
     depends_on:
       - database
-    command: sh -c "npm run build && npm run migration:run && npm run seed && npm run start:dev"
+    command: sh -c "npm run build && npm run start:dev"
     env_file: ./backend/.env
+    volumes:
+      - ./backend:/app
+      - /app/node_modules 
 
   frontend:
     build:
@@ -32,6 +35,9 @@ services:
     depends_on:
       - backend
     env_file: ./frontend/.env
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules 
 
 volumes:
-  postgres_data:
+  postgres_data: {}
